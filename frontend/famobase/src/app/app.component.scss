@@ -1,0 +1,8 @@
+@use '../assets/modules/colors.scss'as *;
+
+.container-fluid {
+  background-color: $primary-color;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+}
