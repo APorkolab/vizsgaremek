@@ -1,0 +1,23 @@
+{
+  "name": "famobase",
+  "version": "1.0.0",
+  "description": "Jelen alkalmazás a **FaMoBase v.1.0** (**Fa**mily **Mo**vie Data**base** - családi filmadatbázis), melynek fő célja, hogy egy család (jelen esetben a Kovátsék) filmnézéseit nyilvántartsák.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/APorkolab/vizsgaremek.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/APorkolab/vizsgaremek/issues"
+  },
+  "homepage": "https://github.com/APorkolab/vizsgaremek#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
