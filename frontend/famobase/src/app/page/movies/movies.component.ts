@@ -10,8 +10,7 @@ import { MovieService } from 'src/app/service/movie.service';
   styleUrls: ['./movies.component.scss'],
 })
 export class MoviesComponent implements OnInit {
-  allMovies: Movie[] = [];
-  movies$: Observable<Movie[]> = Array.from(this.movieService.getAll());
+  movies$: Observable<Movie[]> = this.movieService.getAll();
 
   keys: string[] = Object.keys(new Movie());
   phrase: string = '';
@@ -41,6 +40,10 @@ export class MoviesComponent implements OnInit {
     //     this.length = movie.length;
     //   },
     // });
+  }
+
+  hack(val: any | any[]) {
+    return Array.from(val);
   }
 
   getActualMovies(): Observable<Movie[]> {
