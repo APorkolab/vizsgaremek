@@ -1,0 +1,104 @@
+<div class="searchField form-group">
+  <div class="row align-items-center">
+    <!-- <div class="col-4 select_container">
+      <select [(ngModel)]="filterKey" class="form-control select">
+        <option value="">All column</option>
+        <option *ngFor="let key of keys" [value]=" key">{{key | titlecase}}</option>
+      </select>
+    </div>
+
+    <div class="col-md-8 input_container">
+      <input [(ngModel)]="phrase" type="text" class="form-control" placeholder="Search...">
+    </div>
+  </div>
+</div> -->
+
+    <div>
+      <button type="button" class="btn btn-success col-12" [routerLink]="['/edit/product', 0]">Add new
+        item</button>
+    </div>
+
+    <div class="row">
+      <div class="col-12 scroll">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id <i (click)="setSortParams('asc', 'id', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'id', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Name<i (click)="setSortParams('asc', 'name', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'name', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Type<i (click)="setSortParams('asc', 'type', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'type', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Category ID<i (click)="setSortParams('asc', 'catId', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'catId', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Description<i (click)="setSortParams('asc', 'description', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'description', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Price<i (click)="setSortParams('asc', 'price', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'price', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Featured<i (click)="setSortParams('asc', 'featured', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'featured', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Active<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'active', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="!(movies$ | async)">
+              <td colspan="8">
+                <div class="load">Loading...</div>
+
+              </td>
+            </tr>
+            <tr *ngFor="let item of actualMovies$ | async  "> //
+              <td>{{ item._id }}</td>
+              <td>{{ item.foreignTitle }}</td>
+              <td>{{ item.hungarianTitle }}</td>
+              <td>{{ item.director }}</td>
+              <td>{{ item.releaseYear }}</td>
+              <td>{{ item.length }}</td>
+              <td>{{ item.genre }}</td>
+              <td>{{ item.imdbRank }}</td>
+              <td>{{ item.mainActor1 }}</td>
+              <td>{{ item.mainActor2 }}</td>
+              <td>{{ item.timestampOfWatching }}</td>
+              <td><button class="tableButtons btn btn-warning" [routerLink]="['/edit/product/', item._id ]">Edit item<i
+                    class="fa fa-address-card pl-2" aria-hidden="true"></i></button>
+                <button class="tableButtons btn btn-danger" (click)="onDelete(item)">Delete item <i class="fa fa-trash"
+                    aria-hidden="true"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <nav aria-label="...">
+        <ul class="pagination">
+          <li class="page-item">
+            <span (click)="setPage(1)" class="page-link">First</span>
+          </li>
+          <li *ngIf="page > 1" class="page-item"><a class="page-link" (click)="setPage(page - 1)">{{ page - 1 }}</a>
+          </li>
+          <li class="page-item active">
+            <span class="page-link">
+              {{ page }}
+              <span class="sr-only">(current)</span>
+            </span>
+          </li>
+          <li *ngIf="page*50<length" class="page-item"><a class="page-link" (click)="setPage(page + 1)">{{ page + 1
+              }}</a>
+          </li>
+          <li *ngIf="page===1" class="page-item"><a class="page-link" (click)="setPage(page + 2)">{{ page + 2 }}</a>
+          </li>
+          <li class="page-item">
+            <a (click)="setPage(length/50)" class="page-link">Last</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
