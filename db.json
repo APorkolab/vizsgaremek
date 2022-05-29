@@ -1,5 +1,5 @@
 {
-  "movies": {
+  "movie": {
     "_id": 1,
     "foreignTitle": "The Shawshank Redemption",
     "hungarianTitle": "A remény rabjai",

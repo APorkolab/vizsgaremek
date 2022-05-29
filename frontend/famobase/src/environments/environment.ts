@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://nettuts.hu/jms/ninjaturtles',
+  apiUrl: 'https://my-json-server.typicode.com/APorkolab/vizsgaremek/movies',
 };
 
 /*
