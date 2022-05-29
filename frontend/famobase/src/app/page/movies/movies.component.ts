@@ -20,7 +20,7 @@ export class MoviesComponent implements OnInit {
 
   direction: string = 'asc';
   page: number = 1;
-  column: string = '_id';
+  column: string = 'id';
 
   type: string | number = 'number';
   length: number = 0;
@@ -30,7 +30,7 @@ export class MoviesComponent implements OnInit {
     this.direction = direction;
     let key =
       this.keys.find((key) => key.toLowerCase() === column.toLowerCase()) ||
-      '_id';
+      'id';
     this.column = key;
     this.type = typeof new Movie()[key];
   }
@@ -40,16 +40,16 @@ export class MoviesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.movies$.subscribe({
-    //   next: (movie) => {
-    //     this.length = movie.length;
-    //   },
-    // });
+    this.movies$.subscribe({
+      next: (movie) => {
+        this.length = movie.length;
+      },
+    });
   }
 
   getActualMovies(): Observable<Movie[]> {
     return this.movies$.pipe(
-      map((movie) => movie.slice((this.page - 1) * 50, this.page * 50))
+      map((movie) => movie.slice((this.page - 1) * 10, this.page * 10))
     );
   }
 
@@ -62,13 +62,17 @@ export class MoviesComponent implements OnInit {
   }
 
   setPage(page: number): void {
-    this.page = Math.ceil(page);
+    const max = Math.ceil(page);
+    this.page = max;
+    if (this.getActualMovies.length < page) {
+      page = max;
+    }
     this.actualMovies$ = this.getActualMovies();
   }
 
   showSuccess() {
     this.notifyService.showSuccess(
-      'Item deleted successfully!!',
+      'Item deleted successfully!',
       'FaMoBase v.1.0.0'
     );
   }

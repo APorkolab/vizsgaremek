@@ -101,6 +101,10 @@
       <li class="page-item">
         <span (click)="setPage(1)" class="page-link">First</span>
       </li>
+      <li class="page-item">
+        <a (click)="setPage(page - 1)" class="page-link">Back</a>
+      </li>
+
       <li *ngIf="page > 1" class="page-item"><a class="page-link" (click)="setPage(page - 1)">{{ page - 1 }}</a>
       </li>
       <li class="page-item active">
@@ -109,13 +113,16 @@
           <span class="sr-only">(current)</span>
         </span>
       </li>
-      <li *ngIf="page*50<length" class="page-item"><a class="page-link" (click)="setPage(page + 1)">{{ page + 1
+      <li *ngIf="page*10<length" class="page-item"><a class="page-link" (click)="setPage(page + 1)">{{ page + 2
           }}</a>
       </li>
-      <li *ngIf="page===1" class="page-item"><a class="page-link" (click)="setPage(page + 2)">{{ page + 2 }}</a>
+      <li *ngIf="page===1" class="page-item"><a class="page-link" (click)="setPage(page + 3)">{{ page + 3 }}</a>
       </li>
       <li class="page-item">
-        <a (click)="setPage(length/50)" class="page-link">Last</a>
+        <span (click)="setPage(page + 1)" class="page-link">Next</span>
+      </li>
+      <li class="page-item">
+        <a (click)="setPage(length/10)" class="page-link">Last</a>
       </li>
     </ul>
   </nav>

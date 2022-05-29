@@ -39,7 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-top-center',
       onActivateTick: true,
       closeButton: true,
       // newestOnTop: true,
