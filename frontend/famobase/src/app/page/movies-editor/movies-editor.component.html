@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title" *ngIf="movie$ | async">Edit Movie</h4>
+        <h4 class="card-title" *ngIf="!(movie$ | async)">Add New Movie</h4>
+
+      </div>
+      <div class="card-body">
+        <form #productForm="ngForm">
+          <input type="hidden" name="id" [(ngModel)]="movie._id">
+
+          <h3 class="h5 text-secondary">Foreign title *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" [(ngModel)]="movie.foreignTitle" required
+                  pattern="^[a-űA-Ű \-]{5,20}$">
+              </div>
+              <div [hidden]="productForm.controls['name']?.valid" class="alert alert-danger" role="alert">
+                The foreign title must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Hungarian title *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" [(ngModel)]="movie.hungarianTitle" required
+                  pattern="^[a-űA-Ű \-]{5,20}$">
+              </div>
+              <div [hidden]="productForm.controls['name']?.valid" class="alert alert-danger" role="alert">
+                The Hungarian title must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Release Year *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="catID" [(ngModel)]="movie.releaseYear" required
+                  pattern="^[0-9]{1,5}$">
+              </div>
+              <div [hidden]="productForm.controls['catID']?.valid" class="alert alert-danger" role="alert">
+                The release year cannot be empty!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Genre *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="description" [(ngModel)]="movie.genre" required
+                  pattern="^[a-űA-Ű ]{5,100}$">
+              </div>
+              <div [hidden]="productForm.controls['description']?.valid" class="alert alert-danger" role="alert">
+                The genre must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">IMDB Rank *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="price" [(ngModel)]="movie.imdbRank" required
+                  pattern="^[0-9]{1,5}$">
+              </div>
+              <div [hidden]="productForm.controls['price']?.valid" class="alert alert-danger" role="alert">
+                The IMDB rank cannot be empty!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">IMDB Average *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="price" [(ngModel)]="movie.imdbAverage" required
+                  pattern="^[0-9].{1,5}$">
+              </div>
+              <div [hidden]="productForm.controls['price']?.valid" class="alert alert-danger" role="alert">
+                The IMDB average cannot be empty!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">The first main actor *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="description" [(ngModel)]="movie.genre" required
+                  pattern="^[a-űA-Ű ]{5,100}$">
+              </div>
+              <div [hidden]="productForm.controls['description']?.valid" class="alert alert-danger" role="alert">
+                The name of the first main actor must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">The second main actor *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="description" [(ngModel)]="movie.genre"
+                  pattern="^[a-űA-Ű ]{5,100}$">
+              </div>
+              <div [hidden]="productForm.controls['description']?.valid" class="alert alert-danger" role="alert">
+                The name of the second main actor must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <button *ngIf="movie._id!==0" (click)="onUpdate(movie)" [disabled]="productForm.invalid" type="submit"
+            class="btn btn-primary pull-right">Update
+            Movie</button>
+          <button *ngIf="movie._id===0" (click)="onCreate(movie)" [disabled]="productForm.invalid" type="submit"
+            class="btn btn-primary pull-right">Create
+            Movie</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+</div>

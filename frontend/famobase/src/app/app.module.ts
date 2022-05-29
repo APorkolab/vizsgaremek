@@ -13,6 +13,8 @@ import { WatchedFilmsComponent } from './page/watched-films/watched-films.compon
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './pipe/filter.pipe';
 import { SortPipe } from './pipe/sort.pipe';
+import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { SortPipe } from './pipe/sort.pipe';
     WatchedFilmsComponent,
     FilterPipe,
     SortPipe,
+    MoviesEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,15 @@ import { SortPipe } from './pipe/sort.pipe';
     BrowserModule,
     CommonModule,
     FormsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      newestOnTop: true,
+      progressBar: false,
+      positionClass: 'toast-top-full-width',
+      preventDuplicates: true,
+      timeOut: 5000,
+      extendedTimeOut: 1000,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

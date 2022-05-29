@@ -22,12 +22,10 @@ export class SortPipe implements PipeTransform {
   sortAscending(items: any, column: any, type: any) {
     return [
       ...items.sort((a: any, b: any) => {
-        if (type === 'string') {
+        if (type === 'object') {
           if (a[column].toUpperCase() < b[column].toUpperCase()) return -1;
           if (a[column].toUpperCase() > b[column].toUpperCase()) return 1;
           return 0;
-        } else if (type == 'object') {
-          return a.address.zip - b.address.zip;
         } else {
           return a[column] - b[column];
         }
@@ -38,12 +36,10 @@ export class SortPipe implements PipeTransform {
   sortDescending(items: any, column: any, type: any) {
     return [
       ...items.sort((a: any, b: any) => {
-        if (type === 'string') {
+        if (type === 'object') {
           if (a[column].toUpperCase() > b[column].toUpperCase()) return -1;
           if (a[column].toUpperCase() < b[column].toUpperCase()) return 1;
           return 0;
-        } else if (type == 'object') {
-          return b.address.zip - a.address.zip;
         } else {
           return b[column] - a[column];
         }

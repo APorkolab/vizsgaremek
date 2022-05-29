@@ -15,7 +15,7 @@
 </div>
 
 <div>
-  <button type="button" class="btn btn-success col-12" [routerLink]="['/edit/product', 0]">Add new
+  <button type="button" class="btn btn-success col-12" [routerLink]="['/edit/movie', 0]">Add new
     item</button>
 </div>
 
@@ -85,7 +85,7 @@
             <a href=" https://www.imdb.com/title/{{item.imdbID}}">URL</a>
             <!-- <a [href]="'https://www.imdb.com/title/' + item.imdbID" target="_blank">Link to the IMDB page of movie.</a> -->
           </td>
-          <td><button class="tableButtons btn btn-warning" [routerLink]="['/edit/product/', item._id ]">Edit
+          <td><button class="tableButtons btn btn-warning" [routerLink]="['/edit/movie/', item._id ]">Edit
               item<i class="fa fa-address-card pl-2" aria-hidden="true"></i></button>
             <button class="tableButtons btn btn-danger" (click)="onDelete(item)">Delete item <i class="fa fa-trash"
                 aria-hidden="true"></i></button>
