@@ -42,10 +42,6 @@ export class MoviesComponent implements OnInit {
     // });
   }
 
-  hack(val: any | any[]) {
-    return Array.from(val);
-  }
-
   getActualMovies(): Observable<Movie[]> {
     return this.movies$.pipe(
       map((movie) => movie.slice((this.page - 1) * 50, this.page * 50))
