@@ -1,6 +1,6 @@
 export class Movie {
   [k: string]: any;
-  _id: number | string = '';
+  id: number | string = '';
   foreignTitle: string = '';
   hungarianTitle?: string = '';
   director: string = '';

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class BasicService<
-  T extends { _id: string | number; [key: string]: any }
+  T extends { id: string | number; [key: string]: any }
 > {
   apiUrl: string = environment.apiUrl;
   entity: string = '';
@@ -23,17 +23,18 @@ export class BasicService<
   }
 
   create(entity: T): Observable<T> {
-    return this.http.post<T>(`${this.apiUrl}/${this.entity}`, entity);
+    const newEntity = { ...entity, id: null };
+    return this.http.post<T>(`${this.apiUrl}/${this.entity}`, newEntity);
   }
 
   update(entity: T): Observable<T> {
     return this.http.patch<T>(
-      `${this.apiUrl}/${this.entity}/${entity._id}`,
+      `${this.apiUrl}/${this.entity}/${entity.id}`,
       entity
     );
   }
 
   delete(entity: T): Observable<T> {
-    return this.http.delete<T>(`${this.apiUrl}/${this.entity}/${entity._id}`);
+    return this.http.delete<T>(`${this.apiUrl}/${this.entity}/${entity.id}`);
   }
 }

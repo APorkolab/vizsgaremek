@@ -32,18 +32,25 @@ export class MoviesEditorComponent implements OnInit {
   }
 
   onUpdate(movie: Movie) {
-    this.movieService.update(movie).subscribe({
-      next: (category) => this.router.navigate(['/', 'movies']),
-      error: (err) => this.showError(err),
-      complete: () => this.showSuccessEdit(),
-    });
+    this.movieService.update(movie).subscribe(
+      (category) => this.router.navigate(['/', 'movies']),
+      (err) => this.showError(err),
+      () => this.showSuccessCreate()
+    );
   }
+
+  //     {
+  //     next: (category) => this.router.navigate(['/', 'movies']),
+  //     error: (err) => this.showError(err),
+  //     complete: () => this.showSuccessEdit(),
+  //   });
+  // }
 
   onCreate(movie: Movie) {
     this.movieService.create(movie).subscribe({
       next: (category) => this.router.navigate(['/', 'movies']),
       error: (err) => this.showError(err),
-      complete: () => this.showSuccessCreate(),
+      complete: () => setTimeout(() => this.showSuccessCreate()),
     });
   }
 

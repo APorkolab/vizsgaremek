@@ -70,7 +70,7 @@
           </td>
         </tr>
         <tr *ngFor="let item of actualMovies$ | async  | filter:phrase:filterKey | sort:direction:column:type">
-          <td>{{ item._id }}</td>
+          <td>{{ item.id }}</td>
           <td>{{ item.foreignTitle }}</td>
           <td>{{ item.hungarianTitle }}</td>
           <td>{{ item.director }}</td>
@@ -82,10 +82,10 @@
           <td>{{ item.mainActor1 }}</td>
           <td>{{ item.mainActor2 }}</td>
           <td>
-            <a href=" https://www.imdb.com/title/{{item.imdbID}}">URL</a>
+            <a href="https://www.imdb.com/title/{{item.imdbID}}">Link to the IMDB page of movie.</a>
             <!-- <a [href]="'https://www.imdb.com/title/' + item.imdbID" target="_blank">Link to the IMDB page of movie.</a> -->
           </td>
-          <td><button class="tableButtons btn btn-warning" [routerLink]="['/edit/movie/', item._id ]">Edit
+          <td><button class="tableButtons btn btn-warning" [routerLink]="['/edit/movie/', item.id ]">Edit
               item<i class="fa fa-address-card pl-2" aria-hidden="true"></i></button>
             <button class="tableButtons btn btn-danger" (click)="onDelete(item)">Delete item <i class="fa fa-trash"
                 aria-hidden="true"></i></button>

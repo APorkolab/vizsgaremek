@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { Movie } from 'src/app/model/movie';
 import { MovieService } from 'src/app/service/movie.service';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-movies',
@@ -33,7 +34,10 @@ export class MoviesComponent implements OnInit {
     this.column = key;
     this.type = typeof new Movie()[key];
   }
-  constructor(private movieService: MovieService, private router: Router) {}
+  constructor(
+    private movieService: MovieService,
+    public notifyService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     // this.movies$.subscribe({
@@ -52,13 +56,27 @@ export class MoviesComponent implements OnInit {
   onDelete(movie: Movie) {
     this.movieService.delete(movie).subscribe({
       next: (bill) => (this.movies$ = this.movieService.getAll()),
-      error: (err) => console.log(err),
-      complete: () => console.log('deleted'),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccess(),
     });
   }
 
   setPage(page: number): void {
     this.page = Math.ceil(page);
     this.actualMovies$ = this.getActualMovies();
+  }
+
+  showSuccess() {
+    this.notifyService.showSuccess(
+      'Item deleted successfully!!',
+      'FaMoBase v.1.0.0'
+    );
+  }
+
+  showError(err: String) {
+    this.notifyService.showError(
+      'Something went wrong. Details: ' + err,
+      'FaMoBase v.1.0.0'
+    );
   }
 }

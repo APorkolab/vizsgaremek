@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './pipe/filter.pipe';
 import { SortPipe } from './pipe/sort.pipe';
 import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -36,11 +37,12 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     CommonModule,
     FormsModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
+      positionClass: 'inline',
       closeButton: true,
       newestOnTop: true,
-      progressBar: false,
-      positionClass: 'toast-top-full-width',
+      progressBar: true,
       preventDuplicates: true,
       timeOut: 5000,
       extendedTimeOut: 1000,

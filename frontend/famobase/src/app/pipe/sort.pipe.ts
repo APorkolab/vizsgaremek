@@ -19,10 +19,10 @@ export class SortPipe implements PipeTransform {
     return sortedItems;
   }
 
-  sortAscending(items: any, column: any, type: any) {
+  sortAscending(items: any, column: string, type: any) {
     return [
       ...items.sort((a: any, b: any) => {
-        if (type === 'object') {
+        if (typeof a[column] === 'string' && typeof b[column] === 'string') {
           if (a[column].toUpperCase() < b[column].toUpperCase()) return -1;
           if (a[column].toUpperCase() > b[column].toUpperCase()) return 1;
           return 0;
@@ -36,8 +36,8 @@ export class SortPipe implements PipeTransform {
   sortDescending(items: any, column: any, type: any) {
     return [
       ...items.sort((a: any, b: any) => {
-        if (type === 'object') {
-          if (a[column].toUpperCase() > b[column].toUpperCase()) return -1;
+        if (typeof a[column] === 'string' && typeof b[column] === 'string') {
+          if (a[column] > b[column].toUpperCase()) return -1;
           if (a[column].toUpperCase() < b[column].toUpperCase()) return 1;
           return 0;
         } else {
