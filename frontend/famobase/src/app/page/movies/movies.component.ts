@@ -10,8 +10,8 @@ import { MovieService } from 'src/app/service/movie.service';
   styleUrls: ['./movies.component.scss'],
 })
 export class MoviesComponent implements OnInit {
-  movies: Movie[] = [];
-  movies$: Observable<Movie[]> = this.movieService.getAll();
+  allMovies: Movie[] = [];
+  movies$: Observable<Movie[]> = Array.from(this.movieService.getAll());
 
   keys: string[] = Object.keys(new Movie());
   phrase: string = '';
