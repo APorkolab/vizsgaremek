@@ -1,5 +1,5 @@
-[
-  {
+{
+  "movies": {
     "_id": 1,
     "foreignTitle": "The Shawshank Redemption",
     "hungarianTitle": "A remény rabjai",
@@ -13,4 +13,4 @@
     "mainActor1": "Tim Robbins",
     "mainActor2": "Morgan Freeman"
   }
-]
+}
