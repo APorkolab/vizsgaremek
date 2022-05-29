@@ -10,6 +10,9 @@ import { MoviesComponent } from './page/movies/movies.component';
 import { DirectorsComponent } from './page/directors/directors.component';
 import { MainActorsComponent } from './page/main-actors/main-actors.component';
 import { WatchedFilmsComponent } from './page/watched-films/watched-films.component';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from './pipe/filter.pipe';
+import { SortPipe } from './pipe/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,8 @@ import { WatchedFilmsComponent } from './page/watched-films/watched-films.compon
     DirectorsComponent,
     MainActorsComponent,
     WatchedFilmsComponent,
+    FilterPipe,
+    SortPipe,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +32,7 @@ import { WatchedFilmsComponent } from './page/watched-films/watched-films.compon
     HttpClientModule,
     BrowserModule,
     CommonModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
