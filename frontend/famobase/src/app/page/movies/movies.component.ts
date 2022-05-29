@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { Movie } from 'src/app/model/movie';
 import { MovieService } from 'src/app/service/movie.service';
@@ -8,10 +9,8 @@ import { MovieService } from 'src/app/service/movie.service';
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss'],
 })
-export class MoviesComponent<T extends { [propname: string]: any }>
-  implements OnInit
-{
-  @Input() movie$: Observable<T[]> = of([]);
+export class MoviesComponent implements OnInit {
+  movies: Movie[] = [];
   movies$: Observable<Movie[]> = this.movieService.getAll();
 
   keys: string[] = Object.keys(new Movie());
@@ -34,14 +33,14 @@ export class MoviesComponent<T extends { [propname: string]: any }>
     this.column = key;
     this.type = typeof new Movie()[key];
   }
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService, private router: Router) {}
 
   ngOnInit(): void {
-    this.movies$.subscribe({
-      next: (movies) => {
-        this.length = movies.length;
-      },
-    });
+    // this.movies$.subscribe({
+    //   next: (movie) => {
+    //     this.length = movie.length;
+    //   },
+    // });
   }
 
   getActualMovies(): Observable<Movie[]> {
@@ -51,11 +50,11 @@ export class MoviesComponent<T extends { [propname: string]: any }>
   }
 
   onDelete(movie: Movie) {
-    this.movieService.delete(movie).subscribe(
-      (bill) => (this.movies$ = this.movieService.getAll()),
-      (err) => console.log(err),
-      () => console.log('deleted')
-    );
+    this.movieService.delete(movie).subscribe({
+      next: (bill) => (this.movies$ = this.movieService.getAll()),
+      error: (err) => console.log(err),
+      complete: () => console.log('deleted'),
+    });
   }
 
   setPage(page: number): void {

@@ -11,7 +11,6 @@ export class BasicService<
 > {
   apiUrl: string = environment.apiUrl;
   entity: string = '';
-  list$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
   constructor(private http: HttpClient) {}
 

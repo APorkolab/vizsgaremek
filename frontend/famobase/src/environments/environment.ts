@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://my-json-server.typicode.com/APorkolab/vizsgaremek/movies',
+  apiUrl: 'https://my-json-server.typicode.com/APorkolab/vizsgaremek/',
 };
 
 /*
