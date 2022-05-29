@@ -1,0 +1,16 @@
+[
+  {
+    "_id": 1,
+    "foreignTitle": "The Shawshank Redemption",
+    "hungarianTitle": "A remény rabjai",
+    "director": "Frank Darabont",
+    "releaseYear": 1994,
+    "length": "142",
+    "genre": "drama",
+    "imdbRank": "1",
+    "imdbAverage": 9.3,
+    "imdbId": "tt0111161",
+    "mainActor1": "Tim Robbins",
+    "mainActor2": "Morgan Freeman"
+  }
+]

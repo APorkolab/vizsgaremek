@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '',
+  apiUrl: 'https://nettuts.hu/jms/ninjaturtles',
 };
 
 /*

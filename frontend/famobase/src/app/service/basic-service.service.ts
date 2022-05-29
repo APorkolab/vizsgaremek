@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,32 +10,31 @@ export class BasicService<
   T extends { _id: string | number; [key: string]: any }
 > {
   apiUrl: string = environment.apiUrl;
-  endString: string = '';
+  entity: string = '';
+  list$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<T[]> {
-    return this.http.get<T[]>(`${this.apiUrl}/${this.endString}`);
+    return this.http.get<T[]>(`${this.apiUrl}/${this.entity}`);
   }
 
   getOne(id: number): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}/${this.endString}/${id}`);
+    return this.http.get<T>(`${this.apiUrl}/${this.entity}/${id}`);
   }
 
   create(entity: T): Observable<T> {
-    return this.http.post<T>(`${this.apiUrl}/${this.endString}`, entity);
+    return this.http.post<T>(`${this.apiUrl}/${this.entity}`, entity);
   }
 
   update(entity: T): Observable<T> {
     return this.http.patch<T>(
-      `${this.apiUrl}/${this.endString}/${entity._id}`,
+      `${this.apiUrl}/${this.entity}/${entity._id}`,
       entity
     );
   }
 
   delete(entity: T): Observable<T> {
-    return this.http.delete<T>(
-      `${this.apiUrl}/${this.endString}/${entity._id}`
-    );
+    return this.http.delete<T>(`${this.apiUrl}/${this.entity}/${entity._id}`);
   }
 }

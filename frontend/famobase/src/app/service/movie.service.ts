@@ -10,6 +10,6 @@ import { map, Observable } from 'rxjs';
 export class MovieService extends BasicService<Movie> {
   constructor(http: HttpClient) {
     super(http);
-    this.endString = 'movie';
+    this.entity = 'movie';
   }
 }

@@ -9,6 +9,6 @@ import { BasicService } from './basic-service.service';
 export class MainActorService extends BasicService<MainActor> {
   constructor(http: HttpClient) {
     super(http);
-    this.endString = 'mainActor';
+    this.entity = 'mainActor';
   }
 }

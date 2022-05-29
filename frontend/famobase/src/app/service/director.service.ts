@@ -9,6 +9,6 @@ import { Director } from '../model/director';
 export class DirectorService extends BasicService<Director> {
   constructor(http: HttpClient) {
     super(http);
-    this.endString = 'director';
+    this.entity = 'director';
   }
 }

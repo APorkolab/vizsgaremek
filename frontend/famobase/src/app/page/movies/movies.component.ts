@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Movie } from 'src/app/model/movie';
 import { MovieService } from 'src/app/service/movie.service';
 
@@ -8,8 +8,10 @@ import { MovieService } from 'src/app/service/movie.service';
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss'],
 })
-export class MoviesComponent implements OnInit {
-  @Input() movies: Movie[] = [];
+export class MoviesComponent<T extends { [propname: string]: any }>
+  implements OnInit
+{
+  @Input() movie$: Observable<T[]> = of([]);
   movies$: Observable<Movie[]> = this.movieService.getAll();
 
   keys: string[] = Object.keys(new Movie());

@@ -23,41 +23,52 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Id <i (click)="setSortParams('asc', 'id', 'number')" class="fa fa-arrow-up"></i>
+              <th>Id<i (click)="setSortParams('asc', 'id', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'id', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Name<i (click)="setSortParams('asc', 'name', 'number')" class="fa fa-arrow-up"></i>
+              <th>Foreign Title<i (click)="setSortParams('asc', 'name', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'name', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Type<i (click)="setSortParams('asc', 'type', 'number')" class="fa fa-arrow-up"></i>
+              <th>Hungarian Title<i (click)="setSortParams('asc', 'type', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'type', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Category ID<i (click)="setSortParams('asc', 'catId', 'number')" class="fa fa-arrow-up"></i>
+              <th>Directed by<i (click)="setSortParams('asc', 'catId', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'catId', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Description<i (click)="setSortParams('asc', 'description', 'number')" class="fa fa-arrow-up"></i>
+              <th>Release year<i (click)="setSortParams('asc', 'description', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'description', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Price<i (click)="setSortParams('asc', 'price', 'number')" class="fa fa-arrow-up"></i>
+              <th>Length<i (click)="setSortParams('asc', 'price', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'price', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Featured<i (click)="setSortParams('asc', 'featured', 'number')" class="fa fa-arrow-up"></i>
+              <th>Genre<i (click)="setSortParams('asc', 'featured', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'featured', 'number')" class="fa fa-arrow-down"></i>
               </th>
-              <th>Active<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
+              <th>Imdb rank<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'active', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Imdb average<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'active', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Main actor 1<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'active', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>Main actor 2<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
+                <i (click)="setSortParams('desc', 'active', 'number')" class="fa fa-arrow-down"></i>
+              </th>
+              <th>IMDB link<i (click)="setSortParams('asc', 'active', 'number')" class="fa fa-arrow-up"></i>
                 <i (click)="setSortParams('desc', 'active', 'number')" class="fa fa-arrow-down"></i>
               </th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngIf="!(movies$ | async)">
+            <!-- <tr *ngIf="!(movies$ | async)">
               <td colspan="8">
                 <div class="load">Loading...</div>
-
               </td>
-            </tr>
-            <tr *ngFor="let item of actualMovies$ | async  "> //
+            </tr> -->
+            <tr *ngFor="let item of movies$ | async"> //
               <td>{{ item._id }}</td>
               <td>{{ item.foreignTitle }}</td>
               <td>{{ item.hungarianTitle }}</td>
@@ -66,13 +77,26 @@
               <td>{{ item.length }}</td>
               <td>{{ item.genre }}</td>
               <td>{{ item.imdbRank }}</td>
+              <td>{{ item.imdbAverage }}</td>
               <td>{{ item.mainActor1 }}</td>
               <td>{{ item.mainActor2 }}</td>
-              <td>{{ item.timestampOfWatching }}</td>
+              <td>
+                <a [href]="'https://www.imdb.com/title/' + item.imdbID">Link to the IMDB page of movie.</a>
+              </td>
               <td><button class="tableButtons btn btn-warning" [routerLink]="['/edit/product/', item._id ]">Edit item<i
                     class="fa fa-address-card pl-2" aria-hidden="true"></i></button>
                 <button class="tableButtons btn btn-danger" (click)="onDelete(item)">Delete item <i class="fa fa-trash"
                     aria-hidden="true"></i></button>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button (click)="onDelete(item)" class="btn btn-info">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+                  <button (click)="onDelete(item)" class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
