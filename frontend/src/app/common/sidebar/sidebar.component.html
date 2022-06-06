@@ -1,0 +1,20 @@
+<aside class="left-sidebar" data-sidebarbg="skin5">
+  <!-- Sidebar scroll-->
+  <div class="scroll-sidebar">
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav">
+      <ul id="sidebarnav" class="pt-4">
+        <li *ngFor="let item of sidebar" class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" [routerLink]="item.link" aria-expanded="false"><i
+              class="mdi mdi-view-dashboard"></i><span class="hide-menu">
+              <i-feather *ngIf="item.icon" [name]="item.icon"> </i-feather> {{item.title }}
+            </span>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+  </div>
+
+</aside>

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-12 scroll">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th *ngFor="let col of columns">{{ col.title }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of list | slice:startSlice:endSlice ">
+          <td *ngFor=" let col of columns">
+            {{ row[col.key] }}
+          </td>
+          <td *ngIf="row['imdbID']">
+            <a href="https://www.imdb.com/title/{{ row['imdbID'] }}" target="_blank">IMDB link </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav aria-label="...">
+    <ul class="pagination mt-4">
+      <li class="page-item">
+        <button class="page-link" (click)="jumptoPage(page - 1)" [disabled]="page===1">Previous</button>
+      </li>
+      <li *ngFor="let pageNum of pageList" class="page-item">
+        <button class="page-link" (click)="jumptoPage(pageNum)">{{ pageNum }}</button>
+      </li>
+      <li class="page-item">
+        <button class="page-link" (click)="jumptoPage(page + 1)" [disabled]="page=== pageList.length">Next</button>
+      </li>
+    </ul>
+  </nav>
