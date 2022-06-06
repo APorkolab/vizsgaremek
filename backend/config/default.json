@@ -1,7 +1,7 @@
 {
   "database": {
-    "username": "dbUser",
-    "password": "ZnQjgGRgUQnC",
-    "host": "mongodb+srv://dbUser:ZnQjgGRgUQnC@vizsgaremek.tls3y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "user": "admin",
+    "pass": "Pl3xBOOM7kbD0h35",
+    "host": "vizsgaremek.wpu5tgi.mongodb.net/?retryWrites=true&w=majority"
   }
 }

@@ -1,30 +1,20 @@
 {
-  "name": "famobase",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Jelen alkalmazás a **FaMoBase v.1.0** (**Fa**mily **Mo**vie Data**base** - családi filmadatbázis), melynek fő célja, hogy egy család (jelen esetben a Kovátsék) filmnézéseit nyilvántartsák.",
-  "main": "./frontend/index.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/APorkolab/vizsgaremek.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/APorkolab/vizsgaremek/issues"
-  },
-  "homepage": "https://github.com/APorkolab/vizsgaremek#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "config": "^3.3.7",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
-    "http-errors": "^2.0.0",
-    "morgan": "^1.10.0",
-    "swagger-ui-express": "^4.4.0",
-    "winston": "^3.7.2",
-    "yamljs": "^0.3.0"
+    "mongoose": "^6.3.5",
+    "morgan": "^1.10.0"
   }
 }
