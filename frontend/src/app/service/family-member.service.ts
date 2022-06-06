@@ -2,6 +2,7 @@ import { FamilyMember } from './../model/family-member';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -129,9 +130,11 @@ export class FamilyMemberService {
       kinshipDegree: 'father',
     },
   ];
-  constructor() {}
+  apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<FamilyMember[]> {
-    return of(this.list);
+    return this.http.get<FamilyMember[]>(`${this.apiUrl}family-members`);
   }
 }

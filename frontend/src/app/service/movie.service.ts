@@ -1,7 +1,9 @@
+import { environment } from './../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
 import { Director } from '../model/director';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -14042,9 +14044,11 @@ export class MovieService {
     },
   ];
 
-  constructor() {}
+  apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Movie[]> {
-    return of(this.list);
+    return this.http.get<Movie[]>(`${this.apiUrl}movies`);
   }
 }

@@ -2,6 +2,7 @@ import { MainActor } from './../model/main-actor';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -715,9 +716,11 @@ export class MainActorService {
     },
   ];
 
-  constructor() {}
+  apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<MainActor[]> {
-    return of(this.list);
+    return this.http.get<MainActor[]>(`${this.apiUrl}main-actors`);
   }
 }

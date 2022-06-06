@@ -1,6 +1,8 @@
+import { environment } from './../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Director } from '../model/director';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -712,9 +714,11 @@ export class DirectorService {
     },
   ];
 
-  constructor() {}
+  apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<Director[]> {
-    return of(this.list);
+    return this.http.get<Director[]>(`${this.apiUrl}directors`);
   }
 }

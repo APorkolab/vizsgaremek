@@ -2,6 +2,7 @@ import { WatchedMovie } from './../model/watched-movie';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -1515,9 +1516,11 @@ export class WatchedMovieService {
     { timestampOfWatching: '2021-04-08T13:36:44Z' },
   ];
 
-  constructor() {}
+  apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<WatchedMovie[]> {
-    return of(this.list);
+    return this.http.get<WatchedMovie[]>(`${this.apiUrl}watched-movies`);
   }
 }
