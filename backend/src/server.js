@@ -31,13 +31,16 @@ mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {}).then(
 // 	});
 
 //Cross Origin Resource Sharing
-app.use(cors);
+app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
 //Movies
 app.use('/movie', require('./controllers/movie/router'));
 
+app.use('/', (req, res, next) => {
+	res.send('Hello World');
+});
 app.use((err, req, res, next) => {
 	res.status = 500;
 	res.json({
