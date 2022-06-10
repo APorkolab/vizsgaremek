@@ -1,9 +1,9 @@
 const fsp = require('fs').promises;
-const movie = require('../../models/movie');
-const director = require('../../models/director');
-const FamilyMember = require('../../models/family-member');
-const MainActor = require('../../models/main-actor');
-const WatchedMovies = require('../../models/watched-movies');
+const movie = require('../models/movie');
+const director = require('../models/director');
+const FamilyMember = require('../models/family-member');
+const MainActor = require('../models/main-actor');
+const WatchedMovies = require('../models/watched-movies');
 
 
 const seedCollection = async (model, fileName) => {

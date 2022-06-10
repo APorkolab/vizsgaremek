@@ -16,7 +16,7 @@ const {
 } = config.get('database');
 
 mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {}).then(
-	//require('./seeder/seeder'), // Seed the database, ONLY ONCE MUST RUN
+	require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
 	conn => console.log('Connected to MongoDB Atlas'),
 ).catch(err => console.log(err), );
 
@@ -37,6 +37,7 @@ app.use(bodyParser.json());
 
 //Movies
 app.use('/movie', require('./controllers/movie/router'));
+app.use('/login', require('./controllers/login/router'));
 
 app.use('/', (req, res, next) => {
 	res.send('Hello World');

@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const MainActorSchema = mongoose.Schema({
-	_id: {
-		type: String,
-		required: true
-	},
+
 	fullName: {
 		type: String,
 		required: true
@@ -17,7 +14,7 @@ const MainActorSchema = mongoose.Schema({
 		required: true
 	},
 	mostFamousMovie: {
-		type: Number,
+		type: String,
 		required: true
 	},
 });

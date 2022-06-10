@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
 const DirectorSchema = mongoose.Schema({
-	_id: {
-		type: String,
-		required: true
-	},
 	fullName: {
 		type: String,
 		required: true
@@ -17,7 +13,7 @@ const DirectorSchema = mongoose.Schema({
 		required: true
 	},
 	mostFamousMovie: {
-		type: Number,
+		type: String,
 		required: true
 	},
 });

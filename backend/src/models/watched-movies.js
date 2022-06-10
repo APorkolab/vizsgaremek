@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
 const WatchedMovieSchema = mongoose.Schema({
-	_id: {
-		type: String,
-		required: true
-	},
 	foreignTitle: {
 		type: String,
 		required: true
@@ -46,7 +42,7 @@ const WatchedMovieSchema = mongoose.Schema({
 	},
 	mainActor2: {
 		type: String,
-		required: true
+		required: false
 	},
 	timestampOfWatching: {
 		type: String,
