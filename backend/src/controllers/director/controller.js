@@ -1,7 +1,7 @@
 const baseService = require('../base/service');
-const watchedMovie = require('../../models/watched-movie');
+const director = require('../../models/director');
 
-const service = baseService(watchedMovie);
+const service = baseService(director);
 
 // exports.findAll = (req, res, next) => {
 // 	return service.findAll
