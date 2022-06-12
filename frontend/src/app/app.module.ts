@@ -1,9 +1,13 @@
+import { FamilyMembersEditorComponent } from './page/family-members-editor/family-members-editor.component';
+import { MainActorsEditorComponent } from './page/main-actors-editor/main-actors-editor.component';
+import { DirectorsEditorComponent } from './page/directors-editor/directors-editor.component';
+import { WatchedMoviesEditorComponent } from './page/watched-movies-editor/watched-movies-editor.component';
 import { IconModule } from './icon/icon.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +41,10 @@ import { CommonModule } from '@angular/common';
     FilterPipe,
     SorterPipePipe,
     MoviesEditorComponent,
+    WatchedMoviesEditorComponent,
+    DirectorsEditorComponent,
+    MainActorsEditorComponent,
+    FamilyMembersEditorComponent,
   ],
   imports: [
     DataTableModule,
@@ -48,15 +56,16 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
-    // ToastrModule.forRoot({
-    //   positionClass: 'toast-top-center',
-    //   onActivateTick: true,
-    //   closeButton: true,
-    //   preventDuplicates: true,
-    //   timeOut: 5000,
-    //   extendedTimeOut: 3000,
-    // }),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center',
+      onActivateTick: true,
+      closeButton: true,
+      preventDuplicates: true,
+      timeOut: 5000,
+      extendedTimeOut: 3000,
+    }),
   ],
+  exports: [FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

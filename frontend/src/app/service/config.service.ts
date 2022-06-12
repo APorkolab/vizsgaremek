@@ -33,6 +33,7 @@ export class ConfigService {
     // { key: 'imdbID', title: 'IMDB ID' },
     { key: 'mainActor1', title: 'Main Actor 1' },
     { key: 'mainActor2', title: 'Main Actor 2' },
+    { key: 'timestampOfWatching', title: 'Timestamp Of Watching' },
   ];
 
   watchedMoviesColumn: INgxTableColumn[] = [
@@ -67,11 +68,12 @@ export class ConfigService {
   ];
   familyMemberColumn: INgxTableColumn[] = [
     { key: '_id', title: 'ID' },
-    { key: 'firstName', title: 'First Name' },
-    { key: 'lastName', title: 'Last Name' },
+    { key: 'first_name', title: 'First Name' },
+    { key: 'last_name', title: 'Last Name' },
     { key: 'email', title: 'E-mail' },
     { key: 'role', title: 'Role' },
-    { key: 'kinshipDegree', title: 'Kinship Degree' },
+    { key: 'password', title: 'Encrypted password' },
+    { key: 'nickname', title: 'Nickname' },
     { key: 'favouriteGenre', title: 'Favourite Genre' },
     { key: 'favouriteMovie', title: 'Favourite Movie' },
   ];

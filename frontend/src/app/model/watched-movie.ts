@@ -12,5 +12,5 @@ export class WatchedMovie {
   imdbID: string = '';
   mainActor1: string = '';
   mainActor2: string = '';
-  //timestampOfWatching: string = '';
+  timestampOfWatching: string = '';
 }

@@ -1,7 +1,8 @@
+import { FamilyMemberService } from './../../service/family-member.service';
 import { Component, OnInit } from '@angular/core';
 import { FamilyMember } from 'src/app/model/family-member';
 import { ConfigService } from 'src/app/service/config.service';
-import { FamilyMemberService } from 'src/app/service/family-member.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-family-members',
@@ -14,8 +15,19 @@ export class FamilyMembersComponent implements OnInit {
 
   constructor(
     private config: ConfigService,
-    private familyMemberService: FamilyMemberService
+    private familyMemberService: FamilyMemberService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
+
+  onSelectOne(familyMember: FamilyMember): void {
+    this.router.navigate(['/', 'family-members', familyMember._id]);
+  }
+
+  onDeleteOne(familyMember: FamilyMember): void {
+    this.familyMemberService
+      .delete(familyMember)
+      .subscribe(() => (this.list$ = this.familyMemberService.getAll()));
+  }
 }

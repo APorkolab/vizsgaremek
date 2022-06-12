@@ -1,1 +1,158 @@
-<p>watched-movies-editor works!</p>
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title" *ngIf="watchedMovie$ | async">Edit this watched movie</h4>
+        <h4 class="card-title" *ngIf="!(watchedMovie$ | async)">Add a new watched movie</h4>
+
+      </div>
+      <div class="card-body">
+        <form #watchedFilmForm="ngForm">
+          <input type="hidden" name="id" [(ngModel)]="watchedMovie._id">
+          <h3 class="h5 text-secondary">Foreign title *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="foreignTitle" [(ngModel)]="watchedMovie.foreignTitle"
+                  required pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['foreignTitle']?.valid" class="alert alert-danger" role="alert">
+                The foreign title must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Hungarian title *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="hungarianTitle" [(ngModel)]="watchedMovie.hungarianTitle"
+                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['hungarianTitle']?.valid" class="alert alert-danger" role="alert">
+                The Hungarian title must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Director *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="director" [(ngModel)]="watchedMovie.director" required
+                  pattern="^[a-űA-Űa-zA-Z \-.,!() ']{5,60}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['director']?.valid" class="alert alert-danger" role="alert">
+                The name of the director must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Release Year *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="releaseYear" [(ngModel)]="watchedMovie.releaseYear"
+                  required pattern="^[0-9]{4}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['releaseYear']?.valid" class="alert alert-danger" role="alert">
+                The release year cannot be empty!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Genre *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="genre" [(ngModel)]="watchedMovie.genre" required
+                  pattern="^[a-űA-Űa-zA-Z \-.,!() ' |]{5,60}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['genre']?.valid" class="alert alert-danger" role="alert">
+                The genre must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">IMDB Rank *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="imdbRank" [(ngModel)]="watchedMovie.imdbRank" required
+                  pattern="^[0-9]{1,5}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['imdbRank']?.valid" class="alert alert-danger" role="alert">
+                The IMDB rank cannot be empty!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">IMDB Average *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="imdbAverage" [(ngModel)]="watchedMovie.imdbAverage"
+                  required pattern="^[0-9 ,.]{1,3}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['imdbAverage']?.valid" class="alert alert-danger" role="alert">
+                The IMDB average cannot be empty!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">The first main actor *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="mainActor1" [(ngModel)]="watchedMovie.mainActor1" required
+                  pattern="^[a-űA-Űa-zA-Z \-.,!() ']{5,100}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['mainActor1']?.valid" class="alert alert-danger" role="alert">
+                The name of the first main actor must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">The second main actor *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="mainActor2" [(ngModel)]="watchedMovie.mainActor2"
+                  pattern="^[a-űA-Űa-zA-Z \-.,!() ']{5,100}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['mainActor2']?.valid" class="alert alert-danger" role="alert">
+                The name of the second main actor must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">The timestamp Of watching *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="timestampOfWatching"
+                  [(ngModel)]="watchedMovie.timestampOfWatching" pattern="^[0-9A-Z-:]{20}$">
+              </div>
+              <div [hidden]="watchedFilmForm.controls['mainActor2']?.valid" class="alert alert-danger" role="alert">
+                The timestamp of the watching must be exactly 20 charachters and must not contains diacritic letters
+                (e.g.:
+                hungarian á,é,ű,ő,ú,ű)!
+              </div>
+            </div>
+          </div>
+
+          <button *ngIf="watchedMovie._id!=null" (click)="onUpdate(watchedMovie)" [disabled]="watchedFilmForm.invalid"
+            type="submit" class="btn btn-primary pull-right">Update
+            watchedMovie</button>
+          <button *ngIf="watchedMovie._id==null" (click)="onCreate(watchedMovie)" [disabled]="watchedFilmForm.invalid"
+            type="submit" class="btn btn-primary pull-right">Create
+            watchedMovie</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+</div>

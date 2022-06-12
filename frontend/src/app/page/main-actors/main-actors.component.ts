@@ -1,6 +1,8 @@
+import { MainActor } from './../../model/main-actor';
 import { MainActorService } from './../../service/main-actor.service';
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/service/config.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-actors',
@@ -13,8 +15,19 @@ export class MainActorsComponent implements OnInit {
 
   constructor(
     private config: ConfigService,
-    private mainActorService: MainActorService
+    private mainActorService: MainActorService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
+
+  onSelectOne(mainActor: MainActor): void {
+    this.router.navigate(['/', 'main-actors', mainActor._id]);
+  }
+
+  onDeleteOne(mainActor: MainActor): void {
+    this.mainActorService
+      .delete(mainActor)
+      .subscribe(() => (this.list$ = this.mainActorService.getAll()));
+  }
 }

@@ -1,8 +1,6 @@
-import { environment } from './../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Movie } from '../model/movie';
-import { Director } from '../model/director';
 import { HttpClient } from '@angular/common/http';
 import { BasicService } from './basic-service.service';
 import { ConfigService } from './config.service';

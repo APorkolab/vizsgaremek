@@ -1,1 +1,134 @@
-<p>family-members-editor works!</p>
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title" *ngIf="familyMember$ | async">Edit the data of the familyMember</h4>
+        <h4 class="card-title" *ngIf="!(familyMember$ | async)">Add a new familyMember</h4>
+
+      </div>
+      <div class="card-body">
+        <form #familyMemberForm="ngForm">
+          <input type="hidden" name="id" [(ngModel)]="familyMember._id">
+
+          <h3 class="h5 text-secondary">First name *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="first_name" [(ngModel)]="familyMember.first_name" required
+                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['first_name']?.valid" class="alert alert-danger" role="alert">
+                The first name of the family member must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Last name *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="last_name" [(ngModel)]="familyMember.last_name" required
+                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['last_name']?.valid" class="alert alert-danger" role="alert">
+                The last name of the family member must be at least 5 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">email *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="email" class="form-control" name="email" [(ngModel)]="familyMember.email" [email]="true">
+              </div>
+              <div [hidden]="familyMemberForm.controls['email']?.valid" class="alert alert-danger" role="alert">
+                The email of the family member must be valid and unique!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary"> Role *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="number" class="form-control" name="role" [(ngModel)]="familyMember.role" required
+                  pattern="^[1-3]{1}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['role']?.valid" class="alert alert-danger" role="alert">
+                The role number of the family member must be 1 (viewer), 2(archiver) or 3(administrator)!
+              </div>
+            </div>
+          </div>
+
+
+          <h3 class="h5 text-secondary">Password *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="password" [(ngModel)]="familyMember.password" required
+                  pattern="^[/*]{1}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['password']?.valid" class="alert alert-danger" role="alert">
+                For security reasons, new the password of the family member must be a star (*) and the user must
+                change it!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Nickname *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="nickname" [(ngModel)]="familyMember.nickname" required
+                  pattern="^[a-űA-Űa-zA-Z\-.,!() 0-9']{3,100}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['nickname']?.valid" class="alert alert-danger" role="alert">
+                The nickname of the family member must be at least 3 letters!
+              </div>
+            </div>
+          </div>
+
+          <h3 class="h5 text-secondary">Favourite genre *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="favouriteGenre" [(ngModel)]="familyMember.favouriteGenre"
+                  required pattern="^[a-űA-Űa-zA-Z\-.,!() 0-9']{3,100}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['favouriteGenre']?.valid" class="alert alert-danger"
+                role="alert">
+                The favourite genre of the family member must be at least 3 letters!
+              </div>
+            </div>
+          </div>
+          <h3 class="h5 text-secondary">Favourite movie *</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" name="favouriteMovie" [(ngModel)]="familyMember.favouriteMovie"
+                  required pattern="^[a-űA-Űa-zA-Z\-.,!() 0-9']{3,100}$">
+              </div>
+              <div [hidden]="familyMemberForm.controls['favouriteMovie']?.valid" class="alert alert-danger"
+                role="alert">
+                The favourite movie of the family member must be at least 3 letters!
+              </div>
+            </div>
+          </div>
+
+
+          <button *ngIf="familyMember._id!=null" (click)="onUpdate(familyMember)" [disabled]="familyMemberForm.invalid"
+            type="submit" class="btn btn-primary pull-right">Update
+            data of family member</button>
+          <button *ngIf="familyMember._id==null" (click)="onCreate(familyMember)" [disabled]="familyMemberForm.invalid"
+            type="submit" class="btn btn-primary pull-right">Create
+            data of family member</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+</div>
