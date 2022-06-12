@@ -2,10 +2,11 @@ import { IconModule } from './icon/icon.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './common/header/header.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HomeComponent } from './page/home/home.component';
@@ -18,6 +19,9 @@ import { DataTableModule } from './data-table/data-table.module';
 import { ConfigService, IMenuItem } from './service/config.service';
 import { FilterPipe } from './pipe/filter.pipe';
 import { SorterPipePipe } from './pipe/sorter.pipe';
+import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -32,14 +36,26 @@ import { SorterPipePipe } from './pipe/sorter.pipe';
     FamilyMembersComponent,
     FilterPipe,
     SorterPipePipe,
+    MoviesEditorComponent,
   ],
   imports: [
+    DataTableModule,
+    IconModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    IconModule,
-    DataTableModule,
     HttpClientModule,
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    // ToastrModule.forRoot({
+    //   positionClass: 'toast-top-center',
+    //   onActivateTick: true,
+    //   closeButton: true,
+    //   preventDuplicates: true,
+    //   timeOut: 5000,
+    //   extendedTimeOut: 3000,
+    // }),
   ],
   providers: [],
   bootstrap: [AppComponent],
