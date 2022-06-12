@@ -37,6 +37,10 @@ app.use(bodyParser.json());
 
 //Movies
 app.use('/movies', require('./controllers/movie/router'));
+app.use('/main-actors', require('./controllers/main-actor/router'));
+app.use('/family-members', require('./controllers/family-member/router'));
+app.use('/directors', require('./controllers/director/router'));
+app.use('/watched-movies', require('./controllers/watched-movie/router'));
 app.use('/login', require('./controllers/login/router'));
 
 app.use('/', (req, res, next) => {
