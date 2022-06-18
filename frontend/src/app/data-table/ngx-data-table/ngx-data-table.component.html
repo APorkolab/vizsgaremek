@@ -1,3 +1,16 @@
+<!-- <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div> -->
+
+<div>
+  <button [routerLink]="'0'" class="btn btn-success col-12">Add New
+    {{ entity }} <i-feather name="user-plus">
+    </i-feather></button>
+</div>
+
 <div class="row">
   <div class="col-12 scroll">
     <table class="table table-striped">
@@ -13,15 +26,16 @@
             {{ row[col.key] }}
           </td>
           <td *ngIf="row['imdbID']">
-            <a href="https://www.imdb.com/title/{{ row['imdbID'] }}" target="_blank">IMDB link </a>
+            <a href="https://www.imdb.com/title/{{ row['imdbID'] }}" target="_blank">IMDB link <i-feather name="Globe">
+              </i-feather></a>
           </td>
           <td>
             <div class="btn-group">
-              <button (click)="onSelect(row)" class="btn btn-info">
-                <i class="fa fa-pencil"></i>
+              <button (click)="onSelect(row)" class="btn btn-warning">
+                <i-feather name="Settings">Edit </i-feather>
               </button>
               <button (click)="onDelete(row)" class="btn btn-danger">
-                <i class="fa fa-trash"></i>
+                <i-feather name="file-minus">Delete </i-feather>
               </button>
             </div>
           </td>
@@ -30,16 +44,21 @@
     </table>
   </div>
 
-  <nav aria-label="...">
-    <ul class="pagination mt-4">
+  <nav aria-label="paginator">
+    <ul class="pagination mt-4 nav justify-content-center">
       <li class="page-item">
-        <button class="page-link" (click)="jumptoPage(page - 1)" [disabled]="page===1">Previous</button>
+        <button class="page-link" (click)="jumptoPage(page - 1)" [disabled]="page===1">
+          Previous<i-feather name="corner-down-left">
+          </i-feather>
+        </button>
       </li>
       <li *ngFor="let pageNum of pageList" class="page-item">
         <button class="page-link" (click)="jumptoPage(pageNum)">{{ pageNum }}</button>
       </li>
       <li class="page-item">
-        <button class="page-link" (click)="jumptoPage(page + 1)" [disabled]="page=== pageList.length">Next</button>
+        <button class="page-link" (click)="jumptoPage(page + 1)" [disabled]="page=== pageList.length">Next<i-feather
+            name="corner-down-right">
+          </i-feather></button>
       </li>
     </ul>
   </nav>

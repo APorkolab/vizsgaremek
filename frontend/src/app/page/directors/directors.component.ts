@@ -23,7 +23,7 @@ export class DirectorsComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectOne(director: Director): void {
-    this.router.navigate(['/', 'directors', director._id]);
+    this.router.navigate(['/', 'directors', 'edit', director._id]);
   }
 
   onDeleteOne(director: Director): void {

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-12 d-flex justify-content-center text-center">
     <div class="card">
       <div class="card-header card-header-primary">
         <h4 class="card-title" *ngIf="movie$ | async">Edit Movie</h4>
@@ -128,11 +128,13 @@
           </div>
 
           <button *ngIf="movie._id!=null" (click)="onUpdate(movie)" [disabled]="productForm.invalid" type="submit"
-            class="btn btn-primary pull-right">Update
+            class="btn btn-primary pull-right me-md-3">Update
             Movie</button>
           <button *ngIf="movie._id==null" (click)="onCreate(movie)" [disabled]="productForm.invalid" type="submit"
-            class="btn btn-primary pull-right">Create
+            class="btn btn-primary pull-right me-md-3">Create
             Movie</button>
+          <button routerLink="/movies" type="button" class="btn btn-danger pull-left">Cancel
+            edit</button>
           <div class="clearfix"></div>
         </form>
       </div>

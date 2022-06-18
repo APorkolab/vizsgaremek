@@ -33,7 +33,6 @@ export class ConfigService {
     // { key: 'imdbID', title: 'IMDB ID' },
     { key: 'mainActor1', title: 'Main Actor 1' },
     { key: 'mainActor2', title: 'Main Actor 2' },
-    { key: 'timestampOfWatching', title: 'Timestamp Of Watching' },
   ];
 
   watchedMoviesColumn: INgxTableColumn[] = [
@@ -49,7 +48,7 @@ export class ConfigService {
     // { key: 'imdbID', title: 'IMDB ID' },
     { key: 'mainActor1', title: 'Main Actor 1' },
     { key: 'mainActor2', title: 'Main Actor 2' },
-    // { key: 'timestampOfWatching', title: 'When we watched?' },
+    { key: 'timestampOfWatching', title: 'When we watched?' },
   ];
 
   directorColumn: INgxTableColumn[] = [

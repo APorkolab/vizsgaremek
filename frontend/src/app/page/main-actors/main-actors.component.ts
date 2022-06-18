@@ -22,7 +22,7 @@ export class MainActorsComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectOne(mainActor: MainActor): void {
-    this.router.navigate(['/', 'main-actors', mainActor._id]);
+    this.router.navigate(['/', 'main-actors', 'edit', mainActor._id]);
   }
 
   onDeleteOne(mainActor: MainActor): void {

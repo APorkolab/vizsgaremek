@@ -22,7 +22,7 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectOne(movie: Movie): void {
-    this.router.navigate(['/', 'movies', movie._id]);
+    this.router.navigate(['/', 'movies', 'edit', movie._id]);
   }
 
   onDeleteOne(movie: Movie): void {

@@ -15,6 +15,7 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
 {
   @Input() list: T[] | any[] = [];
   @Input() columns: INgxTableColumn[] = [];
+  @Input() entity: string = '';
 
   @Output() selectOne: EventEmitter<T> = new EventEmitter<T>();
   @Output() deleteOne: EventEmitter<T> = new EventEmitter<T>();

@@ -22,7 +22,7 @@ export class FamilyMembersComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectOne(familyMember: FamilyMember): void {
-    this.router.navigate(['/', 'family-members', familyMember._id]);
+    this.router.navigate(['/', 'family-members', 'edit', familyMember._id]);
   }
 
   onDeleteOne(familyMember: FamilyMember): void {

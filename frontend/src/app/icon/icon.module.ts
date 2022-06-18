@@ -11,6 +11,14 @@ import {
   Calendar,
   Users,
   Youtube,
+  Settings,
+  Trash2,
+  Globe,
+  FilePlus,
+  FileMinus,
+  UserPlus,
+  CornerDownLeft,
+  CornerDownRight,
 } from 'angular-feather/icons';
 
 const icons = {
@@ -22,6 +30,14 @@ const icons = {
   Calendar,
   Users,
   Youtube,
+  Settings,
+  Trash2,
+  Globe,
+  FilePlus,
+  FileMinus,
+  UserPlus,
+  CornerDownLeft,
+  CornerDownRight,
 };
 
 @NgModule({

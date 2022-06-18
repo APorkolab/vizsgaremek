@@ -26,7 +26,7 @@ export class WatchedMoviesComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectOne(watchedMovie: WatchedMovie): void {
-    this.router.navigate(['/', 'watched-movies', watchedMovie._id]);
+    this.router.navigate(['/', 'watched-movies', 'edit', watchedMovie._id]);
   }
 
   onDeleteOne(watchedMovie: WatchedMovie): void {

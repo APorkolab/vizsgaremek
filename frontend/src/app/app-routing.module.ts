@@ -1,3 +1,5 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { FamilyMembersEditorComponent } from './page/family-members-editor/family-members-editor.component';
 import { MainActorsEditorComponent } from './page/main-actors-editor/main-actors-editor.component';
 import { DirectorsEditorComponent } from './page/directors-editor/directors-editor.component';
@@ -7,8 +9,6 @@ import { MainActorsComponent } from './page/main-actors/main-actors.component';
 import { DirectorsComponent } from './page/directors/directors.component';
 import { WatchedMoviesComponent } from './page/watched-movies/watched-movies.component';
 import { MoviesComponent } from './page/movies/movies.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './page/home/home.component';
 import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
 
@@ -22,7 +22,7 @@ const routes: Routes = [
     component: MoviesComponent,
   },
   {
-    path: 'movies/:id',
+    path: 'movies/edit/:id',
     component: MoviesEditorComponent,
   },
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
     component: WatchedMoviesComponent,
   },
   {
-    path: 'watched-movies/:id',
+    path: 'watched-movies/edit/:id',
     component: WatchedMoviesEditorComponent,
   },
   {
@@ -38,7 +38,7 @@ const routes: Routes = [
     component: DirectorsComponent,
   },
   {
-    path: 'directors/:id',
+    path: 'directors/edit/:id',
     component: DirectorsEditorComponent,
   },
   {
@@ -46,7 +46,7 @@ const routes: Routes = [
     component: MainActorsComponent,
   },
   {
-    path: 'main-actors/:id',
+    path: 'main-actors/edit/:id',
     component: MainActorsEditorComponent,
   },
   {
@@ -54,7 +54,7 @@ const routes: Routes = [
     component: FamilyMembersComponent,
   },
   {
-    path: 'family-members/:id',
+    path: 'family-members/edit/:id',
     component: FamilyMembersEditorComponent,
   },
 ];
