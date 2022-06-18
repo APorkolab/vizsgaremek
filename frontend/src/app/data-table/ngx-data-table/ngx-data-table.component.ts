@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NotificationService } from 'src/app/service/notification.service';
 
 export interface INgxTableColumn {
   title: string;
@@ -20,6 +21,9 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
   @Output() selectOne: EventEmitter<T> = new EventEmitter<T>();
   @Output() deleteOne: EventEmitter<T> = new EventEmitter<T>();
 
+  phrase: string = '';
+  filterKey: string = '';
+  changeText = true;
   pageSize: number = 25;
 
   startSlice: number = 0;
@@ -39,7 +43,7 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
     this.sortDir = this.sortDir * -1;
   }
 
-  constructor() {}
+  constructor(private notifyService: NotificationService) {}
 
   ngOnInit(): void {}
 
@@ -62,5 +66,12 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
     this.page = pageNum;
     this.startSlice = this.pageSize * (pageNum - 1);
     this.endSlice = this.startSlice + this.pageSize;
+  }
+
+  showInfoAboutSorting() {
+    this.notifyService.showInfo(
+      'Click the icons next to the column titles to sort the entire table by this column.',
+      'FaMoBase v.1.0.0'
+    );
   }
 }

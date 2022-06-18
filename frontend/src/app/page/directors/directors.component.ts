@@ -1,9 +1,9 @@
+import { Director } from './../../model/director';
 import { NotificationService } from 'src/app/service/notification.service';
 import { DirectorService } from './../../service/director.service';
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/service/config.service';
 
-import { Director } from '../../model/director';
 import { Router } from '@angular/router';
 
 @Component({

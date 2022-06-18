@@ -19,6 +19,7 @@ import {
   UserPlus,
   CornerDownLeft,
   CornerDownRight,
+  Shuffle,
 } from 'angular-feather/icons';
 
 const icons = {
@@ -38,6 +39,7 @@ const icons = {
   UserPlus,
   CornerDownLeft,
   CornerDownRight,
+  Shuffle,
 };
 
 @NgModule({

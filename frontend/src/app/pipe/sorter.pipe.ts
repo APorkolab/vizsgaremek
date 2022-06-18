@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'sorterPipe',
+  name: 'sort',
 })
-export class SorterPipePipe implements PipeTransform {
+export class SorterPipe implements PipeTransform {
   transform(value: any[] | null, key: string, dir: number = 1): any[] | null {
     if (!Array.isArray(value) || !key) {
       return value;

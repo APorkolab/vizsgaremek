@@ -21,8 +21,6 @@ import { MainActorsComponent } from './page/main-actors/main-actors.component';
 import { FamilyMembersComponent } from './page/family-members/family-members.component';
 import { DataTableModule } from './data-table/data-table.module';
 import { ConfigService, IMenuItem } from './service/config.service';
-import { FilterPipe } from './pipe/filter.pipe';
-import { SorterPipePipe } from './pipe/sorter.pipe';
 import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -38,8 +36,6 @@ import { CommonModule } from '@angular/common';
     WatchedMoviesComponent,
     MainActorsComponent,
     FamilyMembersComponent,
-    FilterPipe,
-    SorterPipePipe,
     MoviesEditorComponent,
     WatchedMoviesEditorComponent,
     DirectorsEditorComponent,
