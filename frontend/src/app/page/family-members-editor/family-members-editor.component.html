@@ -15,10 +15,10 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="first_name" [(ngModel)]="familyMember.first_name" required
-                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+                  pattern="^[a-űA-Űa-zA-Z \-\.,!()']{5,60}$">
               </div>
               <div [hidden]="familyMemberForm.controls['first_name']?.valid" class="alert alert-danger" role="alert">
-                The first name of the family member must be at least 5 letters!
+                The first name of the family member must be at least 5 letters and must not contains numbers!
               </div>
             </div>
           </div>
@@ -28,10 +28,10 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="last_name" [(ngModel)]="familyMember.last_name" required
-                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+                  pattern="^[a-űA-Űa-zA-Z \-\.,!()']{5,60}$">
               </div>
               <div [hidden]="familyMemberForm.controls['last_name']?.valid" class="alert alert-danger" role="alert">
-                The last name of the family member must be at least 5 letters!
+                The last name of the family member must be at least 5 letters and must not contains numbers!
               </div>
             </div>
           </div>
@@ -66,12 +66,12 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <input type="text" class="form-control" name="password" [(ngModel)]="familyMember.password" required
-                  pattern="^[/*]{1}$">
+                <input type="password" class="form-control" name="password" [(ngModel)]="familyMember.password" required
+                  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
               </div>
               <div [hidden]="familyMemberForm.controls['password']?.valid" class="alert alert-danger" role="alert">
-                For security reasons, new the password of the family member must be a star (*) and the user must
-                change it!
+                For security reasons, new the password of the family member must be minimum 8 characters, must
+                contains at least 1 letter and 1 number!
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="nickname" [(ngModel)]="familyMember.nickname" required
-                  pattern="^[a-űA-Űa-zA-Z\-.,!() 0-9']{3,100}$">
+                  pattern="^[a-űA-Űa-zA-Z \-\.,!() 0-9']{3,100}$">
               </div>
               <div [hidden]="familyMemberForm.controls['nickname']?.valid" class="alert alert-danger" role="alert">
                 The nickname of the family member must be at least 3 letters!
@@ -94,7 +94,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="favouriteGenre" [(ngModel)]="familyMember.favouriteGenre"
-                  required pattern="^[a-űA-Űa-zA-Z\-.,!() 0-9']{3,100}$">
+                  required pattern="^[a-űA-Űa-zA-Z \-\.,!() 0-9']{3,100}$">
               </div>
               <div [hidden]="familyMemberForm.controls['favouriteGenre']?.valid" class="alert alert-danger"
                 role="alert">
@@ -107,7 +107,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="favouriteMovie" [(ngModel)]="familyMember.favouriteMovie"
-                  required pattern="^[a-űA-Űa-zA-Z\-.,!() 0-9']{3,100}$">
+                  required pattern="^[a-űA-Űa-zA-Z \-\.,:!() 0-9']{3,100}$">
               </div>
               <div [hidden]="familyMemberForm.controls['favouriteMovie']?.valid" class="alert alert-danger"
                 role="alert">
