@@ -1,7 +1,7 @@
 import { MainActorService } from './../../service/main-actor.service';
 import { MainActor } from './../../model/main-actor';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from 'src/app/service/notification.service';
 
@@ -12,8 +12,8 @@ import { NotificationService } from 'src/app/service/notification.service';
 })
 export class MainActorsEditorComponent implements OnInit {
   mainActor$!: Observable<MainActor>;
-
   mainActor: MainActor = new MainActor();
+  entity = 'Main actor';
 
   constructor(
     private mainActorService: MainActorService,
@@ -24,8 +24,13 @@ export class MainActorsEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe({
-      next: (param) =>
-        (this.mainActor$ = this.mainActorService.getOne(param['id'])),
+      next: (param) => {
+        if (param['id'] == '0') {
+          return of(new MainActor());
+        }
+        this.mainActor$ = this.mainActorService.getOne(param['id']);
+        return this.mainActorService.getOne(param['id']);
+      },
     });
     this.mainActor$.subscribe({
       next: (mainActor) =>
@@ -34,42 +39,39 @@ export class MainActorsEditorComponent implements OnInit {
   }
 
   onUpdate(mainActor: MainActor) {
-    this.mainActorService
-      .update(mainActor)
-      .subscribe(() => this.router.navigate(['/', 'main-actors']));
+    this.mainActorService.update(mainActor).subscribe({
+      next: (category) => this.router.navigate(['/', 'main-actors']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessEdit(),
+    });
   }
-
-  //     {
-  //     next: (category) => this.router.navigate(['/', 'movies']),
-  //     error: (err) => this.showError(err),
-  //     complete: () => this.showSuccessEdit(),
-  //   });
-  // }
 
   onCreate(mainActor: MainActor) {
-    this.mainActorService
-      .create(mainActor)
-      .subscribe(() => this.router.navigate(['/', 'main-actors']));
+    this.mainActorService.create(mainActor).subscribe({
+      next: (category) => this.router.navigate(['/', 'main-actors']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessCreate(),
+    });
   }
 
-  // showSuccessEdit() {
-  //   this.notifyService.showSuccess(
-  //     'Item edited successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessEdit() {
+    this.notifyService.showSuccess(
+      `${this.entity} edited successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showSuccessCreate() {
-  //   this.notifyService.showSuccess(
-  //     'Item created successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessCreate() {
+    this.notifyService.showSuccess(
+      `${this.entity} created successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showError(err: String) {
-  //   this.notifyService.showError(
-  //     'Something went wrong. Details:' + err,
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showError(err: String) {
+    this.notifyService.showError(
+      'Something went wrong. Details:' + err,
+      'FaMoBase v.1.0.0'
+    );
+  }
 }

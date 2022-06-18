@@ -47,8 +47,15 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
     this.selectOne.emit(entity);
   }
 
-  onDelete(entity: T): void {
-    this.deleteOne.emit(entity);
+  onDelete(entity: T) {
+    if (
+      !confirm(
+        'Do you really want to delete this record? This process cannot be undone.'
+      )
+    ) {
+      return false;
+    }
+    return this.deleteOne.emit(entity);
   }
 
   jumptoPage(pageNum: number): void {

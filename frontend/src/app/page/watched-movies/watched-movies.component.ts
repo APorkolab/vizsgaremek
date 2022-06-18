@@ -5,9 +5,8 @@ import { WatchedMovie } from '../../model/watched-movie';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Movie } from 'src/app/model/movie';
 import { NotificationService } from 'src/app/service/notification.service';
-// import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-watched-movies',
   templateUrl: './watched-movies.component.html',
@@ -16,22 +15,40 @@ import { NotificationService } from 'src/app/service/notification.service';
 export class WatchedMoviesComponent implements OnInit {
   columns = this.config.watchedMoviesColumn;
   list$ = this.watchedMovieService.getAll();
+  entity = 'Watched movie';
 
   constructor(
     private config: ConfigService,
     private watchedMovieService: WatchedMovieService,
-    private router: Router
+    private router: Router,
+    private notifyService: NotificationService
   ) {}
 
   ngOnInit(): void {}
+
+  showSuccessDelete() {
+    this.notifyService.showSuccess(
+      `${this.entity} delete successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
+
+  showError(err: String) {
+    this.notifyService.showError(
+      'Something went wrong. Details:' + err,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
   onSelectOne(watchedMovie: WatchedMovie): void {
     this.router.navigate(['/', 'watched-movies', 'edit', watchedMovie._id]);
   }
 
   onDeleteOne(watchedMovie: WatchedMovie): void {
-    this.watchedMovieService
-      .delete(watchedMovie)
-      .subscribe(() => (this.list$ = this.watchedMovieService.getAll()));
+    this.watchedMovieService.delete(watchedMovie).subscribe({
+      next: () => (this.list$ = this.watchedMovieService.getAll()),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessDelete(),
+    });
   }
 }

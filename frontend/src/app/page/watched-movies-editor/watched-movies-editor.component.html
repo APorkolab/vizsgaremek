@@ -141,10 +141,10 @@
             </div>
           </div>
 
-          <button *ngIf="watchedMovie._id!=null" (click)="onUpdate(watchedMovie)" [disabled]="watchedFilmForm.invalid"
+          <button *ngIf="watchedMovie$ | async" (click)="onUpdate(watchedMovie)" [disabled]="watchedFilmForm.invalid"
             type="submit" class="btn btn-primary pull-right me-md-3">Update
             watchedMovie</button>
-          <button *ngIf="watchedMovie._id==null" (click)="onCreate(watchedMovie)" [disabled]="watchedFilmForm.invalid"
+          <button *ngIf="!(watchedMovie$ | async)" (click)="onCreate(watchedMovie)" [disabled]="watchedFilmForm.invalid"
             type="submit" class="btn btn-primary pull-right me-md-3">Create
             watchedMovie</button>
           <button routerLink="/watched-movies" type="button" class="btn btn-danger pull-left">Cancel

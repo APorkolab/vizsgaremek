@@ -127,10 +127,10 @@
             </div>
           </div>
 
-          <button *ngIf="movie._id!=null" (click)="onUpdate(movie)" [disabled]="productForm.invalid" type="submit"
+          <button *ngIf="movie$ | async" (click)="onUpdate(movie)" [disabled]="productForm.invalid" type="submit"
             class="btn btn-primary pull-right me-md-3">Update
             Movie</button>
-          <button *ngIf="movie._id==null" (click)="onCreate(movie)" [disabled]="productForm.invalid" type="submit"
+          <button *ngIf="!(movie$ | async)" (click)="onCreate(movie)" [disabled]="productForm.invalid" type="submit"
             class="btn btn-primary pull-right me-md-3">Create
             Movie</button>
           <button routerLink="/movies" type="button" class="btn btn-danger pull-left">Cancel

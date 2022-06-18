@@ -2,8 +2,8 @@
   <div class="col-12 d-flex justify-content-center text-center">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title" *ngIf="familyMember$ | async">Edit the data of the familyMember</h4>
-        <h4 class="card-title" *ngIf="!(familyMember$ | async)">Add a new familyMember</h4>
+        <h4 class="card-title" *ngIf="familyMember$ | async">Edit the data of the Family member</h4>
+        <h4 class="card-title" *ngIf="!(familyMember$ | async)">Add a new Family member</h4>
 
       </div>
       <div class="card-body">
@@ -117,15 +117,14 @@
           </div>
 
 
-          <button *ngIf="familyMember._id!=null" (click)="onUpdate(familyMember)" [disabled]="familyMemberForm.invalid"
+          <button *ngIf="familyMember$ | async" (click)="onUpdate(familyMember)" [disabled]="familyMemberForm.invalid"
             type="submit" class="btn btn-primary pull-right me-md-3">Update
             data of family member</button>
-          <button *ngIf="familyMember._id==null" (click)="onCreate(familyMember)" [disabled]="familyMemberForm.invalid"
-            type="submit" class="btn btn-primary pull-right me-md-3">Create
+          <button *ngIf="!(familyMember$ | async)" (click)="onCreate(familyMember)"
+            [disabled]="familyMemberForm.invalid" type="submit" class="btn btn-primary pull-right me-md-3">Create
             data of family member</button>
           <button routerLink="/family-members" type="button" class="btn btn-danger pull-left">Cancel
             edit</button>
-          <div class="clearfix"></div>
           <div class="clearfix"></div>
         </form>
       </div>

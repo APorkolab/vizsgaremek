@@ -15,8 +15,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class WatchedMoviesEditorComponent implements OnInit {
   watchedMovie$!: Observable<WatchedMovie>;
-
   watchedMovie: WatchedMovie = new WatchedMovie();
+  entity = 'Watched movie';
 
   constructor(
     private watchedMovieService: WatchedMovieService,
@@ -27,8 +27,13 @@ export class WatchedMoviesEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe({
-      next: (param) =>
-        (this.watchedMovie$ = this.watchedMovieService.getOne(param['id'])),
+      next: (param) => {
+        if (param['id'] == '0') {
+          return of(new WatchedMovie());
+        }
+        this.watchedMovie$ = this.watchedMovieService.getOne(param['id']);
+        return this.watchedMovieService.getOne(param['id']);
+      },
     });
     this.watchedMovie$.subscribe({
       next: (watchedMovie) =>
@@ -37,35 +42,39 @@ export class WatchedMoviesEditorComponent implements OnInit {
   }
 
   onUpdate(watchedMovie: WatchedMovie) {
-    this.watchedMovieService
-      .update(watchedMovie)
-      .subscribe(() => this.router.navigate(['/', 'watched-movies']));
+    this.watchedMovieService.update(watchedMovie).subscribe({
+      next: (category) => this.router.navigate(['/', 'watched-movies']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessEdit(),
+    });
   }
 
   onCreate(watchedMovie: WatchedMovie) {
-    this.watchedMovieService
-      .create(watchedMovie)
-      .subscribe(() => this.router.navigate(['/', 'watched-movies']));
+    this.watchedMovieService.create(watchedMovie).subscribe({
+      next: (category) => this.router.navigate(['/', 'watched-movies']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessCreate(),
+    });
   }
 
-  // showSuccessEdit() {
-  //   this.notifyService.showSuccess(
-  //     'Item edited successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessEdit() {
+    this.notifyService.showSuccess(
+      `${this.entity} edited successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showSuccessCreate() {
-  //   this.notifyService.showSuccess(
-  //     'Item created successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessCreate() {
+    this.notifyService.showSuccess(
+      `${this.entity} created successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showError(err: String) {
-  //   this.notifyService.showError(
-  //     'Something went wrong. Details:' + err,
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showError(err: String) {
+    this.notifyService.showError(
+      'Something went wrong. Details:' + err,
+      'FaMoBase v.1.0.0'
+    );
+  }
 }

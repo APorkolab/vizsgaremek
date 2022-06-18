@@ -13,8 +13,8 @@ import { MovieService } from 'src/app/service/movie.service';
 })
 export class DirectorsEditorComponent implements OnInit {
   director$!: Observable<Director>;
-
   director: Director = new Director();
+  entity = 'Director';
 
   constructor(
     private directorService: DirectorService,
@@ -25,8 +25,13 @@ export class DirectorsEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe({
-      next: (param) =>
-        (this.director$ = this.directorService.getOne(param['id'])),
+      next: (param) => {
+        if (param['id'] == '0') {
+          return of(new Director());
+        }
+        this.director$ = this.directorService.getOne(param['id']);
+        return this.directorService.getOne(param['id']);
+      },
     });
     this.director$.subscribe({
       next: (director) => (this.director = director ? director : this.director),
@@ -34,42 +39,39 @@ export class DirectorsEditorComponent implements OnInit {
   }
 
   onUpdate(director: Director) {
-    this.directorService
-      .update(director)
-      .subscribe(() => this.router.navigate(['/', 'directors']));
+    this.directorService.update(director).subscribe({
+      next: (category) => this.router.navigate(['/', 'directors']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessEdit(),
+    });
   }
-
-  //     {
-  //     next: (category) => this.router.navigate(['/', 'movies']),
-  //     error: (err) => this.showError(err),
-  //     complete: () => this.showSuccessEdit(),
-  //   });
-  // }
 
   onCreate(director: Director) {
-    this.directorService
-      .create(director)
-      .subscribe(() => this.router.navigate(['/', 'directors']));
+    this.directorService.create(director).subscribe({
+      next: (category) => this.router.navigate(['/', 'directors']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessCreate(),
+    });
   }
 
-  // showSuccessEdit() {
-  //   this.notifyService.showSuccess(
-  //     'Item edited successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessEdit() {
+    this.notifyService.showSuccess(
+      `${this.entity} edited successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showSuccessCreate() {
-  //   this.notifyService.showSuccess(
-  //     'Item created successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessCreate() {
+    this.notifyService.showSuccess(
+      `${this.entity} created successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showError(err: String) {
-  //   this.notifyService.showError(
-  //     'Something went wrong. Details:' + err,
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showError(err: String) {
+    this.notifyService.showError(
+      'Something went wrong. Details:' + err,
+      'FaMoBase v.1.0.0'
+    );
+  }
 }

@@ -13,8 +13,8 @@ import { MovieService } from 'src/app/service/movie.service';
 })
 export class MoviesEditorComponent implements OnInit {
   movie$!: Observable<Movie>;
-
   movie: Movie = new Movie();
+  entity = 'Movie';
 
   constructor(
     private movieService: MovieService,
@@ -25,7 +25,13 @@ export class MoviesEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe({
-      next: (param) => (this.movie$ = this.movieService.getOne(param['id'])),
+      next: (param) => {
+        if (param['id'] == '0') {
+          return of(new Movie());
+        }
+        this.movie$ = this.movieService.getOne(param['id']);
+        return this.movieService.getOne(param['id']);
+      },
     });
     this.movie$.subscribe({
       next: (movie) => (this.movie = movie ? movie : this.movie),
@@ -33,42 +39,39 @@ export class MoviesEditorComponent implements OnInit {
   }
 
   onUpdate(movie: Movie) {
-    this.movieService
-      .update(movie)
-      .subscribe(() => this.router.navigate(['/', 'movies']));
+    this.movieService.update(movie).subscribe({
+      next: (category) => this.router.navigate(['/', 'movies']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessEdit(),
+    });
   }
-
-  //     {
-  //     next: (category) => this.router.navigate(['/', 'movies']),
-  //     error: (err) => this.showError(err),
-  //     complete: () => this.showSuccessEdit(),
-  //   });
-  // }
 
   onCreate(movie: Movie) {
-    this.movieService
-      .create(movie)
-      .subscribe(() => this.router.navigate(['/', 'movies']));
+    this.movieService.create(movie).subscribe({
+      next: (category) => this.router.navigate(['/', 'movies']),
+      error: (err) => this.showError(err),
+      complete: () => this.showSuccessCreate(),
+    });
   }
 
-  // showSuccessEdit() {
-  //   this.notifyService.showSuccess(
-  //     'Item edited successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessEdit() {
+    this.notifyService.showSuccess(
+      `${this.entity} edited successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showSuccessCreate() {
-  //   this.notifyService.showSuccess(
-  //     'Item created successfully!',
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showSuccessCreate() {
+    this.notifyService.showSuccess(
+      `${this.entity} created successfully!`,
+      'FaMoBase v.1.0.0'
+    );
+  }
 
-  // showError(err: String) {
-  //   this.notifyService.showError(
-  //     'Something went wrong. Details:' + err,
-  //     'FaMoBase v.1.0.0'
-  //   );
-  // }
+  showError(err: String) {
+    this.notifyService.showError(
+      'Something went wrong. Details:' + err,
+      'FaMoBase v.1.0.0'
+    );
+  }
 }
