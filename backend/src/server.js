@@ -16,7 +16,7 @@ const {
 } = config.get('database');
 
 mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {}).then(
-	// require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
+	require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
 	conn => console.log('Connected to MongoDB Atlas'),
 ).catch(err => console.log(err), );
 
