@@ -28,7 +28,8 @@
       </td>
     </tr>
     <div>
-      <button [routerLink]="'edit/0'" class="btn btn-success col-12">Add a new
+      <button *ngIf="this.auth.familyMember$.value?.role === 3" [routerLink]="'edit/0'"
+        class="btn btn-success col-12">Add a new
         {{ entity }} <i-feather name="user-plus">
         </i-feather></button>
     </div>

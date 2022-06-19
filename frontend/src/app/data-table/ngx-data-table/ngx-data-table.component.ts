@@ -58,9 +58,7 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
   }
 
   onDelete(entity: T) {
-    const userRole = this.auth.familyMember$.value?.role || 1;
-
-    if (this.auth.familyMember$ && userRole === 3) {
+    if (this.auth.familyMember$ && this.auth.familyMember$.value?.role === 3) {
       if (
         !confirm(
           'Do you really want to delete this record? This process cannot be undone.'
