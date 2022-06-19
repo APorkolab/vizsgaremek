@@ -1,12 +1,13 @@
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-2 col-lg-1 me-0 px-3 fs-6" href="#">Company name</a>
-  <!-- <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search for..."
-    aria-label="Search"> -->
-
+  <div class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <div class="navbar-brand col-md-2 col-lg-1 me-0 px-3 fs-6">
+      <span *ngIf="(familyMember$ | async)">Welcome, {{this.familyMember$.value?.first_name +
+        ' ' + this.familyMember$.value?.last_name}}! </span>
+      <span *ngIf="(familyMember$ | async)">Your level of the role: {{ this.familyMember$.value?.role}}. </span>
+      <span *ngIf="(familyMember$ | async)" right>{{rightsOfAdmin(this.familyMember$.value?.role || 1)}}</span>
+    </div>
+  </div>
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" routerLink="/login">

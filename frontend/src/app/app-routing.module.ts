@@ -38,19 +38,19 @@ const routes: Routes = [
     },
   },
   {
+    path: 'movies/edit/`0`',
+    component: MoviesEditorComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      expectedRole: 3,
+    },
+  },
+  {
     path: 'movies/edit/:id',
     component: MoviesEditorComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       expectedRole: 2,
-    },
-  },
-  {
-    path: 'movies/edit/0',
-    component: MoviesEditorComponent,
-    canActivate: [AuthGuardService, RoleGuardService],
-    data: {
-      expectedRole: 3,
     },
   },
   {
@@ -62,19 +62,19 @@ const routes: Routes = [
     },
   },
   {
+    path: 'watched-movies/edit/`0`',
+    component: WatchedMoviesEditorComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      expectedRole: 3,
+    },
+  },
+  {
     path: 'watched-movies/edit/:id',
     component: WatchedMoviesEditorComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       expectedRole: 2,
-    },
-  },
-  {
-    path: 'watched-movies/edit/0',
-    component: WatchedMoviesEditorComponent,
-    canActivate: [AuthGuardService, RoleGuardService],
-    data: {
-      expectedRole: 3,
     },
   },
   {
@@ -86,19 +86,19 @@ const routes: Routes = [
     },
   },
   {
+    path: 'directors/edit/`0`',
+    component: DirectorsEditorComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      expectedRole: 3,
+    },
+  },
+  {
     path: 'directors/edit/:id',
     component: DirectorsEditorComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       expectedRole: 2,
-    },
-  },
-  {
-    path: 'directors/edit/0',
-    component: DirectorsEditorComponent,
-    canActivate: [AuthGuardService, RoleGuardService],
-    data: {
-      expectedRole: 3,
     },
   },
   {
@@ -110,19 +110,19 @@ const routes: Routes = [
     },
   },
   {
+    path: 'main-actors/edit/`0`',
+    component: MainActorsEditorComponent,
+    canActivate: [AuthGuardService, RoleGuardService],
+    data: {
+      expectedRole: 3,
+    },
+  },
+  {
     path: 'main-actors/edit/:id',
     component: MainActorsEditorComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
       expectedRole: 2,
-    },
-  },
-  {
-    path: 'main-actors/edit/0',
-    component: MainActorsEditorComponent,
-    canActivate: [AuthGuardService, RoleGuardService],
-    data: {
-      expectedRole: 3,
     },
   },
   {
@@ -134,7 +134,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'family-members/edit/:id',
+    path: 'family-members/edit/`0`',
     component: FamilyMembersEditorComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
@@ -142,7 +142,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'family-members/edit/0',
+    path: 'family-members/edit/:id',
     component: FamilyMembersEditorComponent,
     canActivate: [AuthGuardService, RoleGuardService],
     data: {
