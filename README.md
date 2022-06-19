@@ -362,7 +362,7 @@ A kiválasztott rendező – a megerősítő üzenet jóváhagyásával - törö
 
 ## Családtagok adatbázisa
 
-A családtagok adatbázisához csak az adminisztrátori jogokkal rendelkező (role = 1) felhasználók férnek hozzá: tehát megtekintési, módosítási joguk is csak nekik van.
+A családtagok adatbázisához csak az adminisztrátori jogokkal rendelkező (role = 3) felhasználók férnek hozzá: tehát megtekintési, módosítási joguk is csak nekik van.
 
 ***1. Listázás***
 
