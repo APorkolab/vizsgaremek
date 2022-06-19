@@ -9,7 +9,7 @@ module.exports = (model) => {
 		findOne: (id) => model.findById(id).populate(),
 		update: (id, updateData) => {
 			return model.findByIdAndUpdate(id, updateData, {
-				new: false
+				new: true
 			});
 		},
 		delete: async (id) => {

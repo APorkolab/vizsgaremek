@@ -1,34 +1,76 @@
 const express = require('express');
 const router = express.Router();
 const FamilyMember = require('../../models/family-member');
+const jwt = require('jsonwebtoken');
 
 //Post
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
 	const {
 		email,
 		password
 	} = req.body;
 
-	const familyMember = FamilyMember.findOne({
+	const fMember = await FamilyMember.findOne({
 		email
 	});
 
-	if (!familyMember) {
-		throw new Error('Incorrect credentials!');
+	if (!fMember) {
+		res.sendStatus(404);
+		return res.json({
+			error: 'This user does not exist'
+		});
 	}
 
-	familyMember.comparePassword(password, (err, isMatch) => {
-		if (err) {
-			return res.sendStatus(403);
-		}
-		if (!isMatch) {
-			throw new Error('Incorrect credentials!');
-		}
+	// familyMember.verifyPassword(password, (err, isMatch) => {
+	// 	if (err) {
+	// 		return res.sendStatus(403);
+	// 	}
+	// 	if (!isMatch) {
+	// 		throw new Error('Incorrect credentials!');
+	// 	}
+
+
+
+	// 	const accessToken = jwt.sign({
+	// 			email: familyMember.email,
+	// 			role: familyMember.role,
+	// 		}, 'AllWorkAndNoPlayMakesJackADullBoy'),
+	// 		{
+	// 			expiresIn: '1h',
+	// 		};
+
+
+	// 	res.json({
+	// 		success: true,
+	// 		accessToken,
+	// 		familyMember
+	// 	});
+
+
+	// });
+	// return controller.findAll(req, res, next);
+
+	const valid = fMember.verifyPasswordSync(password);
+	if (valid) {
+		const accessToken = jwt.sign({
+			_id: fMember._id,
+			email: fMember.email,
+			role: fMember.role,
+		}, 'AllWorkAndNoPlayMakesJackADullBoy', {
+			expiresIn: '1h',
+		});
+
 		res.json({
 			success: true,
+			accessToken,
+			familyMember: {
+				...fMember._doc,
+				password: ''
+			},
 		});
-	});
-	return controller.findAll(req, res, next);
+	} else {
+		return res.sendStatus(401);
+	}
 });
 
 module.exports = router;

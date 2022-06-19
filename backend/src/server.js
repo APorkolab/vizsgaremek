@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 const app = express();
 
@@ -15,36 +15,35 @@ const {
 	pass
 } = config.get('database');
 
-mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {}).then(
-	require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
-	conn => console.log('Connected to MongoDB Atlas'),
-).catch(err => console.log(err), );
-
-
-// mongoose.connect(`
-//mongodb + srv: //${host}`, {
-// 		user: username,
-// 		pass: password,
-// 	}).then(connection => console.log('Connected to database'))
-// 	.catch(err => {
-// 		throw new Error(err.message);
-// 	});
+mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(
+		// require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
+		// console.log('Data has been seeded into the database.'),
+		conn => console.log('Connected to MongoDB Atlas'),
+	).catch(err => console.log(err));
 
 //Cross Origin Resource Sharing
 app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+
+const authencticateJwt = require('./models/auth/authenticate');
+
 //Movies
-app.use('/movies', require('./controllers/movie/router'));
-app.use('/main-actors', require('./controllers/main-actor/router'));
-app.use('/family-members', require('./controllers/family-member/router'));
-app.use('/directors', require('./controllers/director/router'));
-app.use('/watched-movies', require('./controllers/watched-movie/router'));
+app.use('/movies', authencticateJwt, require('./controllers/movie/router'));
+app.use('/main-actors', authencticateJwt, require('./controllers/main-actor/router'));
+app.use('/family-members', authencticateJwt, require('./controllers/family-member/router'));
+app.use('/directors', authencticateJwt, require('./controllers/director/router'));
+app.use('/watched-movies', authencticateJwt, require('./controllers/watched-movie/router'));
 app.use('/login', require('./controllers/login/router'));
 
 app.use('/', (req, res, next) => {
-	res.send('Hello World');
+	console.log(req.url);
+	res.send('The FaMoBase v.1.0.0 backend is working!');
 });
 app.use((err, req, res, next) => {
 	res.status = 500;
