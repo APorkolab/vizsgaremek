@@ -5,9 +5,15 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-// mongoose.Promise = global.Promise;
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const logger = require('./logger/logger');
 
 const app = express();
+
+//Documentation
+const swaggerDocument = YAML.load('./docs/swagger.yaml');
+
 
 const {
 	host,
@@ -21,12 +27,15 @@ mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {
 	})
 	.then(
 		// require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
-		// console.log('Data has been seeded into the database.'),
-		conn => console.log('Connected to MongoDB Atlas'),
-	).catch(err => console.log(err));
+		//  logger.info('Data has been seeded into the database.'),
+		conn => logger.info('Connected to MongoDB Atlas'),
+	).catch(err => logger.error(err));
 
 //Cross Origin Resource Sharing
 app.use(cors());
+app.use(morgan('combined', {
+	stream: logger.stream
+}));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -40,6 +49,7 @@ app.use('/family-members', authencticateJwt, require('./controllers/family-membe
 app.use('/directors', authencticateJwt, require('./controllers/director/router'));
 app.use('/watched-movies', authencticateJwt, require('./controllers/watched-movie/router'));
 app.use('/login', require('./controllers/login/router'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/', (req, res, next) => {
 	console.log(req.url);
