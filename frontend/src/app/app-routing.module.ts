@@ -11,11 +11,16 @@ import { WatchedMoviesComponent } from './page/watched-movies/watched-movies.com
 import { MoviesComponent } from './page/movies/movies.component';
 import { HomeComponent } from './page/home/home.component';
 import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
+import { LoginComponent } from './page/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'movies',

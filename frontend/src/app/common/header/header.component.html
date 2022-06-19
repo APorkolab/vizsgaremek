@@ -10,8 +10,8 @@
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" routerLink="/login">
-        <span *ngIf="(user$ | async)">Sign out</span>
-        <span *ngIf="!(user$ | async)">Sign in</span>
+        <span *ngIf="(familyMember$ | async)">Sign out</span>
+        <span *ngIf="!(familyMember$ | async)">Sign in</span>
       </a>
     </div>
   </div>

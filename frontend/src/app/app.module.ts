@@ -5,7 +5,7 @@ import { WatchedMoviesEditorComponent } from './page/watched-movies-editor/watch
 import { IconModule } from './icon/icon.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -22,8 +22,11 @@ import { FamilyMembersComponent } from './page/family-members/family-members.com
 import { DataTableModule } from './data-table/data-table.module';
 import { ConfigService, IMenuItem } from './service/config.service';
 import { MoviesEditorComponent } from './page/movies-editor/movies-editor.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './page/login/login.component';
+import { JwtInterceptorService } from './service/JwtInterceptorService';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,7 @@ import { CommonModule } from '@angular/common';
     DirectorsEditorComponent,
     MainActorsEditorComponent,
     FamilyMembersEditorComponent,
+    LoginComponent,
   ],
   imports: [
     DataTableModule,
@@ -51,6 +55,7 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
@@ -62,7 +67,14 @@ import { CommonModule } from '@angular/common';
     }),
   ],
   exports: [FormsModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      deps: [AuthService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

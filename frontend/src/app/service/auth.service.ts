@@ -8,7 +8,7 @@ import { FamilyMember } from '../model/family-member';
 export interface IAuthModel {
   success: boolean;
   accessToken: string;
-  user: FamilyMember;
+  familyMember: FamilyMember;
 }
 
 export interface ILoginData {
@@ -21,27 +21,26 @@ export interface ILoginData {
 })
 export class AuthService {
   apiUrl: string = environment.apiUrl;
-
   loginUrl: string = '';
 
-  user$: BehaviorSubject<FamilyMember | null> =
+  familyMember$: BehaviorSubject<FamilyMember | null> =
     new BehaviorSubject<FamilyMember | null>(null);
 
   access_token$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient, private router: Router) {
-    this.loginUrl = `${this.apiUrl}login`;
+    this.loginUrl = `${this.apiUrl}/login`;
 
     const loginInfo = sessionStorage.getItem('login');
     if (loginInfo) {
       const loginObject = JSON.parse(loginInfo);
       this.access_token$.next(loginObject.accessToken);
-      this.user$.next(loginObject.user);
+      this.familyMember$.next(loginObject.familyMember);
     }
 
-    this.user$.subscribe({
-      next: (user) => {
-        if (user) {
+    this.familyMember$.subscribe({
+      next: (familyMember) => {
+        if (familyMember) {
           this.router.navigate(['/']);
         } else {
           this.router.navigate(['/', 'login']);
@@ -55,7 +54,7 @@ export class AuthService {
   login(loginData: ILoginData): void {
     this.http.post<IAuthModel>(this.loginUrl, loginData).subscribe({
       next: (response: IAuthModel) => {
-        this.user$.next(response.user);
+        this.familyMember$.next(response.familyMember);
         this.access_token$.next(response.accessToken);
         sessionStorage.setItem('login', JSON.stringify(response));
       },
@@ -64,6 +63,6 @@ export class AuthService {
   }
 
   logout(): void {
-    this.user$.next(null);
+    this.familyMember$.next(null);
   }
 }

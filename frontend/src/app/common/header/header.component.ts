@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  user$ = this.auth.user$;
+  familyMember$ = this.auth.familyMember$;
 
   constructor(private auth: AuthService) {}
 
