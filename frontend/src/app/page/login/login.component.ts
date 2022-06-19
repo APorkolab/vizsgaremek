@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService, ILoginData } from 'src/app/service/auth.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { AuthService, ILoginData } from 'src/app/service/auth.service';
 export class LoginComponent implements OnInit {
   loginData: ILoginData = {};
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
     this.auth.logout();

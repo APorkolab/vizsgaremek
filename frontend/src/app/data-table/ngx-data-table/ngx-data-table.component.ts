@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 import { NotificationService } from 'src/app/service/notification.service';
 
 export interface INgxTableColumn {
@@ -43,7 +45,11 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
     this.sortDir = this.sortDir * -1;
   }
 
-  constructor(private notifyService: NotificationService) {}
+  constructor(
+    private notifyService: NotificationService,
+    public auth: AuthService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -52,14 +58,19 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
   }
 
   onDelete(entity: T) {
-    if (
-      !confirm(
-        'Do you really want to delete this record? This process cannot be undone.'
-      )
-    ) {
-      return false;
+    const userRole = this.auth.familyMember$.value?.role || 1;
+
+    if (this.auth.familyMember$ && userRole === 3) {
+      if (
+        !confirm(
+          'Do you really want to delete this record? This process cannot be undone.'
+        )
+      ) {
+        return false;
+      }
+      return this.deleteOne.emit(entity);
     }
-    return this.deleteOne.emit(entity);
+    this.router.navigate(['forbidden']);
   }
 
   jumptoPage(pageNum: number): void {

@@ -25,8 +25,9 @@ import { MoviesEditorComponent } from './page/movies-editor/movies-editor.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './page/login/login.component';
-import { JwtInterceptorService } from './service/JwtInterceptorService';
+import { JwtInterceptor } from './service/jwt.interceptor';
 import { AuthService } from './service/auth.service';
+import { ForbiddenComponent } from './page/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AuthService } from './service/auth.service';
     MainActorsEditorComponent,
     FamilyMembersEditorComponent,
     LoginComponent,
+    ForbiddenComponent,
   ],
   imports: [
     DataTableModule,
@@ -70,7 +72,7 @@ import { AuthService } from './service/auth.service';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptorService,
+      useClass: JwtInterceptor,
       deps: [AuthService],
       multi: true,
     },
