@@ -20,6 +20,8 @@ import {
   CornerDownLeft,
   CornerDownRight,
   Shuffle,
+  LogIn,
+  LogOut,
 } from 'angular-feather/icons';
 
 const icons = {
@@ -40,6 +42,8 @@ const icons = {
   CornerDownLeft,
   CornerDownRight,
   Shuffle,
+  LogIn,
+  LogOut,
 };
 
 @NgModule({

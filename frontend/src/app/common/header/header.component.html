@@ -1,5 +1,5 @@
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-2 col-lg-1 me-0 px-3 fs-6" href="#">Company name</a>
+  <img class="navbar-brand col-md-2 col-lg-1 me-0 px-3 fs-6" src="../../../assets/img/logo_text.png">
   <div class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <div class="navbar-brand col-md-2 col-lg-1 me-0 px-3 fs-6">
       <span *ngIf="(familyMember$ | async)">Welcome, {{this.familyMember$.value?.first_name +
@@ -11,8 +11,12 @@
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" routerLink="/login">
-        <span *ngIf="(familyMember$ | async)">Sign out</span>
-        <span *ngIf="!(familyMember$ | async)">Sign in</span>
+        <span *ngIf="(familyMember$ | async)">Sign out
+          <i-feather name="log-out"></i-feather>
+        </span>
+        <span *ngIf="!(familyMember$ | async)">Sign in
+          <i-feather name="log-in"></i-feather>
+        </span>
       </a>
     </div>
   </div>
