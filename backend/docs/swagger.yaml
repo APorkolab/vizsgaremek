@@ -1,1299 +1,857 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Universe of Superheroes API
-  description: Reference documentation for all resource descriptions, endpoints and methods, parameters, sample requests, errors, and sample responses and schemas available to the Universe of Superheroes API.
+  title: Family Movie Database (a.k.a. FaMoBase) v.1.0.0 documentation
+  description: Detailed description and usage of the endpoints of the FaMoBase V.1.0.0 film registry webprogram.
 servers:
   - url: http://localhost:3000
 paths:
-  /superheroes:
+  /movies:
     get:
-      description: Returns a list of superheroes
+      description: Returns a list of movies that users (family members) have not yet watched.
       security:
         - bearerAuth: []
-      tags:
-        - Superheroes
       responses:
-        '200':
-          description: List of superheroes returned successfully
+        "200":
+          description: List of movies that users (family members) have not yet watched returned successfully.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Superhero'
-        '500':
+                  $ref: "#/components/schemas/Movie"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
-      description: Creates a new superhero
+      description: Creates a new movie
       security:
         - bearerAuth: []
-      tags:
-        - Superheroes
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Superhero'
+              $ref: "#/components/schemas/Movie"
       responses:
-        '201':
-          description: Superhero has been created successfully
+        "201":
+          description: Entity has been created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Superhero'
-        '400':
+                $ref: "#/components/schemas/Movie"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /superheroes/{_id}:
+                $ref: "#/components/schemas/Error"
+  /movies/{_id}:
     get:
-      description: Get a superhero
+      description: Get a watched movie by id
       security:
         - bearerAuth: []
-      tags:
-        - Superheroes
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Returns a superhero
+        "200":
+          description: Returns a movie
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/Superhero'
-        '404':
-          description: Superhero with this ID is not found
+                $ref: "#/components/schemas/Movie"
+        "404":
+          description: Movie with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     patch:
-      description: Updates a superhero
+      description: Updates a movie
       security:
         - bearerAuth: []
-      tags:
-        - Superheroes
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Superhero'
+              $ref: "#/components/schemas/Movie"
       responses:
-        '200':
-          description: Superhero has been updated successfully
+        "200":
+          description: Movie has been updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Race'
-        '400':
+                $ref: "#/components/schemas/Movie"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
-      description: Deletes a superhero
+      description: Deletes a movie
       security:
         - bearerAuth: []
-      tags:
-        - Superheroes
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Superhero has been deleted successfully
+        "200":
+          description: Movie has been deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 example: {}
-        '404':
-          description: Superhero with this ID is not found
+        "404":
+          description: Movie with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-characters:
+                $ref: "#/components/schemas/Error"
+  /watched-movies:
     get:
-      description: Returns a list of Marvel characters
+      description: Returns a list of movies that users (family members) have already watched.
       security:
         - bearerAuth: []
-      tags:
-        - Marvel characters
       responses:
-        '200':
-          description: List of Marvel characters returned successfully
+        "200":
+          description: List of movies that users (family members) have already watched returned successfully
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MarvelCharacter'
-        '500':
+                  $ref: "#/components/schemas/WatchedMovie"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
-      description: Creates a new Marvel character
+      description: Creates a new watched movie
       security:
         - bearerAuth: []
-      tags:
-        - Marvel characters
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelCharacter'
+              $ref: "#/components/schemas/WatchedMovie"
       responses:
-        '201':
-          description: Marvel character has been created successfully
+        "201":
+          description: Watched movie has been created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelCharacter'
-        '400':
+                $ref: "#/components/schemas/WatchedMovie"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-characters/{_id}:
+                $ref: "#/components/schemas/Error"
+  /watched-movies/{_id}:
     get:
-      description: Get a Marvel character
+      description: Get a watched movie
       security:
         - bearerAuth: []
-      tags:
-        - Marvel characters
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Returns a Marvel character
+        "200":
+          description: Returns a watched movie
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/MarvelCharacter'
-        '404':
-          description: Marvel character with this ID is not found
+                $ref: "#/components/schemas/WatchedMovie"
+        "404":
+          description: The watched movie with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     patch:
-      description: Updates a Marvel character
+      description: Updates a watched movie
       security:
         - bearerAuth: []
-      tags:
-        - Marvel characters
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelCharacter'
+              $ref: "#/components/schemas/WatchedMovie"
       responses:
-        '200':
-          description: Marvel character has been updated successfully
+        "200":
+          description: Watched movie has been updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelCharacter'
-        '400':
+                $ref: "#/components/schemas/WatchedMovie"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
-      description: Deletes a Marvel character
+      description: Deletes a watched movie
       security:
         - bearerAuth: []
-      tags:
-        - Marvel characters
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Marvel character has been deleted successfully
+        "200":
+          description: Watched movie has been deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 example: {}
-        '404':
-          description: Marvel character with this ID is not found
+        "404":
+          description: Watched movie with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-comics:
+                $ref: "#/components/schemas/Error"
+  /directors:
     get:
-      description: Returns a list of Marvel comics
+      description: Returns a list of the recorded directors
       security:
         - bearerAuth: []
-      tags:
-        - Marvel comics
       responses:
-        '200':
-          description: List of Marvel comics returned successfully
+        "200":
+          description: List of directors returned successfully
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MarvelComic'
-        '500':
+                  $ref: "#/components/schemas/Director"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
-      description: Creates a new Marvel comic
+      description: Creates a new director
       security:
         - bearerAuth: []
-      tags:
-        - Marvel comics
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelComic'
+              $ref: "#/components/schemas/Director"
       responses:
-        '201':
-          description: Marvel comic has been created successfully
+        "201":
+          description: Director has been created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelComic'
-        '400':
+                $ref: "#/components/schemas/Director"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-comics/{_id}:
+                $ref: "#/components/schemas/Error"
+  /directors/{_id}:
     get:
-      description: Get a Marvel comic
+      description: Get a recorded director
       security:
         - bearerAuth: []
-      tags:
-        - Marvel comics
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Returns a Marvel comic
+        "200":
+          description: Returns a director
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/MarvelComic'
-        '404':
-          description: Marvel comic with this ID is not found
+                $ref: "#/components/schemas/Director"
+        "404":
+          description: Director with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     patch:
-      description: Updates a Marvel comic
+      description: Updates a director
       security:
         - bearerAuth: []
-      tags:
-        - Marvel comics
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelComic'
+              $ref: "#/components/schemas/Director"
       responses:
-        '200':
-          description: Marvel comic has been updated successfully
+        "200":
+          description: Director has been updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelComic'
-        '400':
+                $ref: "#/components/schemas/Director"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
-      description: Deletes a Marvel comic
+      description: Deletes a director
       security:
         - bearerAuth: []
-      tags:
-        - Marvel comics
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Marvel comic has been deleted successfully
+        "200":
+          description: Director has been deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 example: {}
-        '404':
-          description: Marvel comic with this ID is not found
+        "404":
+          description: Director with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-creators:
+                $ref: "#/components/schemas/Error"
+  /main-actors:
     get:
-      description: Returns a list of Marvel creators
+      description: Returns a list of the recorded main actors
       security:
         - bearerAuth: []
-      tags:
-        - Marvel creators
       responses:
-        '200':
-          description: List of Marvel creators returned successfully
+        "200":
+          description: List of the recorded main actors returned successfully
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MarvelCreators'
-        '500':
+                  $ref: "#/components/schemas/MainActor"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
-      description: Creates a new Marvel creator
+      description: Creates a new main actor
       security:
         - bearerAuth: []
-      tags:
-        - Marvel creators
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelCreator'
+              $ref: "#/components/schemas/MainActor"
       responses:
-        '201':
-          description: Marvel creator has been created successfully
+        "201":
+          description: Main actor has been created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelCreator'
-        '400':
+                $ref: "#/components/schemas/MainActor"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-creators/{_id}:
+                $ref: "#/components/schemas/Error"
+  /main-actors/{_id}:
     get:
-      description: Get a Marvel creator
+      description: Get a recorded main actor
       security:
         - bearerAuth: []
-      tags:
-        - Marvel creators
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Returns a Marvel creator
+        "200":
+          description: Returns a main actor
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/MarvelCreator'
-        '404':
-          description: Marvel creator with this ID is not found
+                $ref: "#/components/schemas/MainActor"
+        "404":
+          description: Main actor with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     patch:
-      description: Updates a Marvel creator
+      description: Updates a main actor
       security:
         - bearerAuth: []
-      tags:
-        - Marvel creators
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelCreator'
+              $ref: "#/components/schemas/MainActor"
       responses:
-        '200':
-          description: Marvel creator has been updated successfully
+        "200":
+          description: Main actor has been updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelCreator'
-        '400':
+                $ref: "#/components/schemas/MainActor"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
-      description: Deletes a Marvel creator
+      description: Deletes a main actor
       security:
         - bearerAuth: []
-      tags:
-        - Marvel creators
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Marvel creator has been deleted successfully
+        "200":
+          description: Main actor has been deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 example: {}
-        '404':
-          description: Marvel creator with this ID is not found
+        "404":
+          description: Main actor with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-events:
+                $ref: "#/components/schemas/Error"
+  /family-members:
     get:
-      description: Returns a list of Marvel events
+      description: Returns a list of the recorded family members and their number of the role.
       security:
         - bearerAuth: []
-      tags:
-        - Marvel events
       responses:
-        '200':
-          description: List of Marvel events returned successfully
+        "200":
+          description: List of family members returned successfully
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MarvelEvents'
-        '500':
+                  $ref: "#/components/schemas/FamilyMember"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
-      description: Creates a new Marvel event
+      description: Creates a new family member
       security:
         - bearerAuth: []
-      tags:
-        - Marvel events
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelEvent'
+              $ref: "#/components/schemas/FamilyMember"
       responses:
-        '201':
-          description: Marvel event has been created successfully
+        "201":
+          description: Family member has been created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelEvent'
-        '400':
+                $ref: "#/components/schemas/FamilyMember"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-events/{_id}:
+                $ref: "#/components/schemas/Error"
+  /family-members/{_id}:
     get:
-      description: Get a Marvel event
+      description: Get a family member
       security:
         - bearerAuth: []
-      tags:
-        - Marvel events
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Returns a Marvel event
+        "200":
+          description: Returns a family member
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/MarvelEvent'
-        '404':
-          description: Marvel event with this ID is not found
+                $ref: "#/components/schemas/FamilyMember"
+        "404":
+          description: Family member with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     patch:
-      description: Updates a Marvel event
+      description: Updates a family member
       security:
         - bearerAuth: []
-      tags:
-        - Marvel events
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MarvelEvent'
+              $ref: "#/components/schemas/FamilyMember"
       responses:
-        '200':
-          description: Marvel event has been updated successfully
+        "200":
+          description: Family member has been updated successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MarvelEvent'
-        '400':
+                $ref: "#/components/schemas/FamilyMember"
+        "400":
           description: Invalid request when the post data is invalid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
-      description: Deletes a Marvel event
+      description: Deletes a family member
       security:
         - bearerAuth: []
-      tags:
-        - Marvel events
       parameters:
         - in: path
           name: _id
           required: true
-          schema: 
+          schema:
             type: string
       responses:
-        '200':
-          description: Marvel event has been deleted successfully
+        "200":
+          description: Family member has been deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 example: {}
-        '404':
-          description: Marvel event with this ID is not found
+        "404":
+          description: Family member with this ID is not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '500':
+                $ref: "#/components/schemas/Error"
+        "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-stories:
-    get:
-      description: Returns a list of Marvel stories
-      security:
-        - bearerAuth: []
-      tags:
-        - Marvel stories
-      responses:
-        '200':
-          description: List of Marvel stories returned successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MarvelStory'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      description: Creates a new Marvel story
-      security:
-        - bearerAuth: []
-      tags:
-        - Marvel stories
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MarvelStory'
-      responses:
-        '201':
-          description: Marvel story has been created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MarvelStory'
-        '400':
-          description: Invalid request when the post data is invalid
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /marvel-stories/{_id}:
-    get:
-      description: Get a Marvel story
-      security:
-        - bearerAuth: []
-      tags:
-        - Marvel stories
-      parameters:
-        - in: path
-          name: _id
-          required: true
-          schema: 
-            type: string
-      responses:
-        '200':
-          description: Returns a Marvel story
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/MarvelStory'
-        '404':
-          description: Marvel story with this ID is not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      description: Updates a Marvel story
-      security:
-        - bearerAuth: []
-      tags:
-        - Marvel stories
-      parameters:
-        - in: path
-          name: _id
-          required: true
-          schema: 
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/MarvelStory'
-      responses:
-        '200':
-          description: Marvel event has been updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MarvelStory'
-        '400':
-          description: Invalid request when the post data is invalid
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    delete:
-      description: Deletes a Marvel story
-      security:
-        - bearerAuth: []
-      tags:
-        - Marvel stories
-      parameters:
-        - in: path
-          name: _id
-          required: true
-          schema: 
-            type: string
-      responses:
-        '200':
-          description: Marvel story has been deleted successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                example: {}
-        '404':
-          description: Marvel story with this ID is not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /users:
-    get:
-      description: Returns a list of users
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      responses:
-        '200':
-          description: List of users returned successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    post:
-      description: Creates a new user
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '201':
-          description: User has been created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid request when the post data is invalid
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /users/{_id}:
-    get:
-      description: Get a user
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      parameters:
-        - in: path
-          name: _id
-          required: true
-          schema: 
-            type: string
-      responses:
-        '200':
-          description: Returns a user
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/User'
-        '404':
-          description: User with this ID is not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      description: Updates a user
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      parameters:
-        - in: path
-          name: _id
-          required: true
-          schema: 
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '200':
-          description: User has been updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid request when the post data is invalid
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    delete:
-      description: Deletes a user
-      security:
-        - bearerAuth: []
-      tags:
-        - Users
-      parameters:
-        - in: path
-          name: _id
-          required: true
-          schema: 
-            type: string
-      responses:
-        '200':
-          description: User has been deleted successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                example: {}
-        '404':
-          description: User with this ID is not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 components:
   securitySchemes:
-    bearerAuth:            
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Appearance:
+    Movie:
       type: object
       required:
-        - gender
-        - height
-        - weight
-        - eyeColor
-        - hairColor
+        - foreignTitle
+        - hungarianTitle
+        - director
+        - releaseYear
+        - lenght
+        - genre
+        - imdbRank
+        - imdbAverage
+        - imdbID
+        - mainActor1
       properties:
-        gender:
+        foreignTitle:
           type: string
-        race:
+        hungarianTitle:
           type: string
-        height:
-          type: [string]
-        weight:
-          type: [string]
-        eyeColor:
+        director:
           type: string
-        hairColor:
+        releaseYear:
+          type: number
+        lenght:
+          type: number
+        genre:
           type: string
-    Biography:
-      type: object
-      required: 
-        - placeOfBirth
-        - firstAppearance
-      properties:
-        fullName: 
+        imdbRank:
+          type: number
+        imdbAverage:
+          type: number
+        imdbID:
           type: string
-        alterEgos:
+        mainActor1:
           type: string
-        aliases: 
-          type: [string]   
-        placeOfBirth: 
-          type: string
-        firstAppearance: 
-          type: string
-        publisher:
-          type: string,
-        alignment:
-          type: string
-    Connections:
-      type: object
-      required: 
-        - relatives
-      properties:
-        groupAffiliation:
-          type: string
-        relatives: 
-          type: string
-    Images:
+    WatchedMovie:
       type: object
       required:
-        - xs
+        - foreignTitle
+        - hungarianTitle
+        - director
+        - releaseYear
+        - lenght
+        - genre
+        - imdbRank
+        - imdbAverage
+        - imdbID
+        - mainActor1
+        - timestampOfWatching
       properties:
-        xs: 
+        foreignTitle:
           type: string
-        sm: 
+        hungarianTitle:
           type: string
-        md: 
+        director:
           type: string
-        lg: 
-          type: string
-    MarvelCharacter:
-      type: object
-      required: 
-       - thumbnail
-       - profile
-       - url
-       - stories
-      properties:
-        thumbnail:
-          type: string
-        profile:
-          type: string
-        url:
-          type: string
-        stories:
+        releaseYear:
           type: number
-    MarvelComic:
-      type: object
-      required: 
-       - thumbnail
-       - title
-       - pageCount
-       - url
-      properties:
-        thumbnail:
-          type: string
-        title:
-          type: string
-        pageCount:
+        lenght:
           type: number
-        url:
+        genre:
           type: string
-    MarvelCreator:
+        imdbRank:
+          type: number
+        imdbAverage:
+          type: number
+        imdbID:
+          type: string
+        mainActor1:
+          type: string
+        timestampOfWatching:
+          type: string
+    Director:
       type: object
-      required: 
-       - fullName
-       - thumbnail
-       - comicsAvailable
-       - url
+      required:
+        - fullName
+        - nationality
+        - dateOfBirth
+        - mostFamousMovie
       properties:
         fullName:
           type: string
-        thumbnail:
+        nationality:
           type: string
-        comicsAvailable:
-          type: number
-        url:
+        dateOfBirth:
           type: string
-    MarvelEvent:
-      type: object
-      required: 
-       - title
-       - description
-       - modified
-       - url
-      properties:
-        title:
+        mostFamousMovie:
           type: string
-        description:
-          type: string
-        modified:
-          type: string
-        url:
-          type: string
-    MarvelStory:
+    MainActor:
       type: object
       required:
-        - name
-        - title
-      properties: 
-        name:
+        - fullName
+        - nationality
+        - dateOfBirth
+        - mostFamousMovie
+      properties:
+        fullName:
           type: string
-        title: 
+        nationality:
           type: string
-    Powerstats:
+        dateOfBirth:
+          type: string
+        mostFamousMovie:
+          type: string
+    FamilyMember:
       type: object
       required:
-        - intelligence
-        - strength
-        - speed
-        - power
-        - combat
-      properties:
-        intelligence:
-          type: number
-        strength:
-          type: number
-        speed:
-          type: number
-        durability:
-          type: number
-        power:
-          type: number
-        combat:
-          type: number
-    Superhero:
-      type: object
-      required:
-        - name
-        - slug
-        - powerstats
-        - appearance
-        - biography
-        - work
-        - connections
-        - images
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        powerstats: 
-          type: object
-          $ref: '#/components/schemas/Powerstats'
-        appearance: 
-          type: object
-          $ref: '#/components/schemas/Appearance'
-        biography: 
-          type: object
-          $ref: '#/components/schemas/Biography'
-        work: 
-          type: object
-          $ref: '#/components/schemas/Work'
-        connections: 
-          type: object
-          $ref: '#/components/schemas/Connections'
-        images: 
-          type: object
-          $ref: '#/components/schemas/Images'
-    User:
-      type: object
-      required: 
+        - first_name
+        - last_name
         - email
+        - role
+        - password
+        - nickname
+        - favouriteGenre
+        - favouriteMovie
       properties:
         first_name:
           type: string
@@ -1301,21 +859,15 @@ components:
           type: string
         email:
           type: string
-        password:
-          type: string
         role:
           type: number
-        accessToken:
+        password:
           type: string
-    Work:
-      type: object
-      required: 
-        - occupation
-        - base
-      properties:
-        occupation:
+        nickname:
           type: string
-        base:
+        favouriteGenre:
+          type: string
+        favouriteMovie:
           type: string
     Error:
       type: object
