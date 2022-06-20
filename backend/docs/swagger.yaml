@@ -26,6 +26,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /movies/edit/0:
     post:
       description: Creates a new movie
       security:
@@ -171,6 +172,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /watched-movies/edit/0:
     post:
       description: Creates a new watched movie
       security:
@@ -316,6 +318,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /directors/edit/0:
     post:
       description: Creates a new director
       security:
@@ -461,6 +464,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /main-actors/edit/0:
     post:
       description: Creates a new main actor
       security:
@@ -606,6 +610,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /family-members/edit/0:
     post:
       description: Creates a new family member
       security:
