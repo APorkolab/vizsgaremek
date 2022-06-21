@@ -27,7 +27,7 @@ mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {
 	})
 	.then(
 		// require('./seed/seeder'), // Seed the database, ONLY ONCE MUST RUN
-		//  logger.info('Data has been seeded into the database.'),
+		// logger.info('Data has been seeded into the database.'),
 		conn => logger.info('Connected to MongoDB Atlas'),
 	).catch(err => logger.error(err));
 
@@ -51,10 +51,10 @@ app.use('/watched-movies', authencticateJwt, require('./controllers/watched-movi
 app.use('/login', require('./controllers/login/router'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/', (req, res, next) => {
-	console.log(req.url);
-	res.send('The FaMoBase v.1.0.0 backend is working!');
-});
+// app.use('/', (req, res, next) => {
+// 	console.log(req.url);
+// 	res.send('The FaMoBase v.1.0.0 backend is working!');
+// });
 app.use((err, req, res, next) => {
 	res.status = 500;
 	res.json({
