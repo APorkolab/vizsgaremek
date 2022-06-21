@@ -1,3 +1,5 @@
+#Teljes dokumentáció és user storyk a FaMoBase v.1.0.0. nevű programhoz
+
 # Felhasználók és rendszergazdák számára készített dokumentáció - FaMoBase v.1.0
 
 ## **1. Az alkalmazás telepítése**
@@ -76,7 +78,7 @@ A program főbb funkciói szerint képes a már megnézett filmeket és a tervez
 
 ## 1. Főoldal
 
-| Funkció neve    | Tervezett funkció leírása                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
+| Funkció neve    | Tervezett funkció leírása:                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------------- |
 | Belépési form   | A felhasználó authorizációja és authentikációja megtörténik.                                                                                    | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
 | Üdvözlőképernyő | A felhasználó megismerkedik a FaMoBase program logójával és a program alapvető designjével, majd továbbhaladhat a főbb programfelületre.        | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
