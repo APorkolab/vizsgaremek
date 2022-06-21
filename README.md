@@ -30,7 +30,7 @@
 
    - A /frontend/dist/frontend mappa tartalmát be kell másolni a /backend/public mappába.
 
-    VAGY
+   VAGY
 
 7.2. Automatikus telepítés esetén:
 
@@ -76,7 +76,7 @@ A program főbb funkciói szerint képes a már megnézett filmeket és a tervez
 
 ## 1. Főoldal
 
-| Funkció neve    | \*_Tervezett funkció leírása:_                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
+| Funkció neve    | Tervezett funkció leírása                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------------- |
 | Belépési form   | A felhasználó authorizációja és authentikációja megtörténik.                                                                                    | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
 | Üdvözlőképernyő | A felhasználó megismerkedik a FaMoBase program logójával és a program alapvető designjével, majd továbbhaladhat a főbb programfelületre.        | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
