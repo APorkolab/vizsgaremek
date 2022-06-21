@@ -24,15 +24,18 @@
      - A terminálon be kell lépni a /frontend mappába és futtatni az `npm install --force` VAGY a `npm install --legacy-peer-deps` parancsot.
      - **FIGYELEM! Az "angular-feather" kiegészítő miatt a _frontend mappában_ "sima" `npm install` parancs nem használható!**
 
-7. Manuális telepítés esetén:
+7.1. Manuális telepítés esetén:
 
    - A terminálban ki kell adni az `ng build` parancsot.
 
    - A /frontend/dist/frontend mappa tartalmát be kell másolni a /backend/public mappába.
 
-8. Automatikus telepítés esetén:
+    VAGY
+
+7.2. Automatikus telepítés esetén:
 
    - A terminálon be kell lépni a /backend mappába és futtatni az `npm run build` parancsot.
+   - Fontos, hogy csak az egyik módszer szerint kell telepíteni.
 
 ## **2. Az alkalmazás konfigurálása**
 
@@ -83,7 +86,7 @@ A program főbb funkciói szerint képes a már megnézett filmeket és a tervez
 
 ## 2-5. A megnézni tervezett filmek adatbázisa, a megnézett filmek adatbázisa, a rendezők adatbázisa, a főszereplők adatbázisának funkciói.
 
-| Funkció neve                                                              | \*_Tervezett funkció leírása:_                                                                                                                                                                                                                                                                                                                                                     | Felhasználói szerepkör esetén a tervezett működés leírása    | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Adminisztrátori szerepkör esetén a tervezett működés leírása                  |
+| Funkció neve                                                              | Tervezett funkció leírása:                                                                                                                                                                                                                                                                                                                                                     | Felhasználói szerepkör esetén a tervezett működés leírása    | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Adminisztrátori szerepkör esetén a tervezett működés leírása                  |
 | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
 | Listázás                                                                  | A bejelentkezés után, a főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített elemet, emellett az elemek utolsó oszlopában a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását. A program lapozófunkcióval van ellátva, tehát csak meghatározott számú entitást jelenít meg egyszerre.                      | Valamennyi, belépett felhasználó meg tudja nézni (role >=1). | Valamennyi, belépett felhasználó meg tudja nézni (role >=1).       | Valamennyi, belépett felhasználó meg tudja nézni (role >=1).                  |
 | Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben | A felvett adatok helyességének ellenőrzése automatikusan megtörténik. A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését. Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás. A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.                                                                                                           | A szerepkör nem tartalmaz szerkesztési jogot.                | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.                                   |
