@@ -1,4 +1,4 @@
-#Teljes dokumentáció és user storyk a FaMoBase v.1.0.0. nevű programhoz
+# Teljes dokumentáció és user storyk a FaMoBase v.1.0.0. nevű programhoz
 
 # Felhasználók és rendszergazdák számára készített dokumentáció - FaMoBase v.1.0
 
