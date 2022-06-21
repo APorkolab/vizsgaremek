@@ -1,3 +1,63 @@
+# Felhasználók és rendszergazdák számára készített dokumentáció - FaMoBase v.1.0
+
+## **1. Az alkalmazás telepítése**
+
+1. Ha nincs telepítve a Git verziókezelő szoftver, akkor a https://git-scm.com weboldalról töltsük le és telepítsük fel a főoldalon megtalálható változatok közül az operációs rendszerünknek megfelelőt.
+
+2. Ha nincs telepítve a NodeJS futtatókörnyezet, akkor a https://nodejs.org/en/ weboldalról töltsük le és telepítsük fel a főoldalon található, "LTS" megjelölésű változatot.
+
+3. Ha nincs telepítve az Angular keretrendszer a rendszeren, akkor azt a PowerShell-ben kiadott `npm i -g @angular/cli` paranccsal ezt tegyük meg.
+
+4. Ha nincs telepítve a Docker konténerizációs szoftver, akkor a https://docs.docker.com/get-docker/ weboldalról töltsük le és telepítsük fel az operációs rendszerünknek megfelelő változatot.
+
+5. Le kell klónozni az adott GitHub repository tartalmát. Tehát a PowerShell-ben a következő parancsot kell kiadni:
+
+   `git clone https://github.com/APorkolab/vizsgaremek.git`
+
+6. Telepíteni kell az alkalmazás függőségeit:
+
+   - Backend
+
+     - A terminálon be kell lépni a /backend mappába (`cd backend`) és futtatni az `npm i` parancsot.
+
+   - Frontend
+     - A terminálon be kell lépni a /frontend mappába és futtatni az `npm install --force` VAGY a `npm install --legacy-peer-deps` parancsot.
+     - **FIGYELEM! Az "angular-feather" kiegészítő miatt a _frontend mappában_ "sima" `npm install` parancs nem használható!**
+
+7. Manuális telepítés esetén:
+
+   - A terminálban ki kell adni az `ng build` parancsot.
+
+   - A /frontend/dist/frontend mappa tartalmát be kell másolni a /backend/public mappába.
+
+8. Automatikus telepítés esetén:
+
+   - A terminálon be kell lépni a /backend mappába és futtatni az `npm run build` parancsot.
+
+## **2. Az alkalmazás konfigurálása**
+
+- A _/frontend/environments_ mappában be kell állítani az API végpont elérési útvonalát:
+
+  - _environment.ts_ állomány: http://127.0.0.1:3000/
+  - _environment.prod.ts_ állomány: http://localhost:3000/
+
+## **3. Az alkalmazás indítása**
+
+- Mind a backend, mind a frontend az `npm start` paranccsal indítható.
+- Ha telepítve van Docker alkalmazás, akkor a következőképpen is el lehet indítani a FaMoBase v.1.0.0-t:
+
+1. El kell indítani a Docker Desktop alkalmazást.
+2. A /backend mappába belépve a terminálban ki kell adni az `npm run dev` parancsot.
+
+_Megjegyzés_:  
+A belépéshez egy érvényes e-mail-cím és jelszó páros (példa):
+
+| E-mail              | Jelszó           | Szerepkör szintje         |
+| ------------------- | ---------------- | ------------------------- |
+| hkubiak2f@nps.gov   | aqqwetgI6JcVnPRz | Felhasználó (1)           |
+| chunting0@tiny.cc   | aqqwetvO81NT     | Archivátor/Szerkesztő (2) |
+| rdurnan4@eepurl.com | aqqweHzfNxB1     | Adminisztrátor (3)        |
+
 # User storyk - FaMoBase v.1.0
 
 Jelen alkalmazás a **FaMoBase v.1.0** (**Fa**mily **Mo**vie Data**base** - családi filmadatbázis), melynek fő célja, hogy egy család (jelen esetben a Kovátsék) filmnézéseit nyilvántartsák.
@@ -6,451 +66,79 @@ A felhasználók esetében szerepkörök is vannak a profiljukhoz rendelve: a pr
 
 A program főbb funkciói szerint képes a már megnézett filmeket és a tervezett filmeket is számon tartani. Emellett a filmek főszereplőit és rendezőit is tárolja.
 
-# Adminisztrátori és felhasználói persona - user story
-
-## Főoldal
-
-> _A főoldal egy üdvözlő képernyő a FaMoBase program logójával._
-
-**Tervezett működés leírása:**
-
-Egy mobiloptimalizált felületen a felhasználó megismerkedik a FaMoBase program logójával és a program alapvető designjével, majd továbbhaladhat a főbb programfelületre.
-
-## A megnézni tervezett filmek adatbázisa
-
-A megnézni tervezett filmek adatbázisát valamennyi felhasználó meg tudja nézni (role >=1), azonban a módosításokat csupán a szerkesztői joggal rendelkező felhasználók (role>=2) kezdeményezhetnek. Az új elemek hozzáadását csupán adminisztrátorok (role = 3) hajthatják végre.
-
-***1. Listázás***
-
-A főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített filmet (ez az úgynevezett „tervezett filmek adatbázisa”), emellett a filmek utolsó oszlopában a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását.
-
-**Tervezett működés leírása:**
-
-A főoldalról való továbbklikkelés után az összes, adatbázisba már felvitt film listáját megjeleníti a program.
-
-A program lapozófunkcióval van ellátva, tehát csak meghatározott számú filmet jelenít meg egyszerre. Az adatbázis tartalmazza a film külföldi és magyar címét, a rendező nevét, a kiadás évét, a hosszát percben, a műfaját, az IMDB helyezését, az IMDB átlagát, valamint linket a film IMDB-oldalára.
-
-***2. Kulcsszó szerinti keresés***
-
-Akármelyik kulcsszóra lehet keresni.
-
-**Tervezett működés leírása:**
-
-A megadott kulcsszó alapján a filmek listája automatikusan frissül, a szűrt adatok megjelennek.
-
-***3. Rendezés különböző tulajdonságok alapján***
-
-Az oszlopokra való kattintás különbözőképpen rendezi sorrendbe az adatokat.
-
-**Tervezett működés leírása:**
-
--  A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a filmeket.
-
--  A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a filmeket.
-
-***4. Lapozhatóság***
-
-Csak meghatározott számú film jelenik meg a listázás során, a többi dokumentumot a program lapozható formában mutatja meg.
-
-**Tervezett működés leírása:**
-
--  A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek.
-
--  Van lehetőség egy „lapot” vissza és előretekerni.
-
-***5. Adatfelvitel***
-
-Új film adatai vihetők fel.
-
-**Tervezett működés leírása:**
-
-Az adatok megadásával egy új film adatait lehet felvinni, illetve az adatokban történő módosítás megjelenik a listázó oldalon – a szerkesztés közbeni adatvalidáció figyelmeztet az adatok formátumára.
-
--  Az oldalon lehetőség van arra, hogy az összes filmet listázó oldalra navigáljon vissza az alkalmazás.
-
-***6. Adatszerkesztés***
-
-A film valamennyi tárolt adata szerkeszthető (kivéve a belső ID-számot).
-
-**Tervezett működés leírása:**
-
--  A filmre kattintva a választott film adatait lehet szerkeszteni, a módosítás megjelenik a listázó oldalon.
-
--  Az oldalon lehetőség van arra, hogy az összes filmet listázó oldalra irányítson vissza az alkalmazás a sikeres vagy sikertelen szerkesztés után.
-
-**7. Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben**
-
-A felvett adatok helyességének ellenőrzése automatikusan megtörténik.
-
-**Tervezett működés leírása:**
-
--  A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését.
-
--  Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás.
-
--  A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.
-
-***8. Törlés***
-
-A kiválasztott film – a megerősítő üzenet jóváhagyásával - törölhető.
-
-**Tervezett működés leírása:**
-
--  A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés.
-
--  A megerősítő üzenet jóváhagyásával a film törölhető az adatbázisból.
-
--  A törlést követően frissül a listaoldal, ahol a már törölt film nem látható.
-
-## A megnézett filmek adatbázisa
-
-A megnézett filmek adatbázisát valamennyi felhasználó meg tudja nézni (role >=1), azonban a módosításokat csupán a szerkesztői joggal rendelkező felhasználók (role>=2) kezdeményezhetnek. Az új elemek hozzáadását csupán adminisztrátorok (role = 3) hajthatják végre.
-
-***1. Listázás***
-
-A főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített filmet (ez az úgynevezett „tervezett filmek adatbázisa”), emellett a filmek utolsó oszlopában a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását.
-
-**Tervezett működés leírása:**
-
-A főoldalról való továbbklikkelés után az összes, adatbázisba már felvitt film listáját megjeleníti a program.
-
-A program lapozófunkcióval van ellátva, tehát csak meghatározott számú filmet jelenít meg egyszerre. Az adatbázis tartalmazza a film külföldi és magyar címét, a rendező nevét, a kiadás évét, a hosszát percben, a műfaját, az IMDB helyezését, az IMDB átlagát, valamint linket a film IMDB-oldalára.
-
-***2. Kulcsszó szerinti keresés***
-
-Akármelyik kulcsszóra lehet keresni.
-
-**Tervezett működés leírása:**
-
-A megadott kulcsszó alapján a filmek listája automatikusan frissül, a szűrt adatok megjelennek.
-
-***3. Rendezés különböző tulajdonságok alapján***
-
-Az oszlopokra való kattintás különbözőképpen rendezi sorrendbe az adatokat.
-
-**Tervezett működés leírása:**
-
--  A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a filmeket.
-
--  A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a filmeket.
-
-***4. Lapozhatóság***
-
-Csak meghatározott számú film jelenik meg a listázás során, a többi dokumentumot a program lapozható formában mutatja meg.
-
-**Tervezett működés leírása:**
-
--  A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek.
-
--  Van lehetőség egy „lapot” vissza és előretekerni.
-
-***5. Adatfelvitel***
-
-Új film adatai vihetők fel.
-
-**Tervezett működés leírása:**
-
-Az adatok megadásával egy új film adatait lehet felvinni, illetve az adatokban történő módosítás megjelenik a listázó oldalon – a szerkesztés közbeni adatvalidáció figyelmeztet az adatok formátumára.
-
--  Az oldalon lehetőség van arra, hogy az összes filmet listázó oldalra navigáljon vissza az alkalmazás.
-
-***6. Adatszerkesztés***
-
-A film valamennyi tárolt adata szerkeszthető (kivéve a belső ID-számot).
-
-**Tervezett működés leírása:**
-
--  A filmre kattintva a választott film adatait lehet szerkeszteni, a módosítás megjelenik a listázó oldalon.
-
--  Az oldalon lehetőség van arra, hogy az összes filmet listázó oldalra irányítson vissza az alkalmazás a sikeres vagy sikertelen szerkesztés után.
-
-**7. Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben**
-
-A felvett adatok helyességének ellenőrzése automatikusan megtörténik.
-
-**Tervezett működés leírása:**
-
--  A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését.
-
--  Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás.
-
--  A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.
-
-***8. Törlés***
-
-A kiválasztott film – a megerősítő üzenet jóváhagyásával - törölhető.
-
-**Tervezett működés leírása:**
-
--  A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés.
-
--  A megerősítő üzenet jóváhagyásával a film törölhető az adatbázisból.
-
--  A törlést követően frissül a listaoldal, ahol a már törölt film nem látható.
-
-## Főszereplők adatbázisa
-
-A főszereplők adatbázisát a szerkesztők és az adminisztrátorok érhetik el (role >=2).  Módosításokat csupán szerkesztői joggal rendelkező felhasználók (role>=2) kezdeményezhetnek. Az új elemek hozzáadását csupán adminisztrátorok (role = 3) hajthatják végre.
-
-***1. Listázás***
-
-A főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített főszereplőt, emellett az utolsó oszlopban a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását.
-
-**Tervezett működés leírása:**
-
-A főoldalról való továbbklikkelés után az összes, adatbázisba már felvitt főszereplők listáját megjeleníti a program.
-
-A program lapozófunkcióval van ellátva, tehát csak meghatározott számú főszereplőt jelenít meg egyszerre. Az adatbázis tartalmazza a főszereplő teljes nevét, nemzetiségét, születési dátumát és a leghíresebb filmet, melyben szerepelt.
-
-***2. Kulcsszó szerinti keresés***
-
-Akármelyik kulcsszóra lehet keresni.
-
-**Tervezett működés leírása:**
-
-A megadott kulcsszó alapján a főszereplők listája automatikusan frissül, a szűrt adatok megjelennek.
-
-***3. Rendezés különböző tulajdonságok alapján***
-
-Az oszlopokra való kattintás különbözőképpen rendezi sorrendbe az adatokat.
-
-**Tervezett működés leírása:**
-
--  A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a főszereplőket.
-
--  A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a főszereplőket.
-
-***4. Lapozhatóság***
-
-Csak meghatározott számú film jelenik meg a listázás során, a többi dokumentumot a program lapozható formában mutatja meg.
-
-**Tervezett működés leírása:**
-
--  A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek.
-
--  Van lehetőség egy „lapot” vissza és előretekerni.
-
-***5. Adatfelvitel***
-
-Új főszereplő adatai vihetők fel.
-
-**Tervezett működés leírása:**
-
-Az adatok megadásával egy új főszereplő adatait lehet felvinni, illetve az adatokban történő módosítás megjelenik a listázó oldalon – a szerkesztés közbeni adatvalidáció figyelmeztet az adatok formátumára.
-
--  Az oldalon lehetőség van arra, hogy az összes főszereplőt listázó oldalra navigáljon vissza az alkalmazás.
-
-***6. Adatszerkesztés***
-
-A főszereplő valamennyi tárolt adata szerkeszthető (kivéve a belső ID-számot).
-
-**Tervezett működés leírása:**
-
--  A filmre kattintva a választott főszereplő adatait lehet szerkeszteni, a módosítás megjelenik a listázó oldalon.
-
--  Az oldalon lehetőség van arra, hogy az összes főszereplőt listázó oldalra irányítson vissza az alkalmazás a sikeres vagy sikertelen szerkesztés után.
-
-**7. Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben**
-
-A felvett adatok helyességének ellenőrzése automatikusan megtörténik.
-
-**Tervezett működés leírása:**
-
--  A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését.
-
--  Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás.
-
--  A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.
-
-***8. Törlés***
-
-A kiválasztott főszereplő – a megerősítő üzenet jóváhagyásával - törölhető.
-
-**Tervezett működés leírása:**
-
--  A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés.
-
--  A megerősítő üzenet jóváhagyásával a főszereplő törölhető az adatbázisból.
-
--  A törlést követően frissül a listaoldal, ahol a már törölt főszereplő nem látható.
-
-## Rendezők adatbázisa
-
-A rendezők adatbázisát a szerkesztők és az adminisztrátorok érhetik el (role >=2).  Módosításokat csupán szerkesztői joggal rendelkező felhasználók (role>=2) kezdeményezhetnek. Az új elemek hozzáadását csupán adminisztrátorok (role = 3) hajthatják végre.
-
-***1. Listázás***
-
-A főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített rendezőt, emellett az utolsó oszlopban a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását.
-
-**Tervezett működés leírása:**
-
-A főoldalról való továbbklikkelés után az összes, adatbázisba már felvitt filmrendezőt megjeleníti a program.
-
-A program lapozófunkcióval van ellátva, tehát csak meghatározott számú rendezőt jelenít meg egyszerre. Az adatbázis tartalmazza a rendező teljes nevét, nemzetiségét, születési dátumát és leghíresebb filmjének nevét.
-
-***2. Kulcsszó szerinti keresés***
-
-Akármelyik kulcsszóra lehet keresni.
-
-**Tervezett működés leírása:**
-
-A megadott kulcsszó alapján a rendezők listája automatikusan frissül, a szűrt adatok megjelennek.
-
-***3. Rendezés különböző tulajdonságok alapján***
-
-Az oszlopokra való kattintás különbözőképpen rendezi sorrendbe az adatokat.
-
-**Tervezett működés leírása:**
-
--  A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a rendezőket.
-
--  A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a rendezőket.
-
-***4. Lapozhatóság***
-
-Csak meghatározott számú rendező jelenik meg a listázás során, a többi adatot a program lapozható formában mutatja meg.
-
-**Tervezett működés leírása:**
-
--  A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek.
-
--  Van lehetőség egy „lapot” vissza és előretekerni.
-
-***5. Adatfelvitel***
-
-Új rendező adatai vihetők fel.
-
-**Tervezett működés leírása:**
-
-Az adatok megadásával egy új rendező adatait lehet felvinni, illetve az adatokban történő módosítás megjelenik a listázó oldalon – a szerkesztés közbeni adatvalidáció figyelmeztet az adatok formátumára.
-
--  Az oldalon lehetőség van arra, hogy az összes rendezőt listázó oldalra navigáljon vissza az alkalmazás.
-
-***6. Adatszerkesztés***
-
-A rendező valamennyi tárolt adata szerkeszthető (kivéve a belső ID-számot).
-
-**Tervezett működés leírása:**
-
--  A választott rendező adatait lehet szerkeszteni, a módosítás megjelenik a listázó oldalon.
-
--  Az oldalon lehetőség van arra, hogy az összes rendezőt listázó oldalra irányítson vissza az alkalmazás a sikeres vagy sikertelen szerkesztés után.
-
-**7. Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben**
-
-A felvett adatok helyességének ellenőrzése automatikusan megtörténik.
-
-**Tervezett működés leírása:**
-
--  A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését.
-
--  Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás.
-
--  A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.
-
-***8. Törlés***
-
-A kiválasztott rendező – a megerősítő üzenet jóváhagyásával - törölhető.
-
-**Tervezett működés leírása:**
-
--  A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés.
-
--  A megerősítő üzenet jóváhagyásával a rendező törölhető az adatbázisból.
-
--  A törlést követően frissül a listaoldal, ahol a már törölt rendező nem látható.
-
-## Családtagok adatbázisa
-
-A családtagok adatbázisához csak az adminisztrátori jogokkal rendelkező (role = 3) felhasználók férnek hozzá: tehát megtekintési, módosítási joguk is csak nekik van.
-
-***1. Listázás***
-
-A főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített családtagot. A felületen lehetőség van adathelyesbítésre, valamint új adat rögzítésére is.
-
-**Tervezett működés leírása:**
-
-Alapesetben az összes, adatbázisba már felvitt családtag listáját megjeleníti a program.
-
-A program lapozófunkcióval van ellátva, tehát csak meghatározott számú családtagot jelenít meg egyszerre. Az adatbázis tartalmazza a családtag kereszt- és vezetéknevét, a kedvenc filmes műfaját és a kedvenc filmjét. Jogosultságkezelési szempontból a táblázat tartalmazza a felhasználó jogkörét illetve a rokonság fokát is.
-
-***2. Kulcsszó szerinti keresés***
-
-Akármelyik kulcsszóra lehet keresni.
-
-**Tervezett működés leírása:**
-
-A megadott kulcsszó alapján a családtagok listája automatikusan frissül, a szűrt adatok megjelennek.
-
-***3. Rendezés különböző tulajdonságok alapján***
-
-Az oszlopokra való kattintás különbözőképpen rendezi sorrendbe az adatokat.
-
-**Tervezett működés leírása:**
-
--  A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a filmeket.
-
--  A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a filmeket.
-
-***4. Lapozhatóság***
-
-Csak meghatározott számú családtag jelenik meg a listázás során, a többi adatot a program lapozható formában mutatja meg.
-
-**Tervezett működés leírása:**
-
--  A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek.
-
--  Van lehetőség egy „lapot” vissza és előretekerni.
-
-***5. Adatfelvitel***
-
-Új családtag adatai vihetők fel.
-
-**Tervezett működés leírása:**
-
-Az adatok megadásával egy új családtag adatait lehet felvinni, illetve az adatokban történő módosítás megjelenik a listázó oldalon – a szerkesztés közbeni adatvalidáció figyelmeztet az adatok formátumára.
-
--  Az oldalon lehetőség van arra, hogy az összes családtagot listázó oldalra navigáljon vissza az alkalmazás.
-
-***6. Adatszerkesztés***
-
-Az adott családtag valamennyi tárolt adata szerkeszthető (kivéve a belső ID-számot).
-
-**Tervezett működés leírása:**
-
--  A választott családtag adatait lehet szerkeszteni, a módosítás megjelenik a listázó oldalon.
-
--  Az oldalon lehetőség van arra, hogy az összes családtagotlistázó oldalra irányítson vissza az alkalmazás a sikeres vagy sikertelen szerkesztés után.
-
-**7. Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben**
-
-A felvett adatok helyességének ellenőrzése automatikusan megtörténik.
-
-**Tervezett működés leírása:**
-
--  A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését.
-
--  Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás.
-
--  A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.
-
-***8. Törlés***
-
-A kiválasztott családtag – a megerősítő üzenet jóváhagyásával - törölhető.
-
-**Tervezett működés leírása:**
-
--  A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés.
-
--  A megerősítő üzenet jóváhagyásával a családtag törölhető az adatbázisból.
-
--  A törlést követően frissül a listaoldal, ahol a már törölt családtag nem látható.
+|                                         | Adminisztrátori szerepkör                                                                    | Archivátor/Szerkesztő szerepkör                                                                                                        | Felhasználói szerepkör                                                                                             |
+| --------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Adatbázisban rögzített értékük ("role") | 3                                                                                            | 2                                                                                                                                      | 1                                                                                                                  |
+| Jogaik                                  | Minden táblázatot megtekinthet, és bármely entitást létrehozhat, szerkeszthet vagy törölhet. | A családtagok kivételével minden táblázatot megtekinthet, és bármelyiket szerkesztheti, de nem hozhat létre vagy törölhet entitásokat. | A családtagok kivételével minden táblát megtekinthet, de nem hozhat létre, szerkeszthet vagy törölhet entitásokat. |
+
+## 1. Főoldal
+
+| Funkció neve    | \*_Tervezett funkció leírása:_                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------------- |
+| Belépési form   | A felhasználó authorizációja és authentikációja megtörténik.                                                                                    | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
+| Üdvözlőképernyő | A felhasználó megismerkedik a FaMoBase program logójával és a program alapvető designjével, majd továbbhaladhat a főbb programfelületre.        | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
+| Fejléc          | Tájékoztatja a felhasználót a jogairól és megjeleníti a rögzített neve. Egy gomb segítségével lehetővé teszi a kijelentést és a bejelentkezést. | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
+| Oldalsáv        | A felhasználó az oldalsávon elérheti az összes oldalt.                                                                                          | Valamennyi oldal elérhető.                                   | A családtagok listáján kívül valamennyi oldal elérhető.            | A családtagok listáján kívül valamennyi oldal elérhető.   |
+| Lábléc          | A felhasználók copyright információkat kaphatnak.                                                                                               | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
+
+## 2-5. A megnézni tervezett filmek adatbázisa, a megnézett filmek adatbázisa, a rendezők adatbázisa, a főszereplők adatbázisának funkciói.
+
+| Funkció neve                                                              | \*_Tervezett funkció leírása:_                                                                                                                                                                                                                                                                                                                                                     | Felhasználói szerepkör esetén a tervezett működés leírása    | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Adminisztrátori szerepkör esetén a tervezett működés leírása                  |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| Listázás                                                                  | A bejelentkezés után, a főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített elemet, emellett az elemek utolsó oszlopában a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását. A program lapozófunkcióval van ellátva, tehát csak meghatározott számú entitást jelenít meg egyszerre.                      | Valamennyi, belépett felhasználó meg tudja nézni (role >=1). | Valamennyi, belépett felhasználó meg tudja nézni (role >=1).       | Valamennyi, belépett felhasználó meg tudja nézni (role >=1).                  |
+| Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben | A felvett adatok helyességének ellenőrzése automatikusan megtörténik. A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését. Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás. A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.                                                                                                           | A szerepkör nem tartalmaz szerkesztési jogot.                | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.                                   |
+| Adott elem módosítása                                                     | A listázott elemek közül a szerkesztési gombra kattintás után egy form jelenik meg, ahol (a belső ID-számot kivéve) valamennyi tulajdonság szerkeszthető. A form validálva van, tehát érvénytelen adatot nem lehet az adatbázisba küldeni. Az oldalon lehetőség van arra, hogy az összes entitást listázó oldalra navigáljon vissza az alkalmazás.                                 | Nem tud szerkeszteni.                                        | Tud módosítani (role>=2).                                          | Tud módosítani (role>=2).                                                     |
+| Adott elem törlése                                                        | A listázott elemek közül a törlés gombra kattintás után egy megerősítő ablak jelenik meg, majd jóváhagyás után az adott elem törlődik. A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés. A megerősítő üzenet jóváhagyásával a film törölhető az adatbázisból. A törlést követően frissül a listaoldal, ahol a már törölt film nem látható. | Nem tud törölni.                                             | Tud törölni (role>=2) .                                            | Tud törölni (role>=2).                                                        |
+| Új elem hozzáadása                                                        | A táblázat felett egy zöld, "Add a new..." feliratú gomb jelenik meg, amira rákattintva új form nyílik meg, ahol az új entitás adatai beírhatók. A form validálva van, tehát érvénytelen adatot nem lehet az adatbázisba küldeni. Az oldalon lehetőség van arra, hogy az összes elemet listázó oldalra navigáljon vissza az alkalmazás.                                            | Nem tud új elemet hozzáadni.                                 | Nem tud új elemet hozzáadni.                                       | Az új elemek hozzáadását csupán adminisztrátorok (role = 3) hajthatják végre. |
+| Kulcsszó szerinti keresés                                                 | Akármelyik kulcsszóra lehet keresni. A megadott kulcsszó alapján a filmek listája automatikusan frissül, a szűrt adatok megjelennek.                                                                                                                                                                                                                                               | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.                                   |
+| Rendezés különböző tulajdonságok alapján                                  | Az oszlopok melletti ikonra való kattintás különbözőképpen rendezi sorrendbe az adatokat. A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a filmeket. A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a filmeket. A rendezhetőségről egy modal tájékoztatja a felhasználót.                                    | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.                                   |
+| Lapozhatóság                                                              | Csak meghatározott számú entitás jelenik meg a listázás során, a többi dokumentumot a program lapozható formában mutatja meg. A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek. Van lehetőség egy „lapot” vissza és előretekerni.                                                                                                                 | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.                                   |
+
+## 6. Családtagok adatbázisa
+
+| Funkció neve                                                              | \*_Tervezett funkció leírása:_                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Felhasználói szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Adminisztrátori szerepkör esetén a tervezett működés leírása                  |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| Listázás                                                                  | A családtagok adatbázisához csak az adminisztrátori jogokkal rendelkező (role = 3) felhasználók férnek hozzá: tehát megtekintési, módosítási joguk is csak nekik van. A program megjeleníti az összes, adatbázisba rögzített családtagot. A felületen lehetőség van adathelyesbítésre, valamint új adat rögzítésére is. Alapesetben az összes, adatbázisba már felvitt családtag listáját megjeleníti a program. Az adatbázis tartalmazza a családtag kereszt- és vezetéknevét, a kedvenc filmes műfaját és a kedvenc filmjét. Jogosultságkezelési szempontból a táblázat tartalmazza a felhasználó jogkörét illetve a rokonság fokát is. | Nem tudja megnézni.                                       | Nem tudja megnézni.                                                | Meg tudja nézni.                                                              |
+| Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben | A felvett adatok helyességének ellenőrzése automatikusan megtörténik. A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését. Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás. A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.                                                                                                                                                                                                                                                                                                                                                                  | A szerepkör nem tartalmaz szerkesztési jogot.             | A szerepkör nem tartalmaz szerkesztési jogot.                      | Szerkeszteni tudja.                                                           |
+| Adott elem módosítása                                                     | A listázott elemek közül a szerkesztési gombra kattintás után egy form jelenik meg, ahol (a belső ID-számot kivéve) valamennyi tulajdonság szerkeszthető. A form validálva van, tehát érvénytelen adatot nem lehet az adatbázisba küldeni. Az oldalon lehetőség van arra, hogy az összes családtagot listázó oldalra navigáljon vissza az alkalmazás.                                                                                                                                                                                                                                                                                     | A szerepkör nem tartalmaz szerkesztési jogot.             | A szerepkör nem tartalmaz szerkesztési jogot.                      | Tud módosítani (role=3).                                                      |
+| Adott elem törlése                                                        | A listázott családtagok közül a törlés gombra kattintás után egy megerősítő ablak jelenik meg, majd jóváhagyás után az adott elem törlődik. A törlés gombra kattintással megerősítő ablak ugrik fel, melyen elvethető a téves törlés. A megerősítő üzenet jóváhagyásával a film törölhető az adatbázisból. A törlést követően frissül a listaoldal, ahol a már törölt családtag már nem látható.                                                                                                                                                                                                                                          | A szerepkör nem tartalmaz szerkesztési jogot.             | A szerepkör nem tartalmaz szerkesztési jogot.                      | A felhasználók törlését csupán adminisztrátorok (role = 3) hajthatják végre.  |
+| Új elem hozzáadása                                                        | A táblázat felett egy zöld, "Add a new..." feliratú gomb jelenik meg, amira rákattintva új form nyílik meg, ahol az új entitás adatai beírhatók. A form validálva van, tehát érvénytelen adatot nem lehet az adatbázisba küldeni. Az oldalon lehetőség van arra, hogy az összes családtagot listázó oldalra navigáljon vissza az alkalmazás.                                                                                                                                                                                                                                                                                              | Nem tud új elemet hozzáadni.                              | Nem tud új elemet hozzáadni.                                       | Az új elemek hozzáadását csupán adminisztrátorok (role = 3) hajthatják végre. |
+| Kulcsszó szerinti keresés                                                 | Akármelyik kulcsszóra lehet keresni. A megadott kulcsszó alapján a lista automatikusan frissül, a szűrt adatok megjelennek.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Nem tudja megnézni.                                       | Nem tudja megnézni.                                                | Tudja használni.                                                              |
+| Rendezés különböző tulajdonságok alapján                                  | Az oszlopok melletti ikonra való kattintás különbözőképpen rendezi sorrendbe az adatokat. A szám típusú adatok alapján növekvő és csökkenő sorrendben lehet rendezni a filmeket. A szöveges adatok alapján ABC-rend szerint és fordított ABC-sorrendben is lehet rendezni a családtagokat. A rendezhetőségről egy modal tájékoztatja a felhasználót.                                                                                                                                                                                                                                                                                      | Nem tudja megnézni.                                       | Nem tudja megnézni.                                                | Tudja használni.                                                              |
+| Lapozhatóság                                                              | Csak meghatározott számú családtag jelenik meg a listázás során, a többi dokumentumot a program lapozható formában mutatja meg. A lapok sorszámára kattintva az ott listázott adatok megnézhetőek, áttekinthetőek. Van lehetőség egy „lapot” vissza és előretekerni.                                                                                                                                                                                                                                                                                                                                                                      | Nem tudja megnézni.                                       | Nem tudja megnézni.                                                | Tudja használni.                                                              |
+
+# Fejlesztői dokumentáció - FaMoBase v.1.0
+
+## **Fejlesztési követelmények, melynek a program megfelelt:**
+
+### Backend:
+
+- [x] MongoDB alapú aladatbázis-->MongoDB Atlas felhőalapú tárolás.
+- [x] Legalább 5 féle entitás legyen: megtekintendő filmek, megtekintett filmek, rendezők, főszereplők, családtagok listája.
+- [x] A backend NodeJS (Express) alapú legyen, saját API szolgálja ki a frontendet - legalább 10 különböző végpont legyen.
+
+### Frontend:
+
+- [x] A frontend Angular alapú legyen, legalább 5 külön oldal legyen, model-service-component architektúrába szervezve.
+- [x] Bootstrap használata engedélyezett, reszponzív legyen.
+- [x] Authetikáció és authorizáció: a felület bizonyos oldalai csak belépés után legyenek elérhetőek (JWT-autentikáció).
+- [x] Clean kód elveit kövesse az alkalmazás összes eleme.
+
+### Tesztelés:
+
+- [x] Minden API útvonalhoz legalább egy tesztet kell írni: legyen legalább 1-1 unit vagy integrációs teszt.
+
+### Dokumentáció:
+
+- [x] Legyen Swagger alapú dokumentáció az API-hoz.
+- [x] Legyen egy markdown dokumentáció a repository-ban (ez az :), amely informál az alkalmazás telepítéséről, konfigurálásáról, céljáról.
+- [x] Dockerizálva legyen a kész alkalmazás, konténerből legyen futtatható.
 
 ## Továbbfejlesztési lehetőségek:
 
 - A felhasználók személyre szabott ajánlásokat kaphatnának a preferált, kedvenc műfajaik alapján.
 
-- A  filmek plakátjainak hozzáadása a tárolt adatok közé (copyright!).
+- A filmek plakátjainak hozzáadása a tárolt adatok közé (copyright!).
 
 - Filmek nyelvének hozzáadása, az adatbázisba rögzített filmek nyelvének statisztikájára.
 
@@ -463,3 +151,9 @@ A kiválasztott családtag – a megerősítő üzenet jóváhagyásával - tör
 - A legnagyobb streaming platformok linkelése az adott filmhez (közvetlen elérés).
 
 - A trailerek linkjének csatolása a tárolt adatokhoz (copyright!).
+
+## **A végpontok dokumentációjának elérhetősége**
+
+- A végpontok dokumentációja a Swagger nevű fejlesztőeszköz segítségével valósul meg.
+- A dokumentációban láthatjuk a különböző entitások modelljét, a meghívható végpontokat és a meghívás módját is.
+- A dokumentációt https://localhost:3000/api-docs lehet megtalálni, amíg a backend fut.
