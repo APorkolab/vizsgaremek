@@ -1,5 +1,9 @@
 # Teljes dokumentáció és user storyk a FaMoBase v.1.0.0. nevű programhoz
 
+## **0. Az alkalmazás célja**
+- Az alkalmazás feladata, hogy egy család (jelen esetben a fiktív Kovátsék és népes rokonságuk) filmnézési adatait nyilvántartsa és kezelje. A program jelen állapotában alkalmas a megnézendő és a megnézett filmek nyilvántartására, valamint a kedvenc rendezők és főszereplők adatainak tárolására.
+- Az alkalmazás megkönnyíti a filmnézés megszervezését és a családtagok kedvenc műfajai szerinti válogatást is.
+
 # Felhasználók és rendszergazdák számára készített dokumentáció - FaMoBase v.1.0
 
 ## **1. Az alkalmazás telepítése**
