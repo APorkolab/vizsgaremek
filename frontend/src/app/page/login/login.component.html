@@ -24,7 +24,8 @@
                         class="mdi mdi-account fs-4"></i></span>
                   </div>
                   <input [(ngModel)]="loginData.email" [email]="true" type="email" class="form-control form-control-lg"
-                    placeholder="Email" name="email" aria-label="Email" aria-describedby="basic-addon1" [email]="true">
+                    placeholder="Email" name="email" aria-label="Email" aria-describedby="basic-addon1" [email]="true"
+                    required>
                 </div>
                 <div [hidden]="loginForm.controls['email']?.valid" class="alert alert-danger" role="alert">
                   The email of the family member must be valid and unique!
@@ -47,7 +48,8 @@
             <div class="row border-top border-secondary">
 
               <div class="text-center pt-3 pb-3 col-6">
-                <button class="btn btn-success float-end text-white" type="submit">
+                <button class="btn btn-success float-end text-white" type="submit" [disabled]="loginForm.invalid"
+                  *ngIf="loginForm.valid">
                   Login
                 </button>
               </div>
@@ -71,4 +73,4 @@ aqqwetvO81NT
 
 role 3
 rdurnan4@eepurl.com
-aqqweHzfNxB -->
+aqqweHzfNxB1 -->

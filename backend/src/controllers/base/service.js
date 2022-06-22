@@ -1,25 +1,39 @@
-module.exports = (model) => {
+module.exports = (model, populateList = []) => {
 	return {
-		create: (data) => {
-			const newEntity = new model((data));
-			return newEntity.save();
-		},
-		findAll: () =>
-			model.find({}),
-		findOne: (id) => model.findById(id).populate(),
-		update: (id, updateData) => {
-			return model.findByIdAndUpdate(id, updateData, {
-				new: true
-			});
-		},
-		delete: async (id) => {
-
-			const doc = await model.findByIdAndRemove(id);
-
-			if (!doc) {
-				throw new Error('Not found');
+		findAll: (params = {}) => {
+			if (Object.keys(params).length) {
+				Object.keys(params).map(key => {
+					params[key] = {
+						$regex: '.*' + params[key] + '.*',
+						$options: 'i'
+					};
+				});
+				return model.find(params).populate(...populateList);
 			}
-			return doc.delete();
-		}
-	}
+			return model.find(params).populate(...populateList);
+		},
+		findOne: (id) => model.findById(id).populate(...populateList),
+		updateOne: async (id, body) => {
+			const newEntity = new model(body);
+			const error = newEntity.validateSync();
+			if (!error) {
+				return model.findByIdAndUpdate(id, body, {
+					new: true
+				});
+			}
+			throw new Error(error);
+		},
+		create: async (body) => {
+			const newEntity = new model(body);
+			const error = newEntity.validateSync();
+			if (!error) {
+				const saved = await newEntity.save();
+				return model.findById(saved._id);
+			}
+			throw new Error(error);
+		},
+		delete: (id) => {
+			return model.findByIdAndRemove(id);
+		},
+	};
 }

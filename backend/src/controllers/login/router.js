@@ -52,16 +52,19 @@ router.post('/', async (req, res, next) => {
 
 	const valid = fMember.verifyPasswordSync(password);
 	if (valid) {
-		const accessToken = jwt.sign({
-			_id: fMember._id,
-			email: fMember.email,
-			role: fMember.role,
-		}, 'AllWorkAndNoPlayMakesJackADullBoy', {
-			expiresIn: '1h',
-		});
+		const accessToken = jwt.sign(
+			// _id: fMember._id,
+			// email: fMember.email,
+			// role: fMember.role,
+			{
+				email: fMember.email,
+				role: fMember.role
+			}, 'AllWorkAndNoPlayMakesJackADullBoy', {
+				expiresIn: '1h',
+			});
 
 		res.json({
-			success: true,
+			// success: true,
 			accessToken,
 			familyMember: {
 				...fMember._doc,
