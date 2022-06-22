@@ -28,14 +28,19 @@ module.exports = (model, populateList = []) => {
 					res.json(err);
 				});
 		},
-		delete: (req, res, next) => {
-			return currentService
-				.delete(req.params.id)
+		delete(req, res, next) {
+			return service.delete(req.params.id)
 				.then(() => res.json({}))
-				.catch((err) => {
+				.catch(err => {
+
+					if (err.message === "Not found") {
+						return next(
+							new createError.NotFound(err.message)
+						)
+					}
 					next(new createError.InternalServerError(err.message));
 				});
-		},
+		}
 	}
 }
 

@@ -32,8 +32,13 @@ module.exports = (model, populateList = []) => {
 			}
 			throw new Error(error);
 		},
-		delete: (id) => {
-			return model.findByIdAndRemove(id);
-		},
+		delete: async (id) => {
+			const doc = await model.findByIdAndRemove(id);
+			if (!doc) {
+				throw new Error('Not found');
+			}
+			return doc.delete();
+		}
+
 	};
 }
