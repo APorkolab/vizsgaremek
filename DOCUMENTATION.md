@@ -1,3 +1,9 @@
+# Teljes dokumentáció és user storyk a FaMoBase v.1.0.0. nevű programhoz
+
+## **0. Az alkalmazás célja**
+- Az alkalmazás feladata, hogy egy család (jelen esetben a fiktív Kovátsék és népes rokonságuk) filmnézési adatait nyilvántartsa és kezelje. A program jelen állapotában alkalmas a megnézendő és a megnézett filmek nyilvántartására, valamint a kedvenc rendezők és főszereplők adatainak tárolására.
+- Az alkalmazás megkönnyíti a filmnézés megszervezését és a családtagok kedvenc műfajai szerinti válogatást is.
+
 # Felhasználók és rendszergazdák számára készített dokumentáció - FaMoBase v.1.0
 
 ## **1. Az alkalmazás telepítése**
@@ -24,15 +30,18 @@
      - A terminálon be kell lépni a /frontend mappába és futtatni az `npm install --force` VAGY a `npm install --legacy-peer-deps` parancsot.
      - **FIGYELEM! Az "angular-feather" kiegészítő miatt a _frontend mappában_ "sima" `npm install` parancs nem használható!**
 
-7. Manuális telepítés esetén:
+7.1. Manuális telepítés esetén:
 
    - A terminálban ki kell adni az `ng build` parancsot.
 
    - A /frontend/dist/frontend mappa tartalmát be kell másolni a /backend/public mappába.
 
-8. Automatikus telepítés esetén:
+   VAGY
+
+7.2. Automatikus telepítés esetén:
 
    - A terminálon be kell lépni a /backend mappába és futtatni az `npm run build` parancsot.
+   - Fontos, hogy csak az egyik módszer szerint kell telepíteni.
 
 ## **2. Az alkalmazás konfigurálása**
 
@@ -73,7 +82,7 @@ A program főbb funkciói szerint képes a már megnézett filmeket és a tervez
 
 ## 1. Főoldal
 
-| Funkció neve    | \*_Tervezett funkció leírása:_                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
+| Funkció neve    | Tervezett funkció leírása:                                                                                                                  | Adminisztrátori szerepkör esetén a tervezett működés leírása | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Felhasználói szerepkör esetén a tervezett működés leírása |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------------- |
 | Belépési form   | A felhasználó authorizációja és authentikációja megtörténik.                                                                                    | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
 | Üdvözlőképernyő | A felhasználó megismerkedik a FaMoBase program logójával és a program alapvető designjével, majd továbbhaladhat a főbb programfelületre.        | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
@@ -81,9 +90,9 @@ A program főbb funkciói szerint képes a már megnézett filmeket és a tervez
 | Oldalsáv        | A felhasználó az oldalsávon elérheti az összes oldalt.                                                                                          | Valamennyi oldal elérhető.                                   | A családtagok listáján kívül valamennyi oldal elérhető.            | A családtagok listáján kívül valamennyi oldal elérhető.   |
 | Lábléc          | A felhasználók copyright információkat kaphatnak.                                                                                               | Valamennyi szerepkör esetén azonos működés.                  | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.               |
 
-## 2- 5. A megnézni tervezett filmek adatbázisa, a megnézett filmek adatbázisa, a rendezők adatbázisa, a főszereplők adatbázisának funkciói.
+## 2-5. A megnézni tervezett filmek adatbázisa, a megnézett filmek adatbázisa, a rendezők adatbázisa, a főszereplők adatbázisának funkciói.
 
-| Funkció neve                                                              | \*_Tervezett funkció leírása:_                                                                                                                                                                                                                                                                                                                                                     | Felhasználói szerepkör esetén a tervezett működés leírása    | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Adminisztrátori szerepkör esetén a tervezett működés leírása                  |
+| Funkció neve                                                              | Tervezett funkció leírása:                                                                                                                                                                                                                                                                                                                                                     | Felhasználói szerepkör esetén a tervezett működés leírása    | Archivátor/Szerkesztő szerepkör esetén a tervezett működés leírása | Adminisztrátori szerepkör esetén a tervezett működés leírása                  |
 | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
 | Listázás                                                                  | A bejelentkezés után, a főoldalról való továbbkattintás után a program megjeleníti az összes, adatbázisba rögzített elemet, emellett az elemek utolsó oszlopában a szerkesztésre szolgáló gombok vannak, melyek lehetővé teszik az adatok módosítását. A program lapozófunkcióval van ellátva, tehát csak meghatározott számú entitást jelenít meg egyszerre.                      | Valamennyi, belépett felhasználó meg tudja nézni (role >=1). | Valamennyi, belépett felhasználó meg tudja nézni (role >=1).       | Valamennyi, belépett felhasználó meg tudja nézni (role >=1).                  |
 | Folyamatos adatvalidáció az adatszerkesztés és új elem létrehozása közben | A felvett adatok helyességének ellenőrzése automatikusan megtörténik. A program nem engedélyezi a nem megfelelő adatok adatbázisba rögzítését. Hibaüzenet jelzi, amennyiben a bevitt adatok formátuma hibás. A hibaüzenet tartalmazza azt, hogy mi a megfelelő formátum.                                                                                                           | A szerepkör nem tartalmaz szerkesztési jogot.                | Valamennyi szerepkör esetén azonos működés.                        | Valamennyi szerepkör esetén azonos működés.                                   |
