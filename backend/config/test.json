@@ -1,0 +1,8 @@
+{
+  "database": {
+    "user": "testRunner",
+    "pass": "41pxfdjTMimCYIPV",
+    "host": "jesttest.raffw0r.mongodb.net/?retryWrites=true&w=majority"
+  }
+}
+
