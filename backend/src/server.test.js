@@ -130,7 +130,7 @@ function loginUser(accessToken) {
 			})
 			.expect(200)
 			.end(onResponse);
-		done();
+		// done();
 
 		function onResponse(err, res) {
 			accessToken = res.body.accessToken;
