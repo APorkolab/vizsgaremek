@@ -43,7 +43,8 @@ app.use(bodyParser.json());
 const authencticateJwt = require('./models/auth/authenticate');
 
 //Movies
-app.use('/movies', authencticateJwt, require('./controllers/movie/router'));
+// app.use('/movies', authencticateJwt, require('./controllers/movie/router'));
+app.use('/movies', require('./controllers/movie/router'));
 app.use('/main-actors', authencticateJwt, require('./controllers/main-actor/router'));
 app.use('/family-members', authencticateJwt, require('./controllers/family-member/router'));
 app.use('/directors', authencticateJwt, require('./controllers/director/router'));
