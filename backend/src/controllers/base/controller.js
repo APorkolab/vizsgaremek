@@ -8,9 +8,18 @@ module.exports = (model, populateList = []) => {
 			return service.findAll()
 				.then(list => res.json(list));
 		},
+		// findOne(req, res, next) {
+		// 	return service.findOne(req.params.id)
+		// 		.then(entity => res.json(entity));
+		// },
 		findOne(req, res, next) {
 			return service.findOne(req.params.id)
-				.then(entity => res.json(entity));
+				.then(entity => {
+					if (!entity) {
+						return next(new createError.NotFound("Entity has not found"));
+					}
+					return res.json(entity);
+				});
 		},
 		update(req, res, next) {
 			return service.update(req.params.id, req.body)

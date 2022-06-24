@@ -83,4 +83,6 @@ export class NgxDataTableComponent<T extends { [x: string]: any }>
       'FaMoBase v.1.0.0'
     );
   }
+
+  
 }

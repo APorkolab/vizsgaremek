@@ -13,6 +13,7 @@ module.exports = (model, populateList = []) => {
 			return model.find(params).populate(...populateList);
 		},
 		findOne: (id) => model.findById(id).populate(...populateList),
+		// findOne: (id) => model.findById(id).populate(),
 		update: (id, updateData) => model.findByIdAndUpdate(id, updateData, {
 			new: true
 		}),

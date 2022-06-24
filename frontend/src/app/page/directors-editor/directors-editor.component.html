@@ -15,7 +15,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="fullName" [(ngModel)]="director.fullName" required
-                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
+                  pattern="^[a-űA-Űa-zA-Z \-\.,()']{5,60}" $>
               </div>
               <div [hidden]="directorForm.controls['fullName']?.valid" class="alert alert-danger" role="alert">
                 The name of the person must be at least 5 letters!
@@ -41,11 +41,10 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="dateOfBirth" [(ngModel)]="director.dateOfBirth" required
-                  pattern="^[0-9-/., ]{8,11}$">
+                  pattern="^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$">
               </div>
               <div [hidden]="directorForm.controls['dateOfBirth']?.valid" class="alert alert-danger" role="alert">
-                The name of the person must be at least 8 letters and maximum 11 letters and must contains only numbers
-                and '-', ',', '.' characters!
+                The date of birth of the person must be the same format of "YYYY-mm-dd" e.g.: 2015-07-01!
               </div>
             </div>
           </div>

@@ -8,7 +8,6 @@
 let should = require('should');
 let app = require('./server');
 let request = require('supertest')(app);
-let supertest = require('supertest');
 const config = require('config');
 const mongoose = require('mongoose');
 const Movie = require('./models/movie');
@@ -17,55 +16,51 @@ const WatchedMovie = require('./models/watched-movies');
 const MainActor = require('./models/main-actor');
 const FamilyMember = require('./models/family-member');
 
-beforeAll((done) => {
-	const {
-		host,
-		user,
-		pass
-	} = config.get('database');
-	mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {})
-		.then((conn) => {
-			console.log('Connection to test database success!');
-			console.log(`User: ${user} Pass:${pass} host:${host}`);
+let token = {};
 
-			done();
-		})
-		.catch((err) => {
-			throw new Error(err.message);
-		});
-	// loginUser(token);
-	done();
+beforeEach(async () => {
+	try {
+		const {
+			host,
+			user,
+			pass
+		} = config.get('database');
+		await mongoose.connect(`mongodb+srv://${user}:${pass}@${host}`, {})
+		console.log('Connection to test database success!');
+		console.log(`User: ${user} Pass:${pass} host:${host}`);
+		loginUser(token);
+	} catch (err) {
+		throw new Error(err.message);
+	}
 });
+
 
 afterAll(done => {
 	mongoose.connection.close(() => done());
 });
 
-// function loginUser(token) {
-// 	return function (done) {
-// 		request
-// 			.post('/login')
-// 			.send({
-// 				email: 'rdurnan4@eepurl.com',
-// 				password: "$2a$10$bl/mQDo4lO5Fi4EaxxQt6eHF5cH5wVnQkGFONR9z4fdH.rReNdNAO"
-// 			})
-// 			.expect(200)
-// 			.end(onResponse);
-// 		// done();
+function loginUser(token) {
+	return function (done) {
+		request
+			.post('/login')
+			// .send({
+			// 	email: 'rdurnan4@eepurl.com',
+			// 	password: "$2a$10$GOdRxdMRlQxDjWphvbds6u6c4AEACQwIvUffXfaj9emHLRuLvf2Mq"
+			// })
+			.expect(200)
+			.end(onResponse);
 
-// 		function onResponse(err, res) {
-// 			token = res.body.token;
-// 			return done();
-// 		}
-// 	};
-// }
+		function onResponse(err, res) {
+			token = res.body.token;
+			return done();
+		}
+	};
+}
 
 
-// 
 
-let token = {};
 
-describe('/movies tests', function () {
+describe('/movies tests', () => {
 	const insertData = [{
 			foreignTitle: "Craigslist Joe",
 			hungarianTitle: "disintermediate front-end users",
@@ -101,14 +96,16 @@ describe('/movies tests', function () {
 	})
 	afterEach(() => mongoose.connection.dropCollection('movies'))
 
-	// afterAll((done) => {
-	// 	mongoose.connection.close(() => done());
-	// });
+	afterAll((done) => {
+		mongoose.connection.close(() => done());
+	});
 
 
 	test('GET /movies', done => {
-		supertest(app).get('/movies')
-			.expect(200)
+		request.get('/movies')
+			// .auth(token.token, {
+			// 	type: 'bearer'
+			// }).expect(200)
 			.then(response => {
 				expect(Array.isArray(response.body)).toBeTruthy()
 				expect(response.body.length).toBe(insertData.length)
@@ -120,13 +117,11 @@ describe('/movies tests', function () {
 	})
 
 	test('GET /movies/:id', done => {
-		supertest(app).get(`/movies/${firstPostId}`)
-			// .auth(token.token, {
-			// 	type: 'bearer'
-			// }).expect(200)
+		request.get(`/movies/${firstPostId}`)
+			.set('Authentication', 'Bearer ' + token)
 			.then(response => {
 				const entity = response.body
-				expect(entity.name).toBe(insertData[0].name)
+				expect(entity.hungarianTitle).toBe(insertData[0].hungarianTitle)
 				done()
 			}).catch(err => console.error(err))
 	})
@@ -145,23 +140,33 @@ describe('/movies tests', function () {
 			mainActor1: "Annamaria Brugger",
 			mainActor2: null
 		}
-		supertest(app)
-			.get('/movies')
-			.set('Authentication', 'Bearer ' + token)
+		request.post('/movies')
+			// .auth(token.token, {
+			// 	type: 'bearer'
+			// }).expect(200)
+			.send(newEntity)
+			.expect(201)
 			.then(response => {
-				expect(response.body[0].foreignTitle).toBe(update.foreignTitle)
-				done()
+				expect(response.body.foreignTitle).toBe(newEntity.foreignTitle)
 			})
-			.catch(err => console.error(err))
+			.then(() => request
+				.get('/movies')
+				.auth(token.token, {
+					type: 'bearer'
+				}).expect(200)
+				.then(response => {
+					expect(response.body.length).toBe(3)
+					expect(response.body[2].foreignTitle).toBe(newEntity.foreignTitle)
+					done()
+				})).catch(err => console.error(err))
 	})
-
 
 	test('PUT /movies/:id', done => {
 		const update = {
 			_id: firstPostId,
 			foreignTitle: 'The Wonderful World Of Ernest Tarara'
 		}
-		supertest(app).put(`/movies/${firstPostId}`)
+		request.put(`/movies/${firstPostId}`)
 			// .set('Authentication', 'Bearer ' + token)
 			.send(update)
 			.expect(200)
@@ -226,7 +231,7 @@ describe('/watched-movies tests', () => {
 	afterEach(() => mongoose.connection.dropCollection('watchedmovies'))
 
 	test('GET /watched-movies', done => {
-		supertest(app).get('/watched-movies')
+		request.get('/watched-movies')
 			.expect(200)
 			.then(response => {
 				expect(Array.isArray(response.body)).toBeTruthy()
@@ -239,7 +244,7 @@ describe('/watched-movies tests', () => {
 	})
 
 	test('GET /watched-movies/:id', done => {
-		supertest(app).get(`/watched-movies/${firstPostId}`)
+		request.get(`/watched-movies/${firstPostId}`)
 			// .auth(token.token, {
 			// 	type: 'bearer'
 			// }).expect(200)
@@ -282,14 +287,14 @@ describe('/watched-movies tests', () => {
 			foreignTitle: 'The Wonderful World Of Ernest Tarara'
 		}
 
-		supertest(app).put(`/watched-movies/${firstPostId}`)
+		request.put(`/watched-movies/${firstPostId}`)
 			// .set('Authentication', 'Bearer ' + token)
 			.send(update)
 			.expect(200)
 			.then(response => {
 				expect(response.body.foreignTitle).toBe(update.foreignTitle)
 			})
-			.then(() => supertest(app)
+			.then(() => request
 				.get('/directors')
 				// .set('Authentication', 'Bearer ' + token)
 				.then(response => {
@@ -327,7 +332,7 @@ describe('/directors tests', () => {
 	afterEach(() => mongoose.connection.dropCollection('directors'))
 
 	test('GET /directors', done => {
-		supertest(app).get('/directors')
+		request.get('/directors')
 			.expect(200)
 			.then(response => {
 				expect(Array.isArray(response.body)).toBeTruthy()
@@ -340,7 +345,7 @@ describe('/directors tests', () => {
 	})
 
 	test('GET /watched-movies/:id', done => {
-		supertest(app).get(`/directors/${firstPostId}`)
+		request.get(`/directors/${firstPostId}`)
 			// .auth(token.token, {
 			// 	type: 'bearer'
 			// }).expect(200)
@@ -375,14 +380,14 @@ describe('/directors tests', () => {
 			_id: firstPostId,
 			nationality: 'HU'
 		}
-		supertest(app).put(`/directors/${firstPostId}`)
+		request.put(`/directors/${firstPostId}`)
 			// .set('Authentication', 'Bearer ' + token)
 			.send(update)
 			.expect(200)
 			.then(response => {
 				expect(response.body.nationality).toBe(update.nationality)
 			})
-			.then(() => supertest(app)
+			.then(() => request
 				.get('/directors')
 				// .set('Authentication', 'Bearer ' + token)
 				.then(response => {
@@ -422,7 +427,7 @@ describe('/main-actors tests', () => {
 	afterEach(() => mongoose.connection.dropCollection('mainactors'))
 
 	test('GET /main-actors', done => {
-		supertest(app).get('/main-actors')
+		request.get('/main-actors')
 			.expect(200)
 			.then(response => {
 				expect(Array.isArray(response.body)).toBeTruthy()
@@ -435,7 +440,7 @@ describe('/main-actors tests', () => {
 	})
 
 	test('GET /main-actors/:id', done => {
-		supertest(app).get(`/main-actors/${firstPostId}`)
+		request.get(`/main-actors/${firstPostId}`)
 			// .auth(token.token, {
 			// 	type: 'bearer'
 			// }).expect(200)
@@ -468,14 +473,14 @@ describe('/main-actors tests', () => {
 			_id: firstPostId,
 			nationality: 'TR'
 		}
-		supertest(app).put(`/main-actors/${firstPostId}`)
+		request.put(`/main-actors/${firstPostId}`)
 			// .set('Authentication', 'Bearer ' + token)
 			.send(update)
 			.expect(200)
 			.then(response => {
 				expect(response.body.nationality).toBe(update.nationality)
 			})
-			.then(() => supertest(app)
+			.then(() => request
 				.get('/main-actors')
 				// .set('Authentication', 'Bearer ' + token)
 				.then(response => {
@@ -498,7 +503,7 @@ describe('/family-members tests', () => {
 	const insertData = [{
 			first_name: "Marie-jeanne",
 			last_name: "Carbry",
-			email: "mcarbry3@buzzfeed.com",
+			email: "mcarbry3333@buzzfeed.com",
 			role: 1,
 			password: "aqqwezLDGLK5Mu2",
 			nickname: "mcarbry3",
@@ -524,7 +529,7 @@ describe('/family-members tests', () => {
 	afterEach(() => mongoose.connection.dropCollection('familymembers'))
 
 	test('GET /family-members', done => {
-		supertest(app).get('/family-members')
+		request.get('/family-members')
 			.expect(200)
 			.then(response => {
 				expect(Array.isArray(response.body)).toBeTruthy()
@@ -537,7 +542,7 @@ describe('/family-members tests', () => {
 	})
 
 	test('GET /family-members/:id', done => {
-		supertest(app).get(`/family-members/${firstPostId}`)
+		request.get(`/family-members/${firstPostId}`)
 			// .auth(token.token, {
 			// 	type: 'bearer'
 			// }).expect(200)
@@ -574,14 +579,14 @@ describe('/family-members tests', () => {
 			_id: firstPostId,
 			nickname: 'Popey Papa'
 		}
-		supertest(app).put(`/family-members/${firstPostId}`)
+		request.put(`/family-members/${firstPostId}`)
 			// .set('Authentication', 'Bearer ' + token)
 			.send(update)
 			.expect(200)
 			.then(response => {
 				expect(response.body.nickname).toBe(update.nickname)
 			})
-			.then(() => supertest(app)
+			.then(() => request
 				.get('/family-members')
 				// .set('Authentication', 'Bearer ' + token)
 				.then(response => {
