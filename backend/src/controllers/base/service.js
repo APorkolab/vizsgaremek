@@ -13,16 +13,9 @@ module.exports = (model, populateList = []) => {
 			return model.find(params).populate(...populateList);
 		},
 		findOne: (id) => model.findById(id).populate(...populateList),
-		updateOne: async (id, body) => {
-			const newEntity = new model(body);
-			const error = newEntity.validateSync();
-			if (!error) {
-				return model.findByIdAndUpdate(id, body, {
-					new: true
-				});
-			}
-			throw new Error(error);
-		},
+		update: (id, updateData) => model.findByIdAndUpdate(id, updateData, {
+			new: true
+		}),
 		create: async (body) => {
 			const newEntity = new model(body);
 			const error = newEntity.validateSync();
