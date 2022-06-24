@@ -42,14 +42,21 @@ app.use(bodyParser.json());
 
 const authencticateJwt = require('./models/auth/authenticate');
 
-//Movies
-// app.use('/movies', authencticateJwt, require('./controllers/movie/router'));
-app.use('/movies', require('./controllers/movie/router'));
+//For production -->normal working, with authentication, please comment out if you want to run to the integration tests
+app.use('/movies', authencticateJwt, require('./controllers/movie/router'));
 app.use('/main-actors', authencticateJwt, require('./controllers/main-actor/router'));
 app.use('/family-members', authencticateJwt, require('./controllers/family-member/router'));
 app.use('/directors', authencticateJwt, require('./controllers/director/router'));
 app.use('/watched-movies', authencticateJwt, require('./controllers/watched-movie/router'));
 app.use('/login', require('./controllers/login/router'));
+
+//Just for testing purposes-->the authentication is not working here --> please comment out if your not testing
+// app.use('/movies', require('./controllers/movie/router'));
+// app.use('/main-actors', require('./controllers/main-actor/router'));
+// app.use('/family-members', require('./controllers/family-member/router'));
+// app.use('/directors', require('./controllers/director/router'));
+// app.use('/watched-movies', require('./controllers/watched-movie/router'));
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // app.use('/', (req, res, next) => {
