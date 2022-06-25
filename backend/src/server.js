@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 
 const authencticateJwt = require('./models/auth/authenticate');
 
-//For production -->normal working, with authentication, please comment out if you want to run to the integration tests
+//For production -->normal working, with authentication, please comment out this block if you want to run to the integration tests
 
 app.use('/movies', authencticateJwt, require('./controllers/movie/router'));
 app.use('/main-actors', authencticateJwt, require('./controllers/main-actor/router'));
@@ -51,7 +51,7 @@ app.use('/directors', authencticateJwt, require('./controllers/director/router')
 app.use('/watched-movies', authencticateJwt, require('./controllers/watched-movie/router'));
 app.use('/login', require('./controllers/login/router'));
 
-//Just for testing purposes-->the authentication is not working here --> please comment out if your not testing
+//Just for testing purposes-->the authentication is not working here --> please comment out this block if your not testing
 
 // app.use('/movies', require('./controllers/movie/router'));
 // app.use('/main-actors', require('./controllers/main-actor/router'));
@@ -61,10 +61,14 @@ app.use('/login', require('./controllers/login/router'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+
+// If yout want to sure to work the backend by run, just comment out this block
+
 // app.use('/', (req, res, next) => {
 // 	console.log(req.url);
 // 	res.send('The FaMoBase v.1.0.0 backend is working!');
 // });
+
 app.use((err, req, res, next) => {
 	res.status = 500;
 	res.json({

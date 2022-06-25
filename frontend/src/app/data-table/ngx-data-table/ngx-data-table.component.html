@@ -75,18 +75,20 @@
     </div>
 
     <nav aria-label="paginator">
-      <ul class="pagination mt-4 nav justify-content-center">
-        <li class="page-item">
+      <ul class="pagination pagination-lg mt-4 nav justify-content-center">
+        <li [className]="page===1 ? 'page-item disabled' : 'page-item'">
           <button class="page-link" (click)="jumptoPage(page - 1)" [disabled]="page===1">
             Previous<i-feather name="corner-down-left">
             </i-feather>
           </button>
         </li>
         <li *ngFor="let pageNum of pageList" class="page-item">
-          <button class="page-link" (click)="jumptoPage(pageNum)">{{ pageNum }}</button>
+          <button [className]="page===pageNum ? 'page-link active' : 'page-link'" (click)=" jumptoPage(pageNum)">{{
+            pageNum
+            }}</button>
         </li>
-        <li class="page-item">
-          <button class="page-link" (click)="jumptoPage(page + 1)" [disabled]="page=== pageList.length">Next<i-feather
+        <li [className]="page===pageList.length ? 'page-item disabled' : 'page-item'">
+          <button class="page-link" (click)="jumptoPage(page + 1)" [disabled]="page===pageList.length">Next<i-feather
               name="corner-down-right">
             </i-feather></button>
         </li>

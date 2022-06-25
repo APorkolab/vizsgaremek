@@ -1,6 +1,7 @@
 //IMPORTANT! Before you run this test suit, you must comment out the server.js file to 46-51 lines and uncomment the server.test.js file to lines 54-59,
 //because the authorization of the app will fail the tests. I know it's a bit hacky, but it works: it is just a workaround.
-// It must be said, that the because of the speed of the connection of the internet sometimes can misfail the tests. So please, run twice if not three times the all of the tests.
+// It must be said, that the because of the speed of the connection of the internet sometimes can misfail the tests. 
+// All in all, please, run twice if not three times the all of the tests.
 
 'use strict';
 
@@ -145,15 +146,16 @@ describe('/movies tests', () => {
 			// 	type: 'bearer'
 			// }).expect(200)
 			.send(newEntity)
-			.expect(201)
+			.expect(200)
 			.then(response => {
 				expect(response.body.foreignTitle).toBe(newEntity.foreignTitle)
 			})
 			.then(() => request
 				.get('/movies')
-				.auth(token.token, {
-					type: 'bearer'
-				}).expect(200)
+				// .auth(token.token, {
+				// 	type: 'bearer'
+				// })
+				.expect(201)
 				.then(response => {
 					expect(response.body.length).toBe(3)
 					expect(response.body[2].foreignTitle).toBe(newEntity.foreignTitle)
@@ -237,7 +239,7 @@ describe('/watched-movies tests', () => {
 				expect(Array.isArray(response.body)).toBeTruthy()
 				expect(response.body.length).toBe(insertData.length)
 				response.body.forEach((entity, index) => {
-					expect(entity.foreignTitle).toBe(insertData[index].foreignTitle)
+					expect(entity.imdbID).toBe(insertData[index].imdbID)
 				})
 				done()
 			}).catch(err => console.error(err))
@@ -344,7 +346,7 @@ describe('/directors tests', () => {
 			}).catch(err => console.error(err))
 	})
 
-	test('GET /watched-movies/:id', done => {
+	test('GET /directors/:id', done => {
 		request.get(`/directors/${firstPostId}`)
 			// .auth(token.token, {
 			// 	type: 'bearer'
@@ -391,7 +393,7 @@ describe('/directors tests', () => {
 				.get('/directors')
 				// .set('Authentication', 'Bearer ' + token)
 				.then(response => {
-					expect(response.body[0].fullName).toBe(update.fullName)
+					expect(response.body[0].nationality).toBe(update.nationality)
 					done()
 				})
 			).catch(err => console.error(err))

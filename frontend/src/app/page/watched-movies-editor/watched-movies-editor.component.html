@@ -14,10 +14,10 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="foreignTitle" [(ngModel)]="watchedMovie.foreignTitle"
-                  required pattern="^[a-űA-Űa-zA-Z \-\.,!()']{3,60}$">
+                  required pattern="^[a-űA-Űa-zA-Z \-\.,!()'0-9:]{3,60}$">
               </div>
               <div [hidden]="watchedFilmForm.controls['foreignTitle']?.valid" class="alert alert-danger" role="alert">
-                The foreign title must be at least 3 letters and must not contains numbers!
+                The foreign title must be at least 3 letters!
               </div>
             </div>
           </div>
@@ -27,10 +27,10 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="hungarianTitle" [(ngModel)]="watchedMovie.hungarianTitle"
-                  pattern="^[a-űA-Űa-zA-Z \-\.,!()']{3,60}$">
+                  pattern="^[a-űA-Űa-zA-Z \-\.,!()'0-9:]{3,60}$">
               </div>
               <div [hidden]="watchedFilmForm.controls['hungarianTitle']?.valid" class="alert alert-danger" role="alert">
-                The Hungarian title must be at least 3 letters and must not contains numbers!
+                The Hungarian title must be at least 3 letters!
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@
             </div>
           </div>
 
-          <h3 class="h5 text-secondary">The second main actor *</h3>
+          <h3 class="h5 text-secondary">The second main actor</h3>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -160,10 +160,11 @@
                 <input type="text" class="form-control" name="timestampOfWatching"
                   [(ngModel)]="watchedMovie.timestampOfWatching" pattern="^[0-9A-Z-:]{20}$">
               </div>
-              <div [hidden]="watchedFilmForm.controls['mainActor2']?.valid" class="alert alert-danger" role="alert">
+              <div [hidden]="watchedFilmForm.controls['timestampOfWatching']?.valid" class="alert alert-danger" required
+                role="alert">
                 The timestamp of the watching must be exactly 20 charachters and must not contains diacritic letters
                 (e.g.:
-                hungarian á,é,ű,ő,ú,ű)!
+                hungarian á,é,ű,ő,ú,ű)! A valid timestamp: 2020-12-26T12:19:54Z
               </div>
             </div>
           </div>

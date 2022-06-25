@@ -21,7 +21,7 @@ export class ConfigService {
   ];
 
   movieTableColumns: INgxTableColumn[] = [
-    // { key: '_id', title: 'ID' },
+    { key: '_id', title: 'ID' },
     { key: 'foreignTitle', title: 'Foreign Title' },
     { key: 'hungarianTitle', title: 'Hungarian Title' },
     { key: 'director', title: 'Director' },
@@ -36,7 +36,7 @@ export class ConfigService {
   ];
 
   watchedMoviesColumn: INgxTableColumn[] = [
-    // { key: '_id', title: 'ID' },
+    { key: '_id', title: 'ID' },
     { key: 'foreignTitle', title: 'Foreign Title' },
     { key: 'hungarianTitle', title: 'Hungarian Title' },
     { key: 'director', title: 'Director' },
@@ -52,21 +52,21 @@ export class ConfigService {
   ];
 
   directorColumn: INgxTableColumn[] = [
-    // { key: '_id', title: 'ID' },
+    { key: '_id', title: 'ID' },
     { key: 'fullName', title: 'Full name' },
     { key: 'nationality', title: 'Nationality' },
     { key: 'dateOfBirth', title: 'Date Of Birth' },
     { key: 'mostFamousMovie', title: 'Most Famous Movie' },
   ];
   mainActorColumn: INgxTableColumn[] = [
-    // { key: '_id', title: 'ID' },
+    { key: '_id', title: 'ID' },
     { key: 'fullName', title: 'Full name' },
     { key: 'nationality', title: 'Nationality' },
     { key: 'dateOfBirth', title: 'Date Of Birth' },
     { key: 'mostFamousMovie', title: 'Most Famous Movie' },
   ];
   familyMemberColumn: INgxTableColumn[] = [
-    // { key: '_id', title: 'ID' },
+    { key: '_id', title: 'ID' },
     { key: 'first_name', title: 'First Name' },
     { key: 'last_name', title: 'Last Name' },
     { key: 'email', title: 'E-mail' },

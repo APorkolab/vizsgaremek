@@ -107,7 +107,7 @@ describe("Mocking movies", () => {
 
 			await baseController.findOne(request, response, nextFunction);
 			expect(baseService.findOne).toHaveBeenCalledWith(ID);
-			expect(nextFunction).toHaveBeenCalledTimes(0);
+			expect(nextFunction).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -192,24 +192,4 @@ describe("Mocking movies", () => {
 
 	})
 
-	// describe('delete test', () => {
-	// 	test('delete', () => {
-	// 		const ID = '1'
-	// 		const DELETED = baseService.mockData.find(item => item._id === ID)
-	// 		const request = mockRequest({
-	// 			params: {
-	// 				id: ID
-	// 			}
-	// 		})
-
-	// 		return baseController.delete(request, response, nextFunction)
-	// 			.then(() => {
-	// 				expect(baseService.delete).toHaveBeenCalledWith(ID)
-	// 				expect(response.json).toHaveBeenCalledWith(DELETED)
-	// 				expect(baseService.mockData.find(item => item._id === ID)).toBe(undefined)
-	// 				expect(baseService.mockData.length).toBe(1)
-
-	// 			})
-	// 	})
-	// })
 })

@@ -5,5 +5,4 @@ export class Director {
   nationality: string = '';
   dateOfBirth: string = '';
   mostFamousMovie: string = '';
-  //url : string = '';
 }

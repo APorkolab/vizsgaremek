@@ -13,10 +13,10 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="foreignTitle" [(ngModel)]="movie.foreignTitle" required
-                  pattern="^[a-űA-Űa-zA-Z \-\.,!()']{5,60}$">
+                  required pattern="^[a-űA-Űa-zA-Z \-\.,!()'0-9:]{3,60}$">
               </div>
               <div [hidden]="plannedMovieForm.controls['foreignTitle']?.valid" class="alert alert-danger" role="alert">
-                The foreign title must be at least 5 letters and must not contains numbers!
+                The foreign title must be at least 3 charachters!
               </div>
             </div>
           </div>
@@ -26,11 +26,11 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="hungarianTitle" [(ngModel)]="movie.hungarianTitle"
-                  pattern="^[a-űA-Űa-zA-Z \-\.,!()']{5,60}$">
+                  required pattern="^[a-űA-Űa-zA-Z \-\.,!()'0-9:]{3,60}$">
               </div>
               <div [hidden]="plannedMovieForm.controls['hungarianTitle']?.valid" class="alert alert-danger"
                 role="alert">
-                The Hungarian title must be at least 5 letters and must not contains numbers!
+                The Hungarian title must be at least 3 charachters!
               </div>
             </div>
           </div>

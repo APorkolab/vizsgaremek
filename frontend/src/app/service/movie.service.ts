@@ -14,7 +14,4 @@ export class MovieService extends BasicService<Movie> {
     this.entity = 'movies';
   }
 
-  // getAll(): Observable<Movie[]> {
-  //   return this.http.get<Movie[]>(`${this.apiUrl}/movies`);
-  // }
 }
