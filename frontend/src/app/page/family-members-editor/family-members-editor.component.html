@@ -70,8 +70,9 @@
                   pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$">
               </div>
               <div [hidden]="familyMemberForm.controls['password']?.valid" class="alert alert-danger" role="alert">
-                For security reasons, new the password of the family member must be minimum 7 characters, must
-                contains at least 1 letter and 1 number!
+                For security reasons we store only the encryted password. When you add a new password of the family
+                member must be minimum 7 characters, must contains at least 1 letter and 1 number! Before save the
+                password will be automatically encrypted.
               </div>
             </div>
           </div>
@@ -107,7 +108,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="favouriteMovie" [(ngModel)]="familyMember.favouriteMovie"
-                  required pattern="^[a-űA-Űa-zA-Z \-\.,:!() 0-9']{3,100}$">
+                  required pattern="^[a-űA-Űa-zA-Z \-\.,:!() 0-9'\&]{3,100}$">
               </div>
               <div [hidden]="familyMemberForm.controls['favouriteMovie']?.valid" class="alert alert-danger"
                 role="alert">

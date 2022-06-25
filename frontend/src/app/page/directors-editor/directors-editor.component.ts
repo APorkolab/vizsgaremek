@@ -2,9 +2,8 @@ import { DirectorService } from './../../service/director.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Director } from 'src/app/model/director';
+import { Director } from '../../model/director';
 import { NotificationService } from 'src/app/service/notification.service';
-import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
   selector: 'app-directors-editor',

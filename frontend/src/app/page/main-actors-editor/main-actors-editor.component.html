@@ -15,7 +15,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <input type="text" class="form-control" name="fullName" [(ngModel)]="mainActor.fullName" required
-                  pattern="^[a-űA-Űa-zA-Z \-\.,()']{5,60}" $>
+                  pattern="^[a-űA-Űa-zA-Z \-.,!()']{5,60}$">
               </div>
               <div [hidden]="mainActorForm.controls['fullName']?.valid" class="alert alert-danger" role="alert">
                 The name of the person must be at least 5 letters!
@@ -65,11 +65,11 @@
 
           <button *ngIf="mainActor$ | async" (click)="onUpdate(mainActor)" [disabled]="mainActorForm.invalid"
             type="submit" class="btn btn-primary pull-right me-md-3">Update
-            mainActor</button>
+            Main Actor</button>
           <button *ngIf="!(mainActor$ | async)" (click)="onCreate(mainActor)" [disabled]="mainActorForm.invalid"
             type="submit" class="btn btn-primary pull-right me-md-3">Create
-            mainActor</button>
-          <button routerLink="/main-actors" type="button" class="btn btn-danger pull-left">Cancel
+            Main Actor</button>
+          <button routerLink="/directors" type="button" class="btn btn-danger pull-left">Cancel
             edit</button>
           <div class="clearfix"></div>
         </form>
